@@ -1,0 +1,24 @@
+<FindBugsFilter>
+
+    <Match>
+        <Bug
+                code="DM_EXIT,EI,EI2,Se,   BC_UNCONFIRMED_CAST,UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR,SE_TRANSIENT_FIELD_NOT_RESTORED,SE_BAD_FIELD,DM_CONVERT_CASE,UWF_UNWRITTEN_FIELD"/>
+    </Match>
+
+    <Match>
+        <Package name="~.*\.domain"/>
+    </Match>
+
+    <Match>
+        <Class name="~.*\.*Dao"/>
+    </Match>
+
+    <Match>
+        <Class name="~.*\.*Dto"/>
+    </Match>
+
+    <Match>
+        <Class name="~.*\.*Temp*"/>
+    </Match>
+
+</FindBugsFilter>

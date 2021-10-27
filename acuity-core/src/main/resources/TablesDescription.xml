@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root xmlns="http://visualisations.acuity.com/TablesDescription" schemaLocation="TablesDescription.xsd">
+
+    <table name="RESULT_PATIENT_GROUP">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="subject"/>
+            <field name="part"/>
+        </uniqueFields>
+    </table>
+    <table name="RESULT_PATIENT">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <foreignKey targetTable="RESULT_PATIENT_GROUP" source="patUnique" target="patUnique" nullable="true"
+                    fkField="patientGroupGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="subject"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_DEATH">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_PRIMARY_TUMOUR_LOCATION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_VISIT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="visitDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_COUNTRY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_RANDOMISATION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_EVENT_TYPE">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="PT"/>
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_AE">
+        <foreignKey targetTable="RESULT_EVENT_TYPE" source="evtUnique" target="evtUnique" fkField="eventTypeGuid"/>
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="eventTypeGuid"/>
+            <field name="startDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_AE_SEVERITY">
+        <foreignKey targetTable="RESULT_AE" source="aeUnique" target="aeUnique" fkField="aeGuid"/>
+        <uniqueFields>
+            <field name="aeGuid"/>
+            <field name="startDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_AE_CAUSALITY">
+        <foreignKey targetTable="RESULT_AE" source="aeUnique" target="aeUnique" fkField="aeGuid"/>
+        <foreignKey targetTable="RESULT_DRUG" source="drugUnique" target="drugUnique" fkField="drugGuid"/>
+        <uniqueFields>
+            <field name="aeGuid"/>
+            <field name="drugGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_AE_ACTION_TAKEN">
+        <foreignKey targetTable="RESULT_AE_SEVERITY" source="aeSeverityUnique" target="aeSeverityUnique"
+                    fkField="aeSeverityGuid"/>
+        <foreignKey targetTable="RESULT_DRUG" source="drugUnique" target="drugUnique" fkField="drugGuid"/>
+        <uniqueFields>
+            <field name="aeSeverityGuid"/>
+            <field name="drugGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_DRUG">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="drugName"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_SERIOUS_ADVERSE_EVENT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="aeText"/>
+            <field name="aeBecomeSeriousDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_TEST">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="date"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_LAB_GROUP">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="labCode"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_LABORATORY">
+        <foreignKey targetTable="RESULT_LAB_GROUP" source="lgrUnique" target="lgrUnique" nullable="true"
+                    fkField="laboratoryGroupGuid"/>
+        <foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>
+        <foreignKey targetTable="RESULT_SOURCE" source="srcUnique" target="srcUnique" fkField="sourceGiud" nullable="true"/>
+        <uniqueFields>
+            <field name="testGuid"/>
+            <field name="sourceGiud"/>
+            <field name="labCode"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_SOURCE">
+        <uniqueFields>
+            <field name="name"/>
+            <field name="version"/>
+            <field name="type"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_PATIENT_REPORTED_DATA">
+        <foreignKey targetTable="RESULT_SOURCE" source="srcUnique" target="srcUnique" fkField="sourceGiud" nullable="true"/>
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="measurementName"/>
+            <field name="measurementDate"/>
+            <field name="reportDate"/>
+            <field name="part"/>
+            <field name="value"/>
+            <field name="unit"/>
+            <field name="comment"/>
+            <field name="sourceType"/>
+            <field name="sourceGiud"/>
+        </uniqueFields>
+    </table>
+
+    <!--<table name="RESULT_ECG">-->
+    <!--<foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>-->
+    <!--<uniqueFields>-->
+    <!--<field name="testGuid"/>-->
+    <!--<field name="testName"/>-->
+    <!--<field name="resultUnit"/>-->
+    <!--</uniqueFields>-->
+    <!--</table>-->
+
+    <table name="RESULT_EG">
+        <foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>
+        <uniqueFields>
+            <field name="testGuid"/>
+            <field name="testName"/>
+            <field name="resultUnit"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_DECG">
+        <foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>
+        <uniqueFields>
+            <field name="testGuid"/>
+            <field name="measurementLabel"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_LVEF">
+        <foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>
+        <uniqueFields>
+            <field name="testGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_VITALS">
+        <foreignKey targetTable="RESULT_TEST" source="testUnique" target="testUnique" fkField="testGuid"/>
+        <uniqueFields>
+            <field name="testGuid"/>
+            <field name="testName"/>
+            <field name="resultUnit"/>
+            <field name="anatomicalLocation"/>
+            <field name="physicalPosition"/>
+            <field name="anatomicalSideOfInterest"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_MEDICINE">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="drugName"/>
+            <field name="drugParent"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CONMED_SCHEDULE">
+        <foreignKey targetTable="RESULT_MEDICINE" source="medUnique" target="medUnique" fkField="medicineGuid"/>
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="medicineGuid"/>
+            <field name="patientGuid"/>
+            <field name="startDate"/>
+            <field name="aeNumber"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_TRG_MED_DOS_SCHEDULE">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="drug"/>
+            <field name="startDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_AE_NUM_ACT_TAKEN">
+        <foreignKey targetTable="RESULT_TRG_MED_DOS_SCHEDULE" source="doseUnique" target="doseUnique"
+                    fkField="doseGuid"/>
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="doseGuid"/>
+            <field name="patientGuid"/>
+            <field name="numActionTaken"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_AE_NUM_DEL">
+        <foreignKey targetTable="RESULT_TRG_MED_DOS_SCHEDULE" source="doseUnique" target="doseUnique"
+                    fkField="doseGuid"/>
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="doseGuid"/>
+            <field name="patientGuid"/>
+            <field name="numCycleDelayed"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_TARGET_MED_DOS_DISC">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="drugName"/>
+            <field name="ipdcDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_RECIST_ASSESSMENT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="visit"/>
+            <field name="visitDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_RECIST_TARGET_LESION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="lesionDate"/>
+            <field name="lesionNumber"/>
+            <field name="lesionNoLongerMeasurable"/>
+            <field name="methodOfAssessment"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_RECIST_NONTARGET_LESION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="lesionDate"/>
+            <field name="lesionSite"/>
+            <field name="response"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CHEMOTHERAPY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="chemoStartDate"/>
+            <field name="preferredNameOfMed"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_RADIOTHERAPY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="radioStartDate"/>
+            <field name="radioSiteOrRegion"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_SPECIMEN_COLLECTION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="spcDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_PK_CONCENTRATION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="analyte"/>
+            <field name="treatmentCycle"/>
+            <field name="treatment"/>
+            <field name="treatmentSchedule"/>
+            <field name="protocolSchedule"/>
+            <field name="protocolScheduleDay"/>
+            <field name="protocolScheduleHour"/>
+            <field name="protocolScheduleMinute"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_STACKED_PK_RESULTS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="treatment"/>
+            <field name="treatmentSchedule"/>
+            <field name="treatmentCycle"/>
+            <field name="parameter"/>
+            <field name="analyte"/>
+            <field name="protocolSchedule"/>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="protocolScheduleStartDay"/>
+            <field name="protocolScheduleStartHour"/>
+            <field name="protocolScheduleStartMinute"/>
+            <field name="protocolScheduleEnd"/>
+            <field name="protocolScheduleEndDay"/>
+            <field name="protocolScheduleEndHour"/>
+            <field name="protocolScheduleEndMinute"/>
+            <field name="visit"/>
+            <field name="actualDose"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_WITHDRAWAL_COMPLETION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_SC">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="ethpop"/>
+            <field name="sEthpop"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_EXACERBATION">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="exacStartDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_EXA_SEVERITY_MAP">
+        <foreignKey targetTable="RESULT_STUDY" source="studyUnique" target="studyUnique" fkField="studyGuid"/>
+        <uniqueFields>
+            <field name="studyGuid"/>
+            <field name="depotGcs"/>
+            <field name="syscortTrt"/>
+            <field name="icsTrt"/>
+            <field name="antibioticsTrt"/>
+            <field name="hospit"/>
+            <field name="emerTrt"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_LUNGFUNC">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="assessDate"/>
+            <field name="protocolSchedule"/>
+            <field name="testName"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_EDIARY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="assessmentDate"/>
+            <field name="drugIntakeTime"/>
+            <field name="deviceType"/>
+            <field name="morningAssessmentTime"/>
+            <field name="eveningAssessmentTime"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_FM_GENE">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="sampleId"/>
+            <field name="disease"/>
+            <field name="medianExonCoverage"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_MEDICAL_HISTORY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="category"/>
+            <field name="term"/>
+            <field name="conditionStatus"/>
+            <field name="lltName"/>
+            <field name="ptName"/>
+            <field name="hltName"/>
+            <field name="socName"/>
+            <field name="currentMedication"/>
+            <field name="startDate"/>
+            <field name="endDate"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_PATHOLOGY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="date"/>
+            <field name="histologyType"/>
+            <field name="histologyTypeDetails"/>
+            <field name="tumourGrade"/>
+            <field name="stage"/>
+            <field name="tumorLocation"/>
+            <field name="primaryTumourStatus"/>
+            <field name="nodesStatus"/>
+            <field name="metastasesStatus"/>
+            <field name="methodOfDetermination"/>
+            <field name="otherMethods"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_ALCOHOL_SUB_USE">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="category"/>
+            <field name="useOccurrence"/>
+            <field name="type"/>
+            <field name="otherTypeSpec"/>
+            <field name="consumption"/>
+            <field name="frequency"/>
+            <field name="startDate"/>
+            <field name="endDate"/>
+            <field name="typeUseOccurrence"/>
+
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_PREGNANCY_TEST">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="visitNumber"/>
+            <field name="pTVisitDate"/>
+            <field name="pTSamplingDate"/>
+            <field name="pTSerum"/>
+            <field name="pTUrine"/>
+            <field name="pTPlasma"/>
+            <field name="pregTest"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_NICOTINE_SUB_USE">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="category"/>
+            <field name="type"/>
+            <field name="otherTypeSpec"/>
+            <field name="useOccurrence"/>
+            <field name="currentUseSpec"/>
+            <field name="useStartDate"/>
+            <field name="useEndDate"/>
+            <field name="consumption"/>
+            <field name="useFreqInterval"/>
+            <field name="numberOfPackYears"/>
+
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CONMED_PROCEDURE">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="value"/>
+            <field name="pt"/>
+            <field name="llt"/>
+            <field name="hlt"/>
+            <field name="soc"/>
+            <field name="startDate"/>
+            <field name="endDate"/>
+            <field name="primaryReason"/>
+            <field name="primaryReasonOther"/>
+            <field name="continuesAtStudyDiscCompl"/>
+            <field name="reason"/>
+            <field name="numberOfLesionsResected"/>
+            <field name="dateWoundHealed"/>
+            <field name="hospitalDischargeDate"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_SURGICAL_HISTORY">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="procedure"/>
+            <field name="startDate"/>
+            <field name="hlt"/>
+            <field name="llt"/>
+            <field name="pt"/>
+            <field name="soc"/>
+            <field name="current"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_DISEASE_EXTENT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="metastaticLocallyAdvanced"/>
+            <field name="siteOfLocalMetastaticDisease"/>
+            <field name="otherLocallyAdvancedSites"/>
+            <field name="otherMetastaticSites"/>
+            <field name="visitDate"/>
+            <field name="recentProgressionDate"/>
+            <field name="recurrenceOfEarlierCancer"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_LIVER">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="value"/>
+            <field name="date"/>
+            <field name="results"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="specification"/>
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_CONSENT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="consentDate"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_PERFORMANCE_STATUS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="assessmentDate"/>
+            <field name="performanceStatus"/>
+            <field name="questionnaire"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_OVERDOSE_REPORT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="drug"/>
+            <field name="route"/>
+            <field name="startDate"/>
+            <field name="stopDate"/>
+            <field name="intentFlag"/>
+            <field name="overdoseAeFlag"/>
+            <field name="numberForAe"/>
+            <field name="aeOverdoseAss"/>
+            <field name="totalDose"/>
+            <field name="totalDoseUnit"/>
+            <field name="furtherInfo"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_LIVER_RISK_FACTORS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="liverRiskFactor"/>
+            <field name="occurrence"/>
+            <field name="referencePeriod"/>
+            <field name="details"/>
+            <field name="startDate"/>
+            <field name="stopDate"/>
+            <field name="comment"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_LIVERSS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="value"/>
+            <field name="occurrence"/>
+            <field name="startDate"/>
+            <field name="stopDate"/>
+            <field name="intermittent"/>
+            <field name="specification"/>
+            <field name="valueText"/>
+            <field name="pt"/>
+            <field name="llt"/>
+            <field name="hlt"/>
+            <field name="soc"/>
+
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_SURVIVAL_STATUS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="visitNumber"/>
+            <field name="dateOfContact"/>
+            <field name="value"/>
+            <field name="lastDateAlive"/>
+
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CVOT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="aeNumber"/>
+            <field name="startDate"/>
+            <field name="term"/>
+            <field name="category1"/>
+            <field name="category2"/>
+            <field name="category3"/>
+            <field name="description1"/>
+            <field name="description2"/>
+            <field name="description3"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CI_EVENT">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="startDate"/>
+            <field name="eventTerm"/>
+            <field name="aeNumber"/>
+            <field name="ischemicSymptoms"/>
+            <field name="cieSymptomsDuration"/>
+            <field name="symptCausedUnscheduledHosp"/>
+            <field name="symptCausedStentThromb"/>
+            <field name="prevEcgBeforeAvailableEvent"/>
+            <field name="prevEcgDate"/>
+            <field name="availableEcgAtEventTime"/>
+            <field name="noEcgAtEventTime"/>
+            <field name="localCardiacBiomarkersDrawn"/>
+            <field name="coronaryAngiographyPerformed"/>
+            <field name="angiographyDate"/>
+            <field name="finalDiagnosis"/>
+            <field name="otherDiagnosis"/>
+            <field name="description1"/>
+            <field name="description2"/>
+            <field name="description3"/>
+            <field name="description4"/>
+            <field name="description5"/>
+        </uniqueFields>
+    </table>
+
+
+    <table name="RESULT_CEREBROVASCULAR">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="aeNumber"/>
+            <field name="startDate"/>
+            <field name="term"/>
+            <field name="eventType"/>
+            <field name="primaryIschemicStroke"/>
+            <field name="traumatic"/>
+            <field name="intracranialHemorrhageLocation"/>
+            <field name="intracranialHemorrhageLocationOther"/>
+            <field name="symptomsDuration"/>
+            <field name="mRSPriorToStroke"/>
+            <field name="mRSDuringStrokeHospitalisation"/>
+            <field name="mRSAtVisitOrAfterStroke"/>
+            <field name="comment"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_CTDNA">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+            <field name="patientGuid"/>
+            <field name="gene"/>
+            <field name="mutation"/>
+            <field name="sampleDate"/>
+            <field name="reportedVAF"/>
+            <field name="trackedMutation"/>
+            <field name="visitName"/>
+            <field name="visitNumber"/>
+        </uniqueFields>
+    </table>
+
+    <table name="RESULT_BIOMARKERS">
+        <foreignKey targetTable="RESULT_PATIENT" source="patUnique" target="patUnique" fkField="patientGuid"/>
+        <uniqueFields>
+
+            <field name="patientGuid"/>
+            <field name="gene"/>
+        </uniqueFields>
+    </table>
+
+</root>

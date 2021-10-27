@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://visualisations.acuity.com/EntitiesToTables"
+        xmlns:tns="http://visualisations.acuity.com/EntitiesToTables" elementFormDefault="qualified">
+
+    <complexType name="EntityTablesRootRule">
+        <sequence>
+            <element name="table" type="tns:EntityTablesRule" maxOccurs="unbounded" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="EntityTablesRule">
+        <complexContent>
+            <extension base="tns:EntityTableBaseRule">
+                <sequence maxOccurs="unbounded">
+                    <element name="entity" type="tns:EntityTableBaseRule"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="EntityTableBaseRule">
+        <attribute name="name" type="string"></attribute>
+    </complexType>
+
+    <element name="root" type="tns:EntityTablesRootRule"></element>
+
+</schema>

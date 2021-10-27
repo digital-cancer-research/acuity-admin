@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root xmlns="http://visualisations.acuity.com/DataTransformation" schemaLocation="DataTransformation.xsd">
+
+	<project name="TEST1234">
+		<study name="D1234C00001" displayName="Study 1">
+			<file name="/TEST1234/D1234C00001/dummy_group.csv">
+				<entity name="PatientGroup">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="ASMGRPN" field="groupName" fmtname="ASMGRPN" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/dem_junk.csv">
+				<entity name="Patient">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="CENTRE" field="centre" type="Integer" />
+					<column name="SEX" field="sex" fmtname="SEX" />
+					<column name="RACE" field="race" fmtname="RACE" />
+					<column name="BIRTHDAT" field="birthDate" type="Date" />
+					<column name="VIS_DAT" field="visitDate" type="Date" />
+					<column name="PART" field="part" />
+				</entity>
+			</file>
+<!--  		<file name="/TEST1234/D1234C00001/crit_junk.csv">
+				<entity name="Criterion">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="RND_DAT" field="randDate" type="Date" />
+					<column name="CRITCOMP" field="critcomp" fmtname="NOYES" />
+				</entity>
+			</file>
+-->
+			<file name="/TEST1234/D1234C00001/visit_junk.csv">
+				<entity name="Visit">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VISIT" field="visitNumber" type="Real" />
+					<column name="VIS_DAT" field="visitDate" type="Date" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/ae_junk.csv">
+				<entity name="EventType">
+					<column name="STUDY" field="studyName" />
+					<column name="PT_NAME" field="PT" />
+					<column name="HLT_NAME" field="HLT" />
+					<column name="LLT_NAME" field="LLT" />
+					<column name="SOC_ABRV" field="SOC" />
+					<column name="MEDDRA_V" field="medDRAVersion" type="Real" />
+				</entity>
+			</file>
+			<file name="labgroups.csv" type="NotCumulative">
+				<entity name="LaboratoryGroup">
+					<column name="Lab grouping" field="groupName" />
+					<column name="LABCODE" field="labCode" />
+					<column name="Description" field="description" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/lab_junk_SMALL.csv">
+				<entity name="Test">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VISIT" field="visit" type="Real" />
+					<column name="SAMP_DAT" field="date" type="Date" />
+				</entity>
+				<entity name="Laboratory">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="SAMP_DAT" field="date" type="Date" />
+					<column name="LABCODE" field="labCode" />
+					<column name="LABVALUE" field="laboratoryValue" type="Labvalue" />
+					<column name="LAB_UNIT" field="laboratoryUnit" />
+					<column name="REFLOW" field="refLow" type="Real" />
+					<column name="REFHIGH" field="refHigh" type="Real" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/ecg_junk.csv">
+				<entity name="Test">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VISIT" field="visit" type="Real" />
+					<column name="ECG_DAT" field="date" type="Date" />
+				</entity>
+				<entity name="ECG">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="ECG_DAT" field="date" type="Date" />
+					<column name="ECGQRS" field="qrs" type="Integer" />
+					<column name="ECGRR" field="rr" type="Integer" />
+					<column name="ECGPR" field="pr" type="Integer" />
+					<column name="ECGQT" field="qt" type="Integer" />
+					<column name="ECGEVAL" field="evaluation" fmtname="NORMAL" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/ef_junk.csv">
+				<entity name="Test">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VISIT" field="visit" type="Real" />
+					<column name="EFDAT" field="date" type="Date" />
+				</entity>
+				<entity name="LVEF">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="EFDAT" field="date" type="Date" />
+					<column name="LVEF" field="lvef" type="Integer" />
+					<column name="LVEFMTH" field="method" fmtname="LVEFMTH" />
+					<column name="LVEFMTHO" field="methodOther" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/vit_junk.csv">
+				<entity name="Test">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VISIT" field="visit" type="Real" />
+					<column name="VIT_DAT" field="date" type="Date" />
+				</entity>
+				<entity name="Vital">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="VIT_DAT" field="date" type="Date" />
+					<column name="PULSESUP" field="pulse" type="Integer" />
+					<column name="SBPSUP" field="SBP" type="Integer" />
+					<column name="DBPSUP" field="DBP" type="Integer" />
+					<column name="WEIGHT" field="weight" type="Real" />
+					<column name="HEIGHT" field="height" type="Real" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/med_junk_SMALL.csv">
+				<entity name="Medicine">
+					<column name="STUDY" field="studyName" />
+					<column name="DRUGDTXT" field="drugName" />
+					<column name="MEDGROUP" field="drugParent" />
+				</entity>
+				<entity name="ConcomitantMedSchedule">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="DRUGDTXT" field="drugName" />
+					<column name="MEDGROUP" field="drugParent" />
+					<column name="MEDTDDOS" field="dose" type="Real" />
+					<column name="MEDTDD_U" field="doseUnit" />
+					<column name="atccode" field="atcCode" />
+					<column name="MED_SDAT" field="startDate" type="Date" />
+					<column name="MED_EDAT" field="endDate" type="Date" />
+					<column name="TRREAS" field="reason" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/dosedisc_junk.csv">
+				<entity name="MedDosDisc">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="" field="drugName" default="STDY4321" />
+					<column name="IPDC_DAT" field="ipdcDate" type="Date" />
+					<column name="IPDCREA" field="ipdcReas" fmtname="SDACNR" />
+					<column name="S_IPDCRE" field="ipdcSpec" />
+				</entity>
+			</file>
+			<file name="/TEST1234/D1234C00001/dose_junk.csv">
+				<entity name="MedDosingSchedule">
+					<column name="STUDY" field="studyName" />
+					<column name="SUBJECT" field="subject" />
+					<column name="PART" field="part" />
+					<column name="" field="drug" default="STDY4321" />
+					<column name="SDDOSE" field="dose" type="Real" />
+					<!-- Date and time both -->
+					<column name="SD_SDAT" field="startDate" type="Date" part="true" />
+					<column name="SD_STIM" field="startDate" type="Time" part="true" aggrFunction="DateAssembler" />
+					<column name="SDACNREA" field="reasonForActionTaken" fmtname="SDACNR" />
+					<column name="S_DOSCHR" field="comment" />
+					<column name="SDACN" field="actionTaken" fmtname="SDACN" />
+				</entity>
+			</file>
+		</study>
+
+	</project>
+
+</root>

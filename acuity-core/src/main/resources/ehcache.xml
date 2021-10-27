@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false" dynamicConfig="true">
+    <defaultCache
+            maxElementsInMemory="1500"
+            eternal="true"
+            statistics="false"
+            overflowToDisk="false"
+            overflowToOffHeap="false"
+            />
+
+    <cache name="aclCache"
+           maxElementsInMemory="1500"
+           eternal="true"
+           overflowToDisk="false"
+           overflowToOffHeap="false"
+           statistics="false" />
+
+
+    <cache name="adminStudiesCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+    <cache name="adminProjectsCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+    <cache name="adminInstancesCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+    <cache name="adminStudyDrugsCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+
+    <cache name="drugProgrammeAdministratorCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+    <cache name="roisCache" eternal="false" maxEntriesLocalHeap="1000" timeToLiveSeconds="600"/>
+
+</ehcache>
+    

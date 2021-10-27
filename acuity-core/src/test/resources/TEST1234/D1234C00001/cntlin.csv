@@ -1,0 +1,490 @@
+FMTNAME,TYPE,START,END,LABEL
+EORTC,N,1,1,Not At All
+EORTC,N,2,2,A Little
+EORTC,N,3,3,Quite A Bit
+EORTC,N,4,4,Very Much
+FACT,N,0,0,Not At All
+FACT,N,1,1,A Little Bit
+FACT,N,2,2,Somewhat
+FACT,N,3,3,Quite A Bit
+FACT,N,4,4,Very Much
+FACTQ,N,0,0,Declined to answer
+LABID,N,,,
+AEACN,C,0,0,Dose Not Changed
+AEACN,C,1,1,Dose Increased
+AEACN,C,2,2,Dose Reduced
+AEACN,C,3,3,Drug Interrupted
+AEACN,C,4,4,Drug Permanently Discontinued
+AEACN,C,98,98,Not Applicable
+AEACTIP,C,0,0,None
+AEACTIP,C,1,1,Dose Changed
+AEACTIP,C,2,2,Temporarily Stopped
+AEACTIP,C,3,3,Permanently Stopped
+AEOUTC,C,0,0,No Longer Present
+AEOUTC,C,1,1,Still Present
+AEOUTC,C,2,2,Death
+AETOXGR,C,1,1,Mild AE
+AETOXGR,C,2,2,Moderate AE
+AETOXGR,C,3,3,Severe AE
+AETOXGR,C,4,4,Life-threatening or Disabling AE
+AETOXGR,C,5,5,Death Related to AE
+AJCC_ST,C,0,0,Stage 0
+AJCC_ST,C,10,10,Stage I
+AJCC_ST,C,11,11,Stage IA
+AJCC_ST,C,12,12,Stage IB
+AJCC_ST,C,13,13,Stage IC
+AJCC_ST,C,20,20,Stage II
+AJCC_ST,C,21,21,Stage IIA
+AJCC_ST,C,22,22,Stage IIB
+AJCC_ST,C,23,23,Stage IIC
+AJCC_ST,C,30,30,Stage III
+AJCC_ST,C,31,31,Stage IIIA
+AJCC_ST,C,32,32,Stage IIIB
+AJCC_ST,C,33,33,Stage IIIC
+AJCC_ST,C,40,40,Stage IV
+AJCC_ST,C,41,41,Stage IVA
+AJCC_ST,C,42,42,Stage IVB
+AJCC_ST,C,43,43,Stage IVC
+ASMGRPN,C,1,1,Cohort C1 (solid tumour)
+ASMGRPN,C,2,2,Cohort C2 (Squamous NSCLC)
+ASMGRPN,C,3,3,"Cohort C3 (gastric adenocarcinoma, including adenocarcinoma of the lower third of the oesophagus or the gastro-oesophageal junction)"
+ASMGRPN,C,4,4,Cohort C4
+BIOSAMP,C,0,0,Total Unstained Section/ Slide Preparation
+BIOSAMP,C,1,1,Total Paraffin Embedded Block
+BIOTTYP,C,0,0,Normal
+BIOTTYP,C,1,1,Primary Tumor
+BIOTTYP,C,2,2,Metastasis
+BSIND,C,0,0,Not Selected
+BSIND,C,1,1,Selected
+CFPULMC,C,0,0,Absent
+CFPULMC,C,1,1,Left
+CFPULMC,C,2,2,Right
+CFPULMC,C,3,3,Bilateral
+COUNTRY,C,,,
+CRTFTYP,C,1,1,Inclusion
+CRTFTYP,C,2,2,Exclusion
+CTCG,C,1,1,Grade 1
+CTCG,C,2,2,Grade 2
+CTCG,C,3,3,Grade 3
+CTCG,C,4,4,Grade 4
+CTCG,C,5,5,Grade 5
+CXBRESP,C,1,1,Complete Response
+CXBRESP,C,2,2,Partial Response
+CXBRESP,C,4,4,Stable Disease
+CXBRESP,C,5,5,Progression
+CXBRESP,C,6,6,Non-Evaluable
+CXBRESP,C,98,98,Not Applicable
+CXCLASS,C,0,0,Chemotherapy
+CXCLASS,C,2,2,Other Systemic AntiCancer Therapy
+CXCLASS,C,3,3,Immunotherapy
+CXCLASS,C,4,4,Hormonal Therapy
+CXOTHER,C,0,0,Previous
+CXOTHER,C,1,1,Current
+CXOTHER,C,2,2,Post
+DIAGMTH,C,3,3,Histological
+DIAGMTH,C,4,4,Cytological
+DISSITE,C,1,1,Brain/CNS
+DISSITE,C,10,10,Skin/Soft Tissue
+DISSITE,C,11,11,Bone and Locomotor
+DISSITE,C,12,12,Adrenal
+DISSITE,C,13,13,Lymph Nodes
+DISSITE,C,14,14,Pericardial Effusion
+DISSITE,C,15,15,Peritoneum
+DISSITE,C,16,16,Other CNS
+DISSITE,C,17,17,Neck
+DISSITE,C,2,2,Cardiovascular
+DISSITE,C,3,3,Pleural Effusion
+DISSITE,C,4,4,Respiratory
+DISSITE,C,5,5,Ascites
+DISSITE,C,6,6,Breast
+DISSITE,C,7,7,Gastrointestinal
+DISSITE,C,8,8,Hepatic (including Gall Bladder)
+DISSITE,C,9,9,Genitourinary
+DISSITE,C,98,98,Other Locally Advanced Sites
+DISSITE,C,99,99,Other Metastatic Sites
+DMTNM,C,0,0,M0
+DMTNM,C,10,10,M1
+DTHDES,C,1,1,Primary
+DTHDES,C,2,2,Secondary
+ECGABSI,C,0,0,Not Clinically Significant
+ECGABSI,C,1,1,Clinically Significant
+EPSTAT,C,0,0,Negative
+EPSTAT,C,1,1,Positive
+EPSTAT,C,2,2,1+
+EPSTAT,C,3,3,2+
+EPSTAT,C,4,4,3+
+EPSTAT,C,5,5,0
+EPSTAT,C,95,95,Not Done
+EPSTAT,C,97,97,Unknown
+ETHGRP,C,1,1,Hispanic or Latino
+ETHGRP,C,10,10,Japanese
+ETHGRP,C,2,2,Native American
+ETHGRP,C,3,3,Native Alaskan / Inuit
+ETHGRP,C,4,4,Native Hawaiian / Pacific Islander
+ETHGRP,C,5,5,African
+ETHGRP,C,6,6,African-American
+ETHGRP,C,7,7,African-Caribbean
+ETHGRP,C,8,8,Asian (other than Chinese and Japanese)
+ETHGRP,C,9,9,Chinese
+ETHGRP,C,98,98,Not Applicable
+ETHGRP,C,99,99,Other
+FAILREA,C,1,1,Toxicity
+FAILREA,C,2,2,Progression on Therapy
+FAILREA,C,3,3,Progresssion following Completion of Therapy
+FAILREA,C,98,98,Not Applicable
+HSTLTYP,C,0,0,Cannot Be Determined
+HSTLTYP,C,1,1,No Tumour
+HSTLTYP,C,100,100,Non-Invasive Carcinoma (NOS)
+HSTLTYP,C,101,101,Ductal Carcinoma In Situ
+HSTLTYP,C,102,102,Lobular Carcinoma In Situ
+HSTLTYP,C,103,103,Invasive Carcinoma (NOS)
+HSTLTYP,C,104,104,Invasive Ductal
+HSTLTYP,C,105,105,Invasive Ductal Carcinoma With Extensive Intraductal Component
+HSTLTYP,C,106,106,Invasive Lobular
+HSTLTYP,C,107,107,Mucinous
+HSTLTYP,C,108,108,Medullary
+HSTLTYP,C,109,109,Papillary
+HSTLTYP,C,110,110,Tubular
+HSTLTYP,C,111,111,Adenoid Cystic
+HSTLTYP,C,112,112,Secretory (Juvenile)
+HSTLTYP,C,113,113,Apocrine
+HSTLTYP,C,114,114,Cribriform
+HSTLTYP,C,115,115,Paget's Disease of the Nipple With Invasive Carcinoma
+HSTLTYP,C,116,116,Paget's Disease of the Nipple w/o Invasive Carcinoma
+HSTLTYP,C,117,117,Carcinoma w/ Metaplasia: Squamous
+HSTLTYP,C,118,118,Carcinoma w/ Metaplasia: Spindle Cell
+HSTLTYP,C,119,119,Carcinoma w/ Metaplasia: Cartilaginous and Osseous Type
+HSTLTYP,C,120,120,Carcinoma w/ Metaplasia: Mixed Type
+HSTLTYP,C,121,121,Inflammatory
+HSTLTYP,C,99,99,Other
+INVOP,C,1,1,Responding
+INVOP,C,2,2,Stable
+INVOP,C,3,3,Progressing
+IPDCREA,C,1,1,Adverse Event
+IPDCREA,C,2,2,Condition Under Investigation Worsened
+IPDCREA,C,6,6,Subject lost to Follow-up
+IPDCREA,C,7,7,Voluntary Discontinuation by Subject
+IPDCREA,C,8,8,Severe Non-compliance to Protocol
+IPDCREA,C,99,99,Other
+LABCODE,C,4002,4002,B-Haematocrit
+LABCODE,C,4003,4003,B-Erythrocyte Count
+LABCODE,C,4004,4004,B-Haemoglobin
+LABCODE,C,4005,4005,B-Leucocyte Count
+LABCODE,C,4006,4006,B-Platelet Count
+LABCODE,C,4009,4009,B-Activated Partial Thromboplastin Time
+LABCODE,C,4032,4032,B-Neutrophils(absolute)
+LABCODE,C,4033,4033,Eosinophils
+LABCODE,C,4034,4034,Basophils (Blood)
+LABCODE,C,4035,4035,Lymphocytes (Blood)
+LABCODE,C,4036,4036,Monocytes (Blood)
+LABCODE,C,4040,4040,B-Mean Cell Haemoglobin
+LABCODE,C,4041,4041,B-Mean Cell Haemoglobin Concentration
+LABCODE,C,4042,4042,B-Eosinophils(absolute)
+LABCODE,C,4045,4045,B-Mean Cell Volume
+LABCODE,C,4049,4049,Neutrophils (Blood)
+LABCODE,C,4050,4050,B-Basophils(absolute)
+LABCODE,C,4051,4051,"B-Lymphocytes, (absolute)"
+LABCODE,C,4052,4052,"B-Monocytes, (absolute)"
+LABCODE,C,4230,4230,B-Fibrinogen
+LABCODE,C,4404,4404,B-Prothrombin Complex INR
+LABCODE,C,5122,5122,U-Glucose
+LABCODE,C,5135,5135,U-pH
+LABCODE,C,5149,5149,U-Protein
+LABCODE,C,5175,5175,"U-Bilirubin, Strip"
+LABCODE,C,5200,5200,U-Haemoglobin
+LABCODE,C,5512,5512,"U-Ketone Bodies, Strip"
+LABCODE,C,5558,5558,"U-Sediment, Crystals, Qual"
+LABCODE,C,5741,5741,"U-Sediment, Casts, Qual"
+LABCODE,C,5742,5742,U-Blood
+LABCODE,C,5816,5816,"U-Sediment, Epithelial Cell, Qual"
+LABCODE,C,5826,5826,U-Specific Gravity
+LABCODE,C,55101,55101,Alanine Aminotransferase
+LABCODE,C,55102,55102,Aspartate Aminotransferase
+LABCODE,C,55104,55104,Alkaline Phosphatase
+LABCODE,C,55105,55105,Lactate Dehydrogenase
+LABCODE,C,55108,55108,Creatinine
+LABCODE,C,55110,55110,"Bilirubin, Total"
+LABCODE,C,55112,55112,Sodium
+LABCODE,C,55113,55113,Potassium
+LABCODE,C,55118,55118,Albumin
+LABCODE,C,55151,55151,Total Calcium
+LABCODE,C,55229,55229,Blood Urea Nitrogen
+LABCODE,C,55706,55706,"Glucose, Random"
+LABCODE,C,55822,55822,"Glucose, Fasting"
+LABVDIP,C,1,1,NEG
+LABVDIP,C,2,2,TRACE
+LABVDIP,C,3,3,POS
+LABVDIP,C,4,4,0
+LABVDIP,C,5,5,+
+LABVDIP,C,6,6,++
+LABVDIP,C,7,7,+++
+LABVDIP,C,8,8,>+++
+LNTNM,C,0,0,N0
+LNTNM,C,1,1,N1
+LNTNM,C,2,2,N2
+LNTNM,C,3,3,N3
+LNTNM,C,9,9,NX
+LOCMET,C,2,2,Locally Advanced
+LOCMET,C,3,3,Metastatic
+LOCMET,C,4,4,Both
+LVEFMTH,C,1,1,Echocardiography
+LVEFMTH,C,2,2,Radionuclide Ventriculography
+LVEFMTH,C,99,99,Other
+LYNCTOX,C,1,1,Mild
+LYNCTOX,C,2,2,Moderate
+LYNCTOX,C,3,3,severe
+MEDREAC,C,1,1,Disease Under Study
+MEDREAC,C,99,99,Other
+MPEFF,C,0,0,Absent
+MPEFF,C,1,1,Present
+NEGPOS,C,0,0,Negative
+NEGPOS,C,1,1,Positive
+NEWLES,C,0,0,No
+NEWLES,C,1,1,Yes
+NMLESCD,C,14,14,Tumour Too Large to Accurately Measure
+NMLESCD,C,15,15,Tumour Too Small to Accurately Measure
+NMLESCD,C,91,91,Not Evaluable
+NORMAL,C,0,0,Normal
+NORMAL,C,1,1,Abnormal
+NORMALF,C,0,0,Normal
+NORMALF,C,1,1,"Abnormal, same as Baseline"
+NORMALF,C,2,2,"Abnormal, New or Aggravated"
+NORMALX,C,0,0,Normal
+NORMALX,C,1,1,Abnormal
+NORMALX,C,2,2,Borderline
+NOYES,C,0,0,No
+NOYES,C,1,1,Yes
+NOYESNA,C,0,0,No
+NOYESNA,C,1,1,Yes
+NOYESNA,C,98,98,Not Applicable
+PASTCUR,C,1,1,Past
+PASTCUR,C,2,2,Current
+PHSITEM,C,1,1,General Appearance
+PHSITEM,C,10,10,Neurological
+PHSITEM,C,11,11,Genital / Rectal
+PHSITEM,C,2,2,Skin
+PHSITEM,C,3,3,Head and Neck
+PHSITEM,C,4,4,Lymph Nodes
+PHSITEM,C,5,5,Thyroid
+PHSITEM,C,6,6,Musculoskeletal / Extremities
+PHSITEM,C,7,7,Cardiovascular
+PHSITEM,C,8,8,Lungs
+PHSITEM,C,9,9,Abdomen
+PMETH,C,0,0,Sample Fixed
+PMETH,C,1,1,Sample Frozen
+PMETH,C,2,2,Sample Fixed and Frozen
+PMETH,C,3,3,Formalin Fixed
+PMETH,C,4,4,Paraffin Embedded
+PMETH,C,5,5,Formalin Fixed and Paraffin Embedded
+PMETH,C,99,99,Other
+PSTAT,C,0,0,Normal Activity
+PSTAT,C,1,1,Restricted Activity
+PSTAT,C,2,2,In Bed Less Than or Equal to 50% of the Time
+PSTAT,C,3,3,In Bed More Than 50% of the Time
+PSTAT,C,4,4,100% Bedridden
+PTTNM,C,10,10,T1
+PTTNM,C,20,20,T2
+PTTNM,C,30,30,T3
+PTTNM,C,40,40,T4
+PTTNM,C,9,9,TX
+PTUMTYP,C,1,1,Uveal
+PTUMTYP,C,2,2,Mucosal
+PTUMTYP,C,3,3,Cutaneous
+PTUMTYP,C,97,97,Unknown
+PTUMTYP,C,99,99,Other
+QCOMPL,C,0,0,No
+QCOMPL,C,1,1,Yes
+QCOMPL,C,2,2,Partly
+QREASND,C,1,1,Subject Unwilling
+QREASND,C,2,2,Subject Cannot Understand Instructions
+QREASND,C,4,4,"Subject Too Sick, Other Than Disease Under Investigation"
+QREASND,C,6,6,Subject Too Affected by Symptoms of Disease Under Investigation
+QREASND,C,7,7,Relevant Language Version Not Available
+QREASND,C,8,8,Administrative Failure Distribute Questionnaire to Subject
+QREASND,C,99,99,Other
+RACE,C,11,11,White
+RACE,C,12,12,Black or African American
+RACE,C,13,13,Asian
+RACE,C,14,14,Native Hawaiian or Other Pacific Islander
+RACE,C,15,15,American Indian or Alaska Native
+RACE,C,99,99,Other
+RECEPTY,C,1,1,ER
+RECEPTY,C,2,2,PR
+RECEPTY,C,3,3,HER2
+RLESSIT,C,1,1,Adrenal
+RLESSIT,C,10,10,Local Lymph Nodes
+RLESSIT,C,11,11,Distant Lymph Nodes
+RLESSIT,C,13,13,Lung
+RLESSIT,C,14,14,Peritoneum
+RLESSIT,C,15,15,Pleura
+RLESSIT,C,17,17,Renal
+RLESSIT,C,18,18,Skin/Soft Tissue
+RLESSIT,C,19,19,Small Bowel
+RLESSIT,C,2,2,Bone
+RLESSIT,C,20,20,Stomach
+RLESSIT,C,21,21,Pancreas
+RLESSIT,C,22,22,Thyroid
+RLESSIT,C,25,25,Buccal
+RLESSIT,C,29,29,Ovary
+RLESSIT,C,3,3,Breast
+RLESSIT,C,30,30,Uterus
+RLESSIT,C,31,31,Cervix
+RLESSIT,C,33,33,Colon
+RLESSIT,C,34,34,Rectal
+RLESSIT,C,35,35,Biliary Tract
+RLESSIT,C,36,36,Muscle
+RLESSIT,C,38,38,Ascites
+RLESSIT,C,39,39,Pericardial Effusion
+RLESSIT,C,4,4,Bladder
+RLESSIT,C,40,40,Uveal
+RLESSIT,C,41,41,Mucosal
+RLESSIT,C,42,42,Oropharynx
+RLESSIT,C,43,43,Hypopharynx
+RLESSIT,C,44,44,Supraglottis
+RLESSIT,C,45,45,Glottis
+RLESSIT,C,46,46,Subglottis
+RLESSIT,C,48,48,Fallopian Tubes
+RLESSIT,C,5,5,Central Nervous System (Brain/Spinal Cord/Ophthalmic)
+RLESSIT,C,50,50,Spleen
+RLESSIT,C,51,51,Pleural Effusion
+RLESSIT,C,7,7,Oesophagus
+RLESSIT,C,8,8,"Head and Neck (including Nasopharynx, Larynx, Trachea)"
+RLESSIT,C,9,9,Liver
+RLESSIT,C,99,99,Other
+RMETH,C,11,11,Bone Scan
+RMETH,C,12,12,Clinical Examination
+RMETH,C,13,13,Conventional CT
+RMETH,C,15,15,FDG-PET
+RMETH,C,2,2,CT
+RMETH,C,3,3,Spiral CT
+RMETH,C,4,4,X-ray
+RMETH,C,5,5,MRI
+RMETH,C,7,7,Ultrasound
+RMETH,C,95,95,Not Done
+RMETHOD,C,1,1,IHC
+RMETHOD,C,2,2,FISH
+RMETHOD,C,3,3,CISH
+RMETHOD,C,95,95,Not Done
+ROUTEVL,C,1,1,Oral
+ROUTEVL,C,12,12,Ophthalmic
+ROUTEVL,C,13,13,Auricular (OTIC)
+ROUTEVL,C,14,14,Nasal
+ROUTEVL,C,15,15,Vaginal
+ROUTEVL,C,16,16,Rectal
+ROUTEVL,C,17,17,Urethral
+ROUTEVL,C,24,24,Sublingual
+ROUTEVL,C,38,38,Dental
+ROUTEVL,C,130,130,Cutaneous
+ROUTEVL,C,136,136,Respiratory (Inhalation)
+ROUTEVL,C,139,139,Unknown
+ROUTEVL,C,312,312,Not Applicable
+ROUTEVL,C,313,313,Enteral
+ROUTEVL,C,411,411,Parenteral
+ROUTEVL,C,901,901,Oromucosal (incl. Sublingual)
+RRESP,C,1,1,Complete Response
+RRESP,C,2,2,Partial Response
+RRESP,C,3,3,Progressive Disease
+RRESP,C,4,4,Stable Disease (Non-CR/Non-PD)
+RRESP,C,5,5,Non-CR/Non-PD
+RRESP,C,6,6,Not Evaluable
+RRESP,C,98,98,Not Applicable
+SACRBAG,C,1,1,Empty
+SACRBAG,C,2,2,Partially Empty
+SACRBAG,C,3,3,Full
+SAMPTYP,C,1,1,Biopsy
+SAMPTYP,C,2,2,Resection
+SCHRTT,C,1,1,0-5mm
+SCHRTT,C,2,2,>5-10mm
+SCHRTT,C,3,3,>10mm
+SDACN,C,0,0,Dose Not Changed
+SDACN,C,2,2,Dose Reduced
+SDACN,C,3,3,Drug Interrupted
+SDACN,C,98,98,Not Applicable
+SDACNR,C,1,1,Adverse Event
+SDACNR,C,10,10,Surgery
+SDACNR,C,99,99,Other
+SDCONCU,C,14,14,mg/m2
+SDDOS_U,C,14,14,mg
+SEX,C,2,2,Female
+SEX,C,1,1,Male
+SRBSA,C,1,1,<10%
+SRBSA,C,2,2,10-30%
+SRBSA,C,3,3,>30%
+SREFECT,C,1,1,Psychosocial Impact
+SREFECT,C,2,2,Limiting Instrumental ADL
+SREFECT,C,3,3,Limiting Self-Care ADL
+SREFECT,C,4,4,Limiting Sleep
+SREFECT,C,5,5,Life-Threatening Consequences
+SREFECT,C,98,98,Not Applicable
+SRLOC,C,1,1,Scalp
+SRLOC,C,10,10,Groin Crease / Thigh
+SRLOC,C,11,11,Lower Leg
+SRLOC,C,12,12,Foot
+SRLOC,C,2,2,Face
+SRLOC,C,3,3,Neck
+SRLOC,C,4,4,Back
+SRLOC,C,5,5,Chest
+SRLOC,C,6,6,Abdomen
+SRLOC,C,7,7,Arm
+SRLOC,C,8,8,Hand
+SRLOC,C,9,9,Buttock
+SRLOC,C,98,98,Not Applicable
+SRSIGN,C,1,1,Erythema
+SRSIGN,C,10,10,Telangiectasia
+SRSIGN,C,11,11,Fissures
+SRSIGN,C,2,2,Oedema
+SRSIGN,C,3,3,Blistering
+SRSIGN,C,4,4,Ulceration
+SRSIGN,C,5,5,Striae
+SRSIGN,C,6,6,Superinfection – Local
+SRSIGN,C,7,7,Superinfection - Extensive
+SRSIGN,C,8,8,Hyperkeratosis
+SRSIGN,C,9,9,Hyperpigmentation
+SRSIGN,C,98,98,Not Applicable
+SRSYMP,C,1,1,Pruritus
+SRSYMP,C,2,2,Tenderness
+SRSYMP,C,3,3,Burning
+SRSYMP,C,4,4,Tightness
+SRSYMP,C,5,5,Pain
+SRSYMP,C,98,98,Not Applicable
+STAT,C,1,1,Sucessful
+STAT,C,2,2,Unsucessful
+STYPE,C,6,6,Plasma
+STYPE,C,7,7,Serum
+SURSTAT,C,0,0,Dead
+SURSTAT,C,1,1,Alive
+SURSTAT,C,2,2,Lost to Follow-up
+SURSTAT,C,97,97,Unknown
+TBUT,C,1,1,<10sec
+TBUT,C,2,2,>l0sec
+TERM,C,1,1,Subject Decision
+TERM,C,10,10,Subject Lost to Follow-up
+TERM,C,2,2,Eligibility Criteria Not Fulfilled
+TERM,C,3,3,Death
+TERM,C,4,4,Adverse Event
+TERM,C,5,5,Severe Non-Compliance to Protocol
+TERM,C,6,6,Condition under Investigation Worsened
+TERM,C,8,8,Condition under Investigation Improved/Subject Recovered
+TERM,C,9,9,Development of Study-Specific Withdrawal Criteria
+TERM,C,99,99,Other
+TERMREA,C,1,1,Incorrect Enrolment
+TERMREA,C,11,11,Death
+TERMREA,C,7,7,Voluntary Discontinuation by Subject
+TERMREA,C,8,8,Subject Lost to Follow-up
+TERMREA,C,99,99,Other
+TREATST,C,1,1,First Line
+TREATST,C,2,2,Second Line
+TREATST,C,3,3,Third Line
+TREATST,C,4,4,Adjuvant
+TREATST,C,5,5,Neo-Adjuvant
+TREATST,C,9,9,Palliative
+TREATST,C,98,98,Not Applicable
+TUMGRAD,C,1,1,Well Differentiated (G1)
+TUMGRAD,C,2,2,Mod. Differentiated (G2)
+TUMGRAD,C,3,3,Poorly Differentiated (G3)
+TUMGRAD,C,4,4,Undifferentiated (G4)
+TUMGRAD,C,5,5,Unassessable (GX)
+VIS_SEV,C,1,1,Mild
+VIS_SEV,C,2,2,Moderate
+VIS_SEV,C,3,3,Severe
+YESONLY,C,1,1,Yes

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+ 
+	<bean id="runAcuityJob_Test" class="com.acuity.visualisations.task.DurableJobDetailFactoryBean">
+		<property name="jobClass" value="com.acuity.visualisations.task.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="durability" value="true" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="ACUITY_ETL_Job" />
+				<entry key="etl.study" value="D1234C00001" />
+				<entry key="etl.project" value="TEST1234" />
+				<entry key="etl.confSourceType" value="xml" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="ACUITY_ETL_Job_ComparisonTest" class="com.acuity.visualisations.task.DurableJobDetailFactoryBean">
+		<property name="jobClass" value="com.acuity.visualisations.task.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="durability" value="true" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="ACUITY_ETL_Job_Data_Comparison" />
+				<entry key="etl.study" value="D1234C00001" />
+				<entry key="etl.project" value="TEST1234" />
+                <entry key="etl.confSourceType" value="xml" />
+			</map>
+		</property>
+	</bean>
+ 
+ 	<!-- For use when running tests manually - probably not needed longer term -->
+ 	<bean id="testSchedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="schedulerContextAsMap">
+			<map>
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+				<entry key="jobExplorer" value-ref="jobExplorer" />
+			</map>
+		</property>
+		<property name="startupDelay" value="10" />
+		<property name="autoStartup" value="true" />
+		<property name="configLocation" value="classpath:/quartz.properties" />
+  		<property name="taskExecutor" ref="taskExecutor" />
+	</bean>
+
+	<bean id="taskExecutor" class="org.springframework.core.task.SyncTaskExecutor" />
+ 
+</beans>

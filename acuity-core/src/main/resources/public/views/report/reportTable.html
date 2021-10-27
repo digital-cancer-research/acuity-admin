@@ -1,0 +1,66 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading clearfix">
+        <div class="centered-pills">
+            <ul class="nav nav-pills" ng-repeat="button in model.reportButtons">
+                <li role="presentation" ng-class="{ 'active': $index == model.reportType}">
+                    <a href="" ng-click="loadReport($index)"> {{button}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="wrapper">
+            <table class="table table-condensed table-hover">
+                <thead>
+                <th ng-repeat="title in model.reportTable.headerOptions[model.reportType].titles track by $index"
+                    style="min-width: 125px">
+                    <a href=''
+                       ng-click="sort(model.reportTable.rowOptions[model.reportType][$index])"
+                       tooltip-placement="{{$index ? 'bottom' : 'right'}}"
+                       tooltip={{model.reportTable.headerOptions[model.reportType].tooltips[$index]}}>{{title}}
+                        <span
+                                ng-if="model.reportTable.sortOptions[model.reportType].sortField == model.reportTable.rowOptions[model.reportType][$index]"
+                                class="glyphicon"
+                                ng-class="!model.reportTable.sortOptions[model.reportType].reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'">
+            </span>
+                    </a>
+                </th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="r in model.sortedReports[model.reportType][model.reportTable.pagingOptions[model.reportType].currentPage-1] | orderBy : model.reportTable.sortOptions[model.reportType].sortField : model.reportTable.sortOptions[model.reportType].reverse"
+                    ng-class="{'active': model.selectedReport.jobExecID == r.jobExecID}"
+                    ng-click="selectReport(s)">
+                    <td ng-repeat="valueName in model.reportTable.rowOptions[model.reportType]">
+                        <span ng-if="valueName !='ragStatus'"> {{r[valueName]}}</span>
+                        <span ng-if="valueName=='ragStatus'" class="label" ng-class="{'label-danger glyphicon glyphicon-remove': r.ragStatus == 'RED',
+                                  'label-warning glyphicon glyphicon-warning-sign': r.ragStatus == 'AMBER',
+                                  'label-success glyphicon glyphicon-ok': r.ragStatus == 'GREEN'}">
+
+                    </span>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div ng-if="model.reportsData.length == 0 || model.reportsData[model.reportType].length==0 "
+                 class="text-center">No results found
+            </div>
+            <div ng-if="model.reportsData[model.reportType].length >= model.reportTable.pageSize">
+                <pagination total-items="model.reportsData[model.reportType].length"
+                            ng-model="model.reportTable.pagingOptions[model.reportType].currentPage"
+                            items-per-page="model.reportTable.pageSize"
+                            max-size="5"
+                            class="pagination-sm"
+                            boundary-links="false"
+                            rotate="false"
+                            previous-text="<"
+                            next-text=">"
+                            first-text="<<"
+                            last-text=">>">
+                </pagination>
+            </div>
+        </div>
+    </div>
+    <div ng-show="model.reportTable.loading" class="trbl-loader"></div>
+</div>

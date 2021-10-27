@@ -1,0 +1,91 @@
+package com.acuity.visualisations.mapping.entity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class EntityRule extends MappingEntity implements StaticEntity {
+
+    private String name;
+    private Map<FileDescription, FileDescription> descriptions = new HashMap<FileDescription, FileDescription>();
+    private boolean storeInCache;
+    private String globalFunction;
+    private List<FieldRule> fieldRules = new ArrayList<FieldRule>();
+
+    public EntityRule() {
+    }
+
+    public EntityRule(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Map<FileDescription, FileDescription> getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(Map<FileDescription, FileDescription> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public boolean isStoreInCache() {
+        return storeInCache;
+    }
+
+    public void setStoreInCache(boolean storeInCache) {
+        this.storeInCache = storeInCache;
+    }
+
+    public String getGlobalFunction() {
+        return globalFunction;
+    }
+
+    public void setGlobalFunction(String globalFunction) {
+        this.globalFunction = globalFunction;
+    }
+
+    public List<FieldRule> getFieldRules() {
+        return fieldRules;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        EntityRule other = (EntityRule) obj;
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else {
+            if (!name.equals(other.name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+}

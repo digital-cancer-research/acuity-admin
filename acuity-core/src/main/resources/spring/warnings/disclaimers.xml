@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean id="disclaimerWarnings" class="com.acuity.visualisations.web.dto.DisclaimerWarningsHolder"
+          factory-method="instance">
+
+        <!-- results in a setStudyDisclaimerMap(java.util.Map) call -->
+        <property name="studyDisclaimerMap">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="000"
+                       value="By declaring this dataset as an open label, non-randomised study, not for regulatory intent all views for safety and tolerability will be available and oncology specific views will be made available according to a pre-agreed framework.  If these criteria are incorrect the integrity of the study could be compromised."/>
+                <entry key="100"
+                       value="By declaring this dataset as a blinded, non-randomised study, not for regulatory intent all views for safety and tolerability will be available and oncology specific views will be made available according to a pre-agreed framework.  If these criteria are incorrect the integrity of the study could be compromised."/>
+                <entry key="010"
+                       value="By declaring this dataset as an open-label, randomised study, not for regulatory intent all views for safety and tolerability will be available and oncology specific views will be made available according to a pre-agreed framework.  If these criteria are incorrect the integrity of the study could be compromised."/>
+                <entry key="001"
+                       value="By declaring this dataset as an open-label, non-randomised study, for regulatory intent all views for safety and tolerability will be available and oncology specific views will be made available according to a pre-agreed framework.  If these criteria are incorrect the integrity of the study could be compromised."/>
+                <entry key="110"
+                       value="By declaring this dataset as a blinded, randomised study, not for regulatory intent all views for safety and tolerability will be available for a restricted set of study team members (see the best practice guidelines for ACUITY) and oncology specific views will not be available (unless specifically requested for an internal DMC).  If these criteria are incorrect the integrity of the study could be compromised (specifically the regulatory intent)."/>
+                <entry key="101"
+                       value="By declaring this dataset as a blinded, non-randomised study, for regulatory intent all views for safety and tolerability will be available and oncology specific views will be made available according to a pre-agreed framework.  If these criteria are incorrect (specifically the randomisation) the integrity of the study could be compromised."/>
+                <entry key="011"
+                       value="By declaring this dataset as an open-label, randomised study, for regulatory intent all views for safety and tolerability will be available for a restricted set of study team members (see the best practice guidelines for ACUITY) and oncology specific views will not be available (unless specifically requested for an internal DMC).  If these criteria are incorrect the integrity of the study could be compromised (specifically the blinded/open-label aspect)."/>
+                <entry key="111"
+                       value="By declaring this dataset as a blinded, randomised study, for regulatory intent all views for safety will be available for a restricted set of study team members (see the best practice guidelines for ACUITY).  The availability of tolerability views should be assessed on a case by case basis by the Medical Science Director, Global Regulatory Lead, Global Product Statistician and SaMT lead and made available accordingly through this interface again to a restricted set of study team members.  Oncology specific views will not be available (unless specifically requested for an internal DMC).  "/>
+            </map>
+        </property>
+
+
+    </bean>
+
+</beans>

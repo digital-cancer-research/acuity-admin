@@ -1,0 +1,294 @@
+<div ng-show="model.groupings[model.selectedGrouping].type.name == 'DOSE'">
+<ul class="nav nav-tabs" style="margin-bottom: 10px;">
+    <li role="presentation" ng-class="{ 'active': model.openedTab == 'dose'}">
+        <a href=""> Dose</a>
+    </li>
+</ul>
+<div class="tab-content" ng-class="{ 'active': model.openedTab == 'dose'}">
+<div class="row">
+<div class="col-md-2">
+    <label>Investigational drugs:</label>
+
+
+    <ul class="list-group grouping-drugs">
+        <li class="list-group-item grouping-drug"
+            data-ng-class="{'active': group.selectedDosingIndex == $index}"
+            data-ng-repeat="dosing in group.dosings track by $index">
+            <form ng-submit="doneEditingDosing(group, dosing)">
+
+                <input type="text" class="form-control"
+                       data-ng-readonly="!dosing.editing"
+                       data-ng-click="selectDosing(group,$index)"
+                       data-ng-change="changeDrugName(group)"
+                       data-ng-blur="doneEditingDosing(group, dosing)"
+                       data-ng-model="dosing.drug"
+                       data-setfocus="{{$last}}"/>
+
+                <div class="glyphicon glyphicon-remove"
+                     style="position: absolute; right: 5px; top: 5px; cursor: pointer;"
+                     data-ng-click="removeDrug(group,$index)"></div>
+            </form>
+        </li>
+    </ul>
+
+    <button type="button" class="btn btn-default" data-ng-disabled="group.notUnigueDrugName"
+            data-ng-click="addDrug(group)">
+        <span class="glyphicon glyphicon-plus"></span> Add drug
+    </button>
+
+    <div class=" has-error" data-ng-show="group.notUnigueDrugName">
+        <span class="help-block">Drug names should be unique and not empty!</span>
+    </div>
+
+</div>
+<div class="col-md-10" ng-show="group.selectedDosingIndex != null">
+<fieldset class="dosing-details" data-ng-disabled="!group.dosings[group.selectedDosingIndex].drug">
+<legend class="dosing-details">{{group.dosings[group.selectedDosingIndex].drug}} Dosing Details
+    <span class="glyphicon glyphicon-calendar" title="{{group.dosings[group.selectedDosingIndex].doseSchedule}}"></span>
+</legend>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 h5 text-right">Formulation:</div>
+            <div class="col-md-6">
+                <select class="form-control" ng-change="markDirty(group)"
+                        ng-model="group.dosings[group.selectedDosingIndex].formulation">
+                    <option value="" disabled selected style="display: none;"> Select...
+                    </option>
+                    <option ng-repeat="name in model.formulationNames track by $index" value={{name}}>{{name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 h5 text-right">Administration route:</div>
+
+            <div class="col-md-6">
+                <select class="form-control" ng-change="markDirty(group)"
+                        ng-model="group.dosings[group.selectedDosingIndex].administrationRoute">
+                    <option value="" disabled selected style="display: none;"> Select...
+                    </option>
+                    <option ng-repeat="route in model.administrationRoutes track by $index" value={{route}}>
+                        {{route}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-4 h5 text-right">Total duration:</div>
+
+            <div class="col-md-8">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="durationRadio"
+                               value="indeterminate"
+                               ng-model="group.dosings[group.selectedDosingIndex].totalDuration"
+                               ng-change="changeTotalDuration(group)"
+                               ng-checked="!group.dosings[group.selectedDosingIndex].totalDurationCycles">
+                        Indeterminate
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="durationRadio"
+                               value="planned"
+                               ng-model="group.dosings[group.selectedDosingIndex].totalDuration"
+                               ng-change="changeTotalDuration(group)"
+                               ng-checked="group.dosings[group.selectedDosingIndex].totalDurationCycles">
+                        Planned
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group spinner">
+                            <input type="text" class="form-control"
+                                   data-ng-disabled="!group.dosings[group.selectedDosingIndex].totalDurationCycles || group.dosings[group.selectedDosingIndex].totalDuration == 'indeterminate'"
+                                   ng-model="group.dosings[group.selectedDosingIndex].totalDurationCycles"
+                                   ng-change="markDirty(group)">
+
+                            <div class="input-group-btn-vertical">
+                                <button type="button" class="btn btn-default"
+                                        data-ng-disabled="!group.dosings[group.selectedDosingIndex].totalDurationCycles || group.dosings[group.selectedDosingIndex].totalDuration == 'indeterminate'"
+                                        ng-click="incrementSpinner(group.dosings[group.selectedDosingIndex],'totalDurationCycles',group)">
+                                                    <span class="glyphicon glyphicon-chevron-up"
+                                                          aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-default"
+                                        data-ng-disabled="group.dosings[group.selectedDosingIndex].totalDurationCycles == null || group.dosings[group.selectedDosingIndex].totalDuration == 'indeterminate'"
+                                        ng-click="decrementSpinner(group.dosings[group.selectedDosingIndex],'totalDurationCycles',group)">
+                                                <span class="glyphicon glyphicon-chevron-down"
+                                                      aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control"
+                                ng-change="markDirty(group)"
+                                data-ng-disabled="group.dosings[group.selectedDosingIndex].totalDurationCycles == null || group.dosings[group.selectedDosingIndex].totalDuration == 'indeterminate'"
+                                ng-model="group.dosings[group.selectedDosingIndex].totalDurationType">
+                            <option value="None" disabled selected style="display: none;">
+                                Select...
+                            </option>
+                            <option value="Day">Day</option>
+                            <option value="Week">Week</option>
+                            <option value="Year">Year</option>
+                            <option ng-disabled="group.dosings[group.selectedDosingIndex].disableCycleOption"
+                                    value="Cycle">Cycle
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12"
+         ng-class="group.dosings[group.selectedDosingIndex].schedule.length > 3 ? 'list-overflow':none">
+        <table class="table table-condensed" style="margin-bottom: 0;">
+            <thead>
+            <tr>
+                <th style="width: 80px;">Dosing</th>
+                <th style="width:120px;">Duration</th>
+                <th style="width:120px;">Duration unit</th>
+                <th style="width:80px;">Dose</th>
+                <th style="width:120px;">Dose unit</th>
+                <th style="width:120px;">Frequency term</th>
+                <th style="width: 80px;">Frequency</th>
+                <th style="width:120px;">Frequency unit</th>
+                <th style="width:65px;">Repeat?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="schedule in group.dosings[group.selectedDosingIndex].schedule">
+                <td>
+                    <select ng-model="schedule.dosing" class="form-control"
+                            ng-change="changeScheduleDosing(group,schedule)"
+                            ng-options="dosing.value as dosing.name for dosing in [{ name: 'Off', value: false }, { name: 'On', value: true }]">
+                    </select>
+                </td>
+
+
+                <td>
+                    <div class="input-group spinner">
+                        <input type="text" class="form-control"
+                               ng-change="markDirty(group)"
+                               ng-model="schedule.duration"
+                                tooltip-placement="top" tooltip={{schedule.duration}}>
+
+                        <div class="input-group-btn-vertical">
+                            <button type="button" class="btn btn-default"
+                                    ng-click="incrementSpinner(schedule,'duration',group)">
+                                                    <span class="glyphicon glyphicon-chevron-up"
+                                                          aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default"
+                                    ng-click="decrementSpinner(schedule,'duration',group)">
+                                                <span class="glyphicon glyphicon-chevron-down"
+                                                      aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td><select ng-model="schedule.durationUnit"
+                            ng-change="markDirty(group)"
+                            class="form-control"
+                        data-ng-disabled="schedule.duration == 'Continuous'">
+                    <option value="" disabled selected style="display: none;">
+                        Select...
+                    </option>
+                    <option value="None" ng-selected="schedule.duration == 'Continuous'">-</option>
+                    <option value="Minute">Minute</option>
+                    <option value="Hour">Hour</option>
+                    <option value="Day">Day</option>
+                    <option value="Week">Week</option>
+                </select></td>
+                <td>
+                    <input type="text" data-ng-disabled="!schedule.dosing" class="form-control"
+                           ng-change="markDirty(group)"
+                           ng-model="schedule.dose"/>
+                </td>
+                <td><select ng-change="markDirty(group)"
+                            ng-model="schedule.doseUnit" class="form-control"
+                            data-ng-disabled="!schedule.dosing">
+                    <option value="" disabled selected style="display: none;"> Select...
+                    </option>
+                    <option value="mL">mL</option>
+                    <option value="L">L</option>
+                    <option value="g">g</option>
+                    <option value="mg">mg</option>
+                    <option value="ug">ug</option>
+                    <option value="mg/kg">mg/kg</option>
+                    <option value="mg/m2">mg/m2</option>
+                    <option value="Other">Other</option>
+                </select></td>
+
+                <td>
+                    <select class="form-control"
+                            data-ng-change="frequencyTermChanged(schedule, group)"
+                            data-ng-model="schedule.frequencyTerm"
+                            data-ng-disabled="!schedule.dosing"
+                            data-ng-options="term as term for term in model.frequencyTerms">
+                    </select>
+                </td>
+                <td>
+                    <div class="input-group spinner">
+                        <input type="text" style="overflow-x: hidden;" class="form-control"
+                               data-ng-change="frequencyChanged(schedule, group)"
+                               data-ng-disabled="!schedule.dosing"
+                               data-ng-model="schedule.frequency"
+                               tooltip-placement="top" tooltip={{schedule.frequency}}>
+
+                        <div class="input-group-btn-vertical">
+                            <button type="button" class="btn btn-default"
+                                    data-ng-disabled="!schedule.dosing"
+                                    data-ng-click="frequencyIncrement(schedule, group)">
+                                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default"
+                                    data-ng-disabled="!schedule.dosing"
+                                    data-ng-click="frequencyDecrement(schedule, group)">
+                                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <select class="form-control"
+                            data-ng-model="schedule.frequencyUnit"
+                            data-ng-change="frequencyChanged(schedule, group)"
+                            data-ng-disabled="!schedule.dosing"
+                            data-ng-options="unit as unit for unit in model.frequencyUnits">
+                        <!--<option value="" disabled selected style="display: none;"> Select...</option>-->
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="schedule.repeat" ng-change="repeatCheckboxChange(group)"
+                           class="checkbox">
+                <span class="glyphicon glyphicon-remove pull-right"
+                      style="top:-25px;"
+                      ng-click="removeSchedule(group,$index)">
+                </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 pull-right">
+        <button type="button" ng-click="addSchedule(group)" class="btn btn-default pull-right">Add
+            schedule period
+        </button>
+    </div>
+</div>
+</fieldset>
+</div>
+</div>
+</div>
+<div ng-show="model.loading" class="trbl-loader"></div>
+</div>

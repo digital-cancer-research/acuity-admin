@@ -1,0 +1,35 @@
+/*
+This style sheet is used for the "?" help icons
+*/
+
+a.help 
+{
+  cursor: pointer;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  //color: #891a4f !important;
+  color: #000 !important;
+  line-height: 13px;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 14px;
+  //border: 1px solid #891a4f;
+  border: 1px solid #000;
+  text-align: center;
+  position: relative;
+  padding-right: 1px;
+  text-decoration: none;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.ui-jqgrid th a.help {
+    color: #FFF !important;
+    border: 1px solid #FFF;
+}
+
+a.help:hover 
+{ 
+	background-color: #bdbcb8; 
+}

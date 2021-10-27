@@ -1,0 +1,100 @@
+* {
+	font-family: Sans-serif;
+}
+
+#schedulingTableResult {
+	width: 100%
+}
+
+#header {
+	height: 80px
+}
+
+.login-info {
+	float: right;
+}
+
+#logout {
+	float: right;
+	margin-top: 10px;
+}
+
+.login-name {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#gitInfo {
+	float: right;
+	border: 1px gray solid;
+	border-radius:10px 0px 0px 10px;
+	//margin-right:-8px;
+	margin-top:50px;
+	background-color:rgb(230, 230, 230);
+}
+
+#gitInfo > div {
+	font-size:10px;
+	display:inline-block;
+	padding:2px
+}
+
+#gitInfo p {
+	margin: 1px;
+}
+
+.ui-state-highlight td[role='gridcell'] {
+  //background-color: #bfafd7 !important;
+  background-color: #428BCA !important;
+}
+
+td[role='gridcell'] {
+    padding: 5px 10px;
+}
+
+td[role='gridcell'] input[type='text'] {
+    padding: 5px;
+    margin:  -5px 0;
+}
+
+.ui-widget-content a.errorEmailLink{
+ color: #85113f;
+ font-weight: bold;
+ font-style: italic;
+ font-size: .9em;
+ margin-top: 6px;
+ cursor:pointer;
+}
+.ui-dialog{z-index:1001 !important}
+.ui-front{z-index:1001 !important}
+
+
+.warning-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("images/icon16/Warning-icon.png") no-repeat center;
+}
+
+.ui-autocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ui-multiselect-checkboxes a,
+.ui-multiselect-checkboxes label {
+    font-weight: normal;
+}
+
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a,
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a:hover,
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a:focus {
+    cursor: default;
+    font-style: italic;
+    color: #808080 !important;
+}
+
+.curly-underline {
+    background: url(images/underline-element.gif) bottom repeat-x;
+}
