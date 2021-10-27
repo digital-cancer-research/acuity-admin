@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<root xmlns="http://visualisations.acuity.com/EntitiesToTables" schemaLocation="EntitiesToTables.xsd">
+
+    <table name="RESULT_PATIENT_GROUP">
+        <entity name="PatientGroup"/>
+    </table>
+
+    <table name="RESULT_PATIENT">
+        <entity name="Patient"/>
+    </table>
+
+    <table name="RESULT_DEATH">
+        <entity name="Death"/>
+    </table>
+
+    <table name="RESULT_PRIMARY_TUMOUR_LOCATION">
+        <entity name="PrimaryTumourLocation"/>
+    </table>
+
+    <table name="RESULT_VISIT">
+        <entity name="Visit"/>
+    </table>
+
+    <table name="RESULT_COUNTRY">
+        <entity name="Country"/>
+    </table>
+
+    <table name="RESULT_RANDOMISATION">
+        <entity name="Randomisation"/>
+    </table>
+
+    <table name="RESULT_EVENT_TYPE">
+        <entity name="EventType"/>
+    </table>
+
+    <table name="RESULT_AE">
+        <entity name="AE"/>
+    </table>
+
+    <table name="RESULT_AE_SEVERITY">
+        <entity name="AeSeverity"/>
+    </table>
+
+    <table name="RESULT_AE_ACTION_TAKEN">
+        <entity name="AeActionTaken"/>
+    </table>
+
+    <table name="RESULT_AE_CAUSALITY">
+        <entity name="AeCausality"/>
+    </table>
+
+    <table name="RESULT_DRUG">
+        <entity name="Drug"/>
+    </table>
+
+    <table name="RESULT_SERIOUS_ADVERSE_EVENT">
+        <entity name="SeriousAdverseEvent"/>
+    </table>
+
+    <table name="RESULT_TEST">
+        <entity name="Test"/>
+    </table>
+
+    <table name="RESULT_LAB_GROUP">
+        <entity name="LaboratoryGroup"/>
+    </table>
+
+    <table name="RESULT_LABORATORY">
+        <entity name="Laboratory"/>
+    </table>
+
+    <table name="RESULT_PATIENT_REPORTED_DATA">
+        <entity name="PatientData"/>
+    </table>
+
+
+    <table name="RESULT_SOURCE">
+        <entity name="Source"/>
+    </table>
+
+    <!--<table name="RESULT_ECG">-->
+    <!--<entity name="ECG"/>-->
+    <!--</table>-->
+
+    <table name="RESULT_EG">
+        <entity name="EG"/>
+    </table>
+
+    <table name="RESULT_DECG">
+        <entity name="DECG"/>
+    </table>
+
+    <table name="RESULT_LVEF">
+        <entity name="LVEF"/>
+    </table>
+
+    <table name="RESULT_VITALS">
+        <entity name="Vital"/>
+    </table>
+
+    <table name="RESULT_VITALS">
+        <entity name="VitalThin"/>
+    </table>
+
+    <table name="RESULT_MEDICINE">
+        <entity name="Medicine"/>
+    </table>
+
+    <table name="RESULT_CONMED_SCHEDULE">
+        <entity name="ConcomitantMedSchedule"/>
+    </table>
+
+    <table name="RESULT_TRG_MED_DOS_SCHEDULE">
+        <entity name="MedDosingSchedule"/>
+    </table>
+
+    <table name="RESULT_AE_NUM_ACT_TAKEN">
+        <entity name="AeNumActionTaken"/>
+    </table>
+
+    <table name="RESULT_AE_NUM_DEL">
+        <entity name="AeNumCycleDelayed"/>
+    </table>
+
+    <table name="RESULT_TARGET_MED_DOS_DISC">
+        <entity name="MedDosDisc"/>
+    </table>
+
+    <table name="RESULT_RECIST_ASSESSMENT">
+        <entity name="RecistAssessment"/>
+    </table>
+
+    <table name="RESULT_RECIST_TARGET_LESION">
+        <entity name="RecistTargetLesion"/>
+    </table>
+
+    <table name="RESULT_RECIST_NONTARGET_LESION">
+        <entity name="RecistNonTargetLesion"/>
+    </table>
+
+    <table name="RESULT_CHEMOTHERAPY">
+        <entity name="Chemotherapy"/>
+    </table>
+
+    <table name="RESULT_RADIOTHERAPY">
+        <entity name="Radiotherapy"/>
+    </table>
+
+    <table name="RESULT_SPECIMEN_COLLECTION">
+        <entity name="SpecimenCollection"/>
+    </table>
+
+    <table name="RESULT_PK_CONCENTRATION">
+        <entity name="PkConcentration"/>
+    </table>
+
+    <table name="RESULT_STACKED_PK_RESULTS">
+        <entity name="StackedPkResults"/>
+    </table>
+
+    <table name="RESULT_WITHDRAWAL_COMPLETION">
+        <entity name="WithdrawalCompletion"/>
+    </table>
+
+    <table name="RESULT_SC">
+        <entity name="SubjectCharacteristic"/>
+    </table>
+
+    <table name="RESULT_EXACERBATION">
+        <entity name="Exacerbation"/>
+    </table>
+
+    <table name="RESULT_EXA_SEVERITY_MAP">
+        <entity name="ExaSeverityMap"/>
+    </table>
+
+    <table name="RESULT_LUNGFUNC">
+        <entity name="LungFunction"/>
+    </table>
+
+    <table name="RESULT_EDIARY">
+        <entity name="EDiary"/>
+    </table>
+
+    <table name="RESULT_FM_GENE">
+        <entity name="FMGene"/>
+    </table>
+
+    <table name="RESULT_MEDICAL_HISTORY">
+        <entity name="MedicalHistory"/>
+    </table>
+
+    <table name="RESULT_PATHOLOGY">
+        <entity name="Pathology"/>
+    </table>
+
+    <table name="RESULT_NICOTINE_SUB_USE">
+        <entity name="NicotineSubUse"/>
+    </table>
+
+    <table name="RESULT_ALCOHOL_SUB_USE">
+        <entity name="AlcoholSubUse"/>
+    </table>
+
+    <table name="RESULT_PREGNANCY_TEST">
+        <entity name="PregnancyTest"/>
+    </table>
+
+    <table name="RESULT_CONMED_PROCEDURE">
+        <entity name="ConmedProcedure"/>
+    </table>
+
+
+    <table name="RESULT_SURGICAL_HISTORY">
+        <entity name="SurgicalHistory"/>
+    </table>
+
+    <table name="RESULT_DISEASE_EXTENT">
+        <entity name="DiseaseExtent"/>
+    </table>
+
+
+    <table name="RESULT_LIVER">
+        <entity name="LiverDI"/>
+    </table>
+
+
+    <table name="RESULT_CONSENT">
+        <entity name="Consent"/>
+    </table>
+
+
+    <table name="RESULT_PERFORMANCE_STATUS">
+        <entity name="PerformanceStatus"/>
+    </table>
+
+
+    <table name="RESULT_OVERDOSE_REPORT">
+        <entity name="OverdoseReport"/>
+    </table>
+
+
+    <table name="RESULT_LIVER_RISK_FACTORS">
+        <entity name="LiverRiskFactors"/>
+    </table>
+
+
+    <table name="RESULT_LIVERSS">
+        <entity name="LiverSS"/>
+    </table>
+
+
+    <table name="RESULT_SURVIVAL_STATUS">
+        <entity name="SurvivalStatus"/>
+    </table>
+
+    <table name="RESULT_CVOT">
+        <entity name="CVOT"/>
+    </table>
+
+    <table name="RESULT_CI_EVENT">
+        <entity name="CIEvent"/>
+    </table>
+
+    <table name="RESULT_CEREBROVASCULAR">
+        <entity name="Cerebrovascular"/>
+    </table>
+
+    <table name="RESULT_BIOMARKERS">
+        <entity name="Biomarker"/>
+    </table>
+
+    <table name="RESULT_CTDNA">
+        <entity name="CtDna"/>
+    </table>
+
+</root>

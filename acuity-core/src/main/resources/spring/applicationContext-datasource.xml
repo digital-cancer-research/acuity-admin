@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd" profile="!jndi">
+
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="${spring.datasource.driver-class-name}"/>
+        <property name="url" value="${spring.datasource.url}"/>
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+
+        <property name="initialSize" value="${spring.datasource.initial-size}"/>
+        <property name="maxActive" value="${spring.datasource.max-active}"/>
+        <property name="maxIdle" value="${spring.datasource.max-idle}"/>
+        <property name="minIdle" value="${spring.datasource.min-idle}"/>
+        <property name="maxWait" value="${spring.datasource.max-wait}"/>
+
+        <property name="testOnBorrow" value="${spring.datasource.test-on-borrow}"/>
+        <property name="testOnReturn" value="${spring.datasource.test-on-return}"/>
+        <property name="testWhileIdle" value="${spring.datasource.test-while-idle}"/>
+        <property name="validationQuery" value="${spring.datasource.validation-query}"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,84 @@
+<div class="report-table-container">
+    <div class="panel panel-default report-table">
+        <div class="panel-heading clearfix">
+            <div class="row">
+
+                <div class="pull-left col-lg-2 col-md-3">
+                    <h4>Upload summary</h4>
+                </div>
+                <div class="col-xs-1">
+                    <h4 class="pull-right">From:</h4>
+                </div>
+                <div class="col-md-2 col-xs-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               datepicker-popup="{{model.dateMask}}"
+                               ng-model="dateFrom"
+                               max-date="dateTo"
+                               is-open="fromOpened"
+                               ng-required="true"
+                               close-text="Close"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="toggleFrom($event)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <h4 class="pull-right">To:</h4>
+                </div>
+                <div class="col-md-2 col-xs-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               datepicker-popup="{{model.dateMask}}"
+                               ng-model="dateTo"
+                               min-date="dateFrom"
+                               is-open="toOpened"
+                               ng-required="true"
+                               close-text="Close"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="toggleTo($event)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <button class="btn btn-primary" ng-disabled="!dateTo || !dateFrom" ng-click="update()"
+                            type="submit">Update
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <div class="wrapper">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <th style="min-width: 125px">Date of Upload</th>
+                    <th style="min-width: 125px">Files count</th>
+                    <th style="min-width: 125px">Files size</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in model.uploadSummary">
+                        <td>{{row.date | date: model.dateMask}}</td>
+                        <td>{{row.filesCount}}</td>
+                        <td>{{row.filesSize}} B </td>
+                    </tr>
+                    <tr style="background-color: whitesmoke;" ng-if="model.uploadSummary.length!==0">
+                        <td>Average (per day)</td>
+                        <td>{{model.averageSummary.filesCount}}</td>
+                        <td>{{model.averageSummary.filesSize}} B</td>
+                    </tr>
+                    <tr style="background-color: whitesmoke;" ng-if="model.uploadSummary.length!==0">
+                        <td>Total</td>
+                        <td>{{model.totalSummary.filesCount}}</td>
+                        <td>{{model.totalSummary.filesSize}} B</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-if="model.uploadSummary.length==0 && !model.loading" class="text-center">No results found</div>
+                <div ng-if="model.loading" class="text-center">Loading...</div>
+            </div>
+        </div>
+    </div>
+</div>

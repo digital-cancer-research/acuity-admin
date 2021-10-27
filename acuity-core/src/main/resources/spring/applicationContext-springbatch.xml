@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/batch 
+	http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+    <batch:job id="ACUITY_ETL_Job" xmlns="http://www.springframework.org/schema/batch"
+               restartable="true">
+        <batch:listeners>
+            <batch:listener ref="jobListener"/>
+            <batch:listener ref="globalListener"/>
+        </batch:listeners>
+        <batch:step id="readConfiguration">
+            <batch:tasklet ref="readConfigurationTasklet"/>
+            <batch:next on="*" to="preprocessResources"/>
+            <batch:next on="FAILED" to="postProcess"/>
+            <batch:listeners>
+                <batch:listener ref="readConfigurationTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="preprocessResources">
+            <batch:tasklet ref="etlPreprocessTasklet">
+                <batch:transaction-attributes propagation="NEVER"/>
+            </batch:tasklet>
+            <batch:next on="PROCEED" to="readHashValue"/>
+            <batch:next on="SKIP" to="postProcess"/>
+            <batch:next on="FAILED" to="postProcess"/>
+            <batch:listeners>
+                <batch:listener ref="etlPreprocessTasklet"/>
+                <batch:listener ref="globalListener"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="readHashValue">
+            <batch:tasklet ref="readHashValuesTasklet"/>
+            <batch:next on="*" to="readProcessWrite"/>
+            <batch:next on="FAILED" to="postProcess"/>
+            <batch:listeners>
+                <batch:listener ref="readHashValuesTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="readProcessWrite">
+            <batch:tasklet>
+                <batch:chunk reader="multiResourceReader" processor="processor" writer="writer" commit-interval="10"/>
+            </batch:tasklet>
+            <batch:next on="*" to="postProcess"/>
+            <batch:listeners>
+                <batch:listener ref="multiResourceReader"/>
+                <batch:listener ref="chunkReader"/>
+                <batch:listener ref="processor"/>
+                <batch:listener ref="writer"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="postProcess">
+            <batch:tasklet ref="postProcessTasklet"/>
+            <batch:next on="*" to="publishReports"/>
+            <batch:listeners>
+                <batch:listener ref="postProcessTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="publishReports">
+            <batch:tasklet ref="publishReportsTasklet"/>
+            <batch:next on="*" to="cleanup"/>
+            <batch:listeners>
+                <batch:listener ref="publishReportsTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:step id="cleanup">
+            <batch:tasklet ref="cleanupTasklet"/>
+            <batch:listeners>
+                <batch:listener ref="cleanupTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+    </batch:job>
+
+    <batch:job id="AML_Job" xmlns="http://www.springframework.org/schema/batch"
+               restartable="true">
+        <batch:listeners>
+            <batch:listener ref="amlGlobalListener"/>
+        </batch:listeners>
+        <batch:step id="runAml">
+            <batch:tasklet ref="amlTasklet"/>
+            <batch:listeners>
+                <batch:listener ref="amlTasklet"/>
+                <batch:listener ref="stepListener"/>
+            </batch:listeners>
+        </batch:step>
+        <batch:validator ref="validator"/>
+    </batch:job>
+
+    <bean id="validator" class="org.springframework.batch.core.job.DefaultJobParametersValidator">
+        <property name="requiredKeys">
+            <set>
+                <value>etl.project</value>
+                <value>etl.study</value>
+                <value>etl.confSourceType</value>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="readConfigurationTasklet" class="com.acuity.visualisations.batch.tasklet.ReadConfigurationTasklet"
+          scope="step">
+        <property name="projectName" value="#{jobParameters['etl.project']}"/>
+        <property name="studyCode" value="#{jobParameters['etl.study']}"/>
+        <property name="confSourceType" value="#{jobParameters['etl.confSourceType']}"/>
+    </bean>
+
+    <bean id="etlPreprocessTasklet" class="com.acuity.visualisations.batch.tasklet.PreprocessResourcesTasklet"
+          scope="step">
+        <property name="scheduledCleanFlag" value="#{jobParameters['etl.scheduledCleanFlag']}"/>
+    </bean>
+
+</beans>

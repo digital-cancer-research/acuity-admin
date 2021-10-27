@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acuity.visualisations.web.service.wizard.study.StudySetupSubjectGroupRepository">
+
+    <resultMap type="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGrouping" id="subjectGrouping">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="type" javaType="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGroupingType">
+            <result property="id" column="msg_msgt_id"/>
+            <result property="name" column="msgt_type"/>
+        </association>
+        <collection property="groups" ofType="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGroup"/>
+        <!--<collection property="groups" ofType="com.acuity.visualisations.model.setup.vo.SubjectGroup" select="selectSubjectGroup" column=""/>-->
+        <!--<collection property="groups" column="msg_id" javaType="ArrayList" ofType="com.acuity.visualisations.model.setup.vo.SubjectGroup" select="selectSubjectGroups" resultMap="subjectGroup" />-->
+    </resultMap>
+
+    <resultMap type="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGroup" id="subjectGroup">
+        <result property="id" column="group_id"/>
+        <result property="index" column="group_idx"/>
+        <result property="groupingName" column="grouping_name"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupPreferedName" column="group_prefered_name"/>
+        <result property="subjectsCount" column="subject_count"/>
+        <collection property="dosings" resultMap="subjectGroupDosing" notNullColumn="msgd_id"/>
+    </resultMap>
+
+    <resultMap type="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGroupDosing" id="subjectGroupDosing">
+        <result property="id" column="msgd_id"/>
+        <result property="drug" column="msgd_drug"/>
+        <result property="formulation" column="msgd_formulation"/>
+        <result property="administrationRoute" column="msgd_administration_route"/>
+        <result property="totalDurationType" column="msgd_total_duration_type"/>
+        <result property="totalDurationCycles" column="msgd_total_duration_cycles"/>
+        <result property="doseSchedule" column="msgd_dose_schedule"/>
+        <result property="dosingContinuity" column="msgd_dosing_continuity"/>
+        <collection property="schedule" resultMap="subjectGroupDosingSchedule" notNullColumn="msgds_id"/>
+    </resultMap>
+
+
+    <resultMap type="com.acuity.visualisations.web.service.wizard.study.vo.SubjectGroupDosingSchedule" id="subjectGroupDosingSchedule">
+        <result property="id" column="msgds_id"/>
+        <result property="dosing" column="msgds_dosing"/>
+        <result property="repeat" column="msgds_repeat"/>
+        <result property="duration" column="msgds_duration"/>
+        <result property="durationUnit" column="msgds_duration_unit"/>
+        <result property="dose" column="msgds_dose"/>
+        <result property="doseUnit" column="msgds_dose_unit"/>
+        <result property="frequency" column="msgds_frequency"/>
+        <result property="frequencyUnit" column="msgds_frequency_unit"/>
+        <result property="frequencyTerm" column="msgds_frequency_term"/>
+    </resultMap>
+
+
+    <select
+            id="selectSavedSubjectGroupings"
+            resultMap="subjectGrouping"
+            fetchSize="100">
+        select
+        msg_id as id, msg_grouping_name as name, msg_msgt_id,
+        msgt_type
+        from map_subject_grouping
+        left outer join MAP_SUBJECT_GROUPING_TYPE msgt ON msgt.MSGT_ID = msg_msgt_id
+        where msg_study_id=#{studyId}
+    </select>
+
+    <select
+            id="selectSavedSubjectGroupingByName"
+            resultMap="subjectGrouping">
+        select
+        msg_id as id, msg_grouping_name as name, msg_msgt_id,
+        msgt_type
+        from map_subject_grouping
+        left outer join MAP_SUBJECT_GROUPING_TYPE msgt ON msgt.MSGT_ID = msg_msgt_id
+        where msg_study_id=#{studyId} and msg_grouping_name = #{groupingName}
+    </select>
+
+    <insert id="insertSubjectGrouping">
+        insert into map_subject_grouping (msg_id, msg_study_id, msg_grouping_name, msg_msgt_id)
+        values (#{subjectGrouping.id}, #{studyId}, #{subjectGrouping.name}, #{subjectGrouping.type.id})
+        <selectKey order="BEFORE" resultType="long" keyProperty="subjectGrouping.id">
+            SELECT nextval('msg_seq')
+        </selectKey>
+    </insert>
+
+    <update id="updateSubjectGrouping">
+        update map_subject_grouping set
+        msg_msgt_id=#{subjectGrouping.type.id}
+        where msg_id=#{subjectGrouping.id}
+    </update>
+
+    <select id="selectSubjectGroups" resultMap="subjectGroup" fetchSize="100">
+        select distinct msga_id as group_id
+        ,msga_index as group_idx
+        ,coalesce(msg_grouping_name, grouping_name) as grouping_name
+        ,coalesce(msga_group_name, group_name) as group_name
+        ,msga_group_prefered_name as group_prefered_name
+        ,coalesce(subject_count, 0) as subject_count
+        ,msgd_id, msgd_drug, msgd_formulation, msgd_administration_route
+        ,msgd_total_duration_type, msgd_total_duration_cycles
+        ,msgd_dose_schedule, msgd_dosing_continuity
+        ,msgds_id, msgds_dosing, msgds_repeat, msgds_duration, msgds_duration_unit, msgds_dose, msgds_dose_unit
+        ,msgds_frequency, msgds_frequency_unit, msgds_frequency_term
+        from (
+        select msr_id as study_id, pgr_grouping_name as grouping_name, pgr_group_name as group_name,
+        count(distinct pgr_pat_subject) as subject_count
+        from result_patient_group
+        inner join result_study on pgr_std_id = std_id
+        inner join map_study_rule on std_name = msr_study_code
+        group by msr_id, pgr_grouping_name, pgr_group_name
+
+        union
+
+        select msgr_study_id,  msgr_name, msgv_name,
+        count(distinct msgv_subject_id) as subject_count
+        from map_subject_group_rule
+        left join map_subject_group_value_rule on msgv_group_id=msgr_id
+        group by msgr_study_id, msgr_name, msgv_name
+        ) t
+
+        <if test="_databaseId == 'H2'">
+            <!-- Only for several tests where the result is doesn't matter -->
+            inner join (select 1 as msg_study_id,  1 as msga_id, 1 as msga_index, 'Gpp' as msg_grouping_name, 'Gp' as msga_group_name, 'Gppn' msga_group_prefered_name) on 1=1
+        </if>
+
+        <if test="_databaseId != 'H2'">
+            left outer join (
+            select msg_study_id, msga_index, msg_grouping_name, msga_id, msga_group_name, msga_group_prefered_name
+            from map_subject_grouping
+            left join map_subject_group_annotation on msga_grouping_id=msg_id
+            ) t1
+            on (msg_study_id=study_id and msg_grouping_name=grouping_name and msga_group_name=group_name)
+        </if>
+
+        left join map_subject_group_dosing on msgd_msga_id=msga_id
+        left join map_subject_group_dosing_sched on msgds_msgd_id=msgd_id
+        where study_id=#{studyId} or msg_study_id=#{studyId}
+        order by msgd_id, msgds_id
+    </select>
+
+
+    <select id="selectSubjectGroup" resultMap="subjectGroup" fetchSize="1">
+        select msga_id as group_id
+        ,msga_index as group_idx
+        ,msg_grouping_name as grouping_name
+        ,msga_group_name as group_name
+        ,msga_group_prefered_name as group_prefered_name
+        ,coalesce(subject_count, 0) as subject_count
+        ,msgd_id, msgd_drug, msgd_formulation, msgd_administration_route
+        ,msgd_total_duration_type, msgd_total_duration_cycles
+        ,msgd_dose_schedule, msgd_dosing_continuity
+        ,msgds_id, msgds_dosing, msgds_repeat, msgds_duration, msgds_duration_unit, msgds_dose, msgds_dose_unit
+        ,msgds_frequency, msgds_frequency_unit, msgds_frequency_term
+
+        from (
+        select msr_id as study_id, pgr_grouping_name as grouping_name, pgr_group_name as group_name,
+        count(distinct pgr_pat_subject) as subject_count
+        from result_patient_group
+        inner join result_study on pgr_std_id = std_id
+        inner join map_study_rule on std_name = msr_study_code
+        group by msr_id, pgr_grouping_name, pgr_group_name
+
+        union
+
+        select msgr_study_id,  msgr_name, msgv_name,
+        count(distinct msgv_subject_id) as subject_count
+        from map_subject_group_rule
+        left join map_subject_group_value_rule on msgv_group_id=msgr_id
+        group by msgr_study_id, msgr_name, msgv_name
+        ) as t
+        right join (
+        select msg_study_id, msg_grouping_name, msga_id, msga_index, msga_group_name, msga_group_prefered_name
+        from map_subject_grouping
+        left join map_subject_group_annotation on msga_grouping_id=msg_id
+        ) as k on  (msg_study_id=study_id and msg_grouping_name=grouping_name and msga_group_name=group_name)
+
+
+        left join map_subject_group_dosing on msgd_msga_id=msga_id
+        left join map_subject_group_dosing_sched on msgds_msgd_id=msgd_id
+        where msga_id=#{subjectGroupId}
+        order by msgd_id, msgds_id
+    </select>
+
+
+    <insert id="insertSubjectGroup">
+        insert into map_subject_group_annotation
+        (msga_id, msga_index, msga_grouping_id, msga_group_name, msga_group_prefered_name)
+        values (#{subjectGroup.id},
+        #{subjectGroup.index, jdbcType=INTEGER},
+        #{subjectGroupingId},
+        #{subjectGroup.groupName},
+        #{subjectGroup.groupPreferedName, jdbcType=VARCHAR})
+        <selectKey order="BEFORE" resultType="long" keyProperty="subjectGroup.id">
+            SELECT nextval('msga_seq')
+        </selectKey>
+    </insert>
+
+    <insert id="insertSubjectGroupDosing">
+        insert into map_subject_group_dosing
+        (msgd_id, msgd_msga_id, msgd_drug, msgd_formulation, msgd_administration_route,
+        msgd_total_duration_type, msgd_total_duration_cycles,
+        msgd_dose_schedule, msgd_dosing_continuity)
+        values (#{subjectGroupDosing.id},
+        #{subjectGroupId},
+        #{subjectGroupDosing.drug},
+        #{subjectGroupDosing.formulation, jdbcType=VARCHAR},
+        #{subjectGroupDosing.administrationRoute, jdbcType=VARCHAR},
+        #{subjectGroupDosing.totalDurationType, jdbcType=VARCHAR},
+        #{subjectGroupDosing.totalDurationCycles, jdbcType=NUMERIC},
+        #{subjectGroupDosing.doseSchedule, jdbcType=VARCHAR},
+        #{subjectGroupDosing.dosingContinuity, jdbcType=VARCHAR})
+        <selectKey order="BEFORE" resultType="long" keyProperty="subjectGroupDosing.id">
+            SELECT nextval('msgd_seq')
+        </selectKey>
+    </insert>
+
+
+    <insert id="insertSubjectGroupDosingSchedule">
+        insert into map_subject_group_dosing_sched
+        (msgds_id, msgds_msgd_id,
+        msgds_dosing, msgds_repeat, msgds_duration, msgds_duration_unit, msgds_dose, msgds_dose_unit, msgds_frequency,
+        msgds_frequency_unit, msgds_frequency_term)
+        values (#{subjectGroupDosingSchedule.id},
+        #{subjectGroupDosingId},
+        #{subjectGroupDosingSchedule.dosing},
+        #{subjectGroupDosingSchedule.repeat},
+        #{subjectGroupDosingSchedule.duration, jdbcType=NUMERIC},
+        #{subjectGroupDosingSchedule.durationUnit, jdbcType=VARCHAR},
+        #{subjectGroupDosingSchedule.dose, jdbcType=NUMERIC},
+        #{subjectGroupDosingSchedule.doseUnit, jdbcType=VARCHAR},
+        #{subjectGroupDosingSchedule.frequency, jdbcType=NUMERIC},
+        #{subjectGroupDosingSchedule.frequencyUnit, jdbcType=VARCHAR},
+        #{subjectGroupDosingSchedule.frequencyTerm, jdbcType=VARCHAR})
+        <selectKey order="BEFORE" resultType="long" keyProperty="subjectGroupDosingSchedule.id">
+            SELECT nextval('msgds_seq')
+        </selectKey>
+    </insert>
+
+
+    <update id="updateSubjectGroup">
+        update map_subject_group_annotation set
+        msga_group_prefered_name=#{subjectGroup.groupPreferedName, jdbcType=VARCHAR},
+        msga_index=#{subjectGroup.index, jdbcType=INTEGER}
+        where msga_id=#{subjectGroup.id}
+    </update>
+
+
+    <delete id="deleteSubjectGroup">
+        delete from map_subject_group_annotation where msga_id=#{subjectGroupId}
+    </delete>
+
+    <delete id="deleteSubjectGroupDosings">
+        delete from map_subject_group_dosing where msgd_msga_id=#{subjectGroupId}
+    </delete>
+
+</mapper>

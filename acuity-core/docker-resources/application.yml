@@ -1,0 +1,83 @@
+# manages "X-Application-Context" HTTP header setting (more info: https://docs.spring.io/spring-boot/docs/1.4.x/reference/html/common-application-properties.html )
+management:
+  add-application-context-header: false
+
+# manages links rendering behind proxy (more info: https://docs.spring.io/spring-boot/docs/1.5.x/reference/html/howto-embedded-servlet-containers.html#howto-use-tomcat-behind-a-proxy-server )
+server:
+  use-forward-headers: true
+  session:
+    cookie:
+      name: ADMINUISESSIONID
+
+# path to the logs directory (more info: https://docs.spring.io/spring-boot/docs/1.5.4.RELEASE/reference/htmlsingle/#boot-features-custom-log-configuration )
+logging:
+  path: /var/log
+
+# database connection data. if needed, the ones you need may be overridden for particular app in its config.
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/acuity_db
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+    fetch:
+      size: 256
+    initial-size: 10
+    max-active: 50
+    max-idle: 30
+    min-idle: 10
+    max-wait: 10000
+    validation-query: SELECT 1
+    test-while-idle: true
+    test-on-borrow: true
+    test-on-return: true
+  # Spring Batch-specific option: disables all jobs execution on app startup (more info: https://www.baeldung.com/spring-batch-testing-job)
+  batch:
+    job:
+      enabled: false
+
+acuity:
+  # used by AdminUI and VAHub to connect to VASecurity
+  vasecurity:
+    url: http://vasecurity:8000
+    username: acuity
+    password:
+  # used by AdminUI and VASecurity to connect to VAHUb
+  vahub:
+    url: http://vahub:8000
+    username: acuity
+    password:
+  # for VASecurity authorization module used in all ACUITY apps (basic authentication settings; should be here as long as basic authentication is used)
+  security:
+    basic-auth:
+      users:
+        - username: acuity
+          password:
+          roles:
+            - REMOTE_USER
+            - ACL_ADMINISTRATOR
+            - TRAINED_USER
+          authorities:
+            - ADMIN
+
+# email settings
+mail:
+  send-debug-info-to:
+  sender:
+    # SMTP server url
+    host: localhost
+    # SMTP server port
+    port: 25
+
+azure:
+  storage:
+    protocol: https
+    account:
+    key:
+
+local-storage:
+  # Could be changed to the path of a local folder for development purposes
+  path: /usr/root/local-file-storage
+  # Could be switched to another, e.g. 'azure-file://' or 'smb://' (to emulate Azure or Samba storage correspondingly);
+  # in this case 'azure-storage'/'smb-storage' profiles should be disabled to avoid conflict
+  prefix: local://

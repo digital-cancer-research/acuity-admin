@@ -1,0 +1,145 @@
+
+/*______Admin Page______*/
+.adm-page-wrap {
+	background-color: #a899bc;
+	border: 1px solid #7c6697;
+	margin: 40px 50px;
+	padding: 1px;
+	position: relative;
+}
+.adm-page-table {
+	background-color: #f2f1f6;
+	width: 100%;
+}
+.adm-page-table td {
+	border: 1px solid #7c6697;
+	height: 150px;
+	vertical-align: top;
+	width: 42%;
+}
+.adm-page-table td:first-child {
+	width: 16%;
+}
+
+	/*Action Buttons*/
+	.act-but-header {
+		background: #afa0c1;
+		background: -moz-linear-gradient(top,  #afa0c1 0%, #8a79a1 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#afa0c1), color-stop(100%,#8a79a1));
+		background: -webkit-linear-gradient(top,  #afa0c1 0%,#8a79a1 100%);
+		background: -o-linear-gradient(top,  #afa0c1 0%,#8a79a1 100%);
+		background: -ms-linear-gradient(top,  #afa0c1 0%,#8a79a1 100%);
+		background: linear-gradient(to bottom,  #afa0c1 0%,#8a79a1 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afa0c1', endColorstr='#8a79a1',GradientType=0 );
+
+		box-shadow: 0 2px 8px 1px rgba(0,0,0,0.2);
+		color: #583e7b;
+		font: bold 12px/29px arial;
+		text-align: center;
+	}
+	.act-but-content {
+		margin: 31px auto;
+		width: 70px;
+	}
+	.act-but-content button {
+		float: none;
+		margin: 0 0 7px 0;
+		width: 70px;
+	}
+
+	/*Data List*/
+	.data-list {
+		height: 100%;
+		overflow-y: scroll;
+	}
+	.data-list li {
+		background-color: #fff;
+		color: #1b1b1b;
+		cursor: pointer;
+		font: normal 12px/29px arial;
+		padding: 0 11px;
+	}
+	.data-list li:nth-child(odd) {
+		background-color: #f2f2ef;
+	}
+	.data-list li.active{
+		background: #bfafd7 url(images/arrow-right-list.png) right 50% no-repeat;
+	}
+	.data-list li:hover{
+      background: #cdc8dc
+	}
+
+	/*Data Content*/
+	.data-content {
+		color: #1b1b1b;
+		padding: 15px;
+	}
+	.data-content h3 {
+		font: bold 14px arial;
+		margin-bottom: 4px;
+	}
+	.data-content label {
+		font: normal 12px/18px arial;
+	}
+	.data-content b {
+		color: #372766;
+		font: bold 12px arial;
+	}
+
+	/*Admin Top Trigger*/
+	.adm-top-trigger {
+		background: transparent url(images/adm-top-trigger.png) 0 0 no-repeat;
+		height: 26px;
+		position: absolute;
+		right: 250px;
+		top: -25px;
+		width: 208px;
+	}
+	.adm-top-trigger.his {
+		background-position: 0 -26px;
+	}
+	.adm-top-trigger a {
+		color: #fff;
+		display: block;
+		font: bold 12px arial;
+		height: 22px;
+		left: 22px;
+		position: absolute;
+		text-align: center;
+		text-decoration: none;
+		top: 5px;
+		width: 80px;
+	}
+	.adm-top-trigger.his a {
+		color: #a393b7;
+		font-size: 11px;
+		left: 21px;
+		top: 7px;
+	}
+	.adm-top-trigger a:last-child {
+		color: #a393b7;
+		font-size: 11px;
+		left: 107px;
+		top: 7px;
+	}
+	.adm-top-trigger.his a:last-child {
+		color: #fff;
+		font-size: 12px;
+		left: 107px;
+		top: 5px;
+	}
+	.reportLink {
+        //color: #85113f;
+        //font-weight: bold;
+        //font-style: italic;
+        float:right;
+    }
+
+    .ui-dialog-titlebar-close {display:none}
+
+
+
+
+
+
+

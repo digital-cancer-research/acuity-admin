@@ -1,0 +1,2754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<pages>
+    <!-- Use ‘ instead of ' -->
+    <page>
+        <pageName>1-search-programme</pageName>
+        <help>
+            <pageElement>colRadio</pageElement>
+            <helpText>After finding or listing a set of drug programmes, use the radio buttons below to
+                select the drug programme that you wish to configure using the radio-button selector.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDrugID</pageElement>
+            <helpText>The drug programme identifier</helpText>
+        </help>
+        <help>
+            <pageElement>colNStudies</pageElement>
+            <helpText>The total number of studies within the drug programme that are know to  the ACUITY  system either
+                via a link to the IMPACT data system, or that have been manually added through  the ACUITY  system.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colNAcuityStudies</pageElement>
+            <helpText>The number of studies that have been enabled for further
+                configuration (e.g. data mapping) in ACUITY
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityEnabled</pageElement>
+            <helpText>Whether the drug programme itself has been previously set up within  the ACUITY  system.</helpText>
+        </help>
+        <help>
+            <pageElement>colAction</pageElement>
+            <helpText>Provides a link to the summary of the set up for and drug programmes that have been ACUITY-enabled.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>2-edit-programme</pageName>
+        <help>
+            <pageElement>drugProgrammeID</pageElement>
+            <helpText>The drug programme identifier</helpText>
+        </help>
+        <help>
+            <pageElement>drugProgrammeName</pageElement>
+            <helpText>This is the name that will be visible in ACUITY and VA Security. Spotfire files will be named
+                using the Drug Programme ID.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>programmeEnabled</pageElement>
+            <helpText>Whether the drug programme itself has previously been set up within  the ACUITY  system.</helpText>
+        </help>
+        <help>
+            <pageElement>studyNumberStudies</pageElement>
+            <helpText>The total number of studies within the drug programme that are known to  the ACUITY  system
+                either via link to the IMPACT data system, or have been enabled for further configuration.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyNumberEnabledStudies</pageElement>
+            <helpText>The number of studies that have been enabled for further
+                configuration (e.g. data mapping) in ACUITY
+            </helpText>
+        </help>
+        <help>
+            <pageElement>chiefProgramme</pageElement>
+            <helpText>The name of the individual who will have the primary responsibility for administering ACUITY
+                for this drug project. Current guidance indicates this should be the Medical Science Director. This
+                field is used to help  the ACUITY  team manage ACUITY  for drug programmes.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>ownerProgramme</pageElement>
+            <helpText>The name of the individual who will have the responsibility of authorising access for other
+                users to  the ACUITY  visualisations for this drug programme. Current guidance indicates that this should
+                be the Medical Science Director. This field is used by  the ACUITY  team to set up processes for
+                authorisation to see study data.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>createDashboard</pageElement>
+            <helpText>A programme-level view displaying high-level study counts,
+                which are important to ascertain current progress for a particular drug.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>4-setup-groupings</pageName>
+        <help>
+            <pageElement>groupType</pageElement>
+            <helpText>Select the type of grouping that you wish to create. The options are adverse event groupings,
+                where different preferred terms can be grouped, or lab measurement groupings whereby different types of
+                lab measurement can be grouped. The idea is that this allows a customisable way to group together sets of
+                patient data that are of particular interest to your drug programme.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>groupingName</pageElement>
+            <helpText>Each grouping must have a unique name, but it is up to you what name you use. We recommend you use
+                a name that is fairly explanatory so that your group is identifiable at other stages in the ACUITY
+                configuration.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>defaultValue</pageElement>
+            <helpText>The default group value is the values for the group name that will be assigned to any adverse
+                event (for adverse event groupings) or lab measurement (for lab measurement groups) that
+                are not explicitly assigned to a group in the data provided by the user. For clarity, we recommend
+                you use a value such as "not assigned to a group".
+            </helpText>
+        </help>
+        <help>
+            <pageElement>dataLocation</pageElement>
+            <helpText>Here you must either provide the location of the data file which holds (or will hold) the grouping
+                information, or select to perform manual entry. If you are uploading a file, the format of that file
+                must be as two columns, where the first column holds the name of the groups and the seconds column
+                holds the terms being grouped. The file should be comma-separated (.csv) text file.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>headerRow</pageElement>
+            <helpText>Check the box if the file you wish to upload has a header row. Header rows will not be used in
+                these groupings.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>dataReady</pageElement>
+            <helpText>Check the box if the grouping you are creating is appropriate to be used in ACUITY  visualisations.
+                Leaving the box unchecked will mean that although your grouping configuration will be stored, the
+                groupin will not be available for use in ACUITY  visualisations.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colGroupingName</pageElement>
+            <helpText>Grouping names uniquely identify each user-defined data grouping to be identifiable
+                at other stages in the ACUITY configuration.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colTypeOfGroup</pageElement>
+            <helpText>The grouping type refers to what sort of variable is being grouped. Adverse event groupings group
+                different MedDRA preferred terms and lab measurement groupings group sets of lab measurements types
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDataSource</pageElement>
+            <helpText>The data source refers to the source of grouping data. This may be a file, or the
+                data may have been entered manually through this interface.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityEnabled</pageElement>
+            <helpText>ACUITY enabled being checked means that the groupings can be used in ACUITY  visualisations. Go to
+                "Edit Settings" to change the value of this checkbox.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colLastEdited</pageElement>
+            <helpText>Shows the name of the user who last edited this grouping.</helpText>
+        </help>
+        <help>
+            <pageElement>colDate</pageElement>
+            <helpText>Shows the date when this grouping was last edited.</helpText>
+        </help>
+        <help>
+            <pageElement>colAeGroupName</pageElement>
+            <helpText>In this column you can view and edit the group names. Group names are user-defined, but we
+                recommend that these names capture the rationale behind the group. Note that group names are
+                case-sensitive. You can click in the table cells to make edits to the group names, then click
+                on Save to store your changes.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colMedDra</pageElement>
+            <helpText>In this column, you can view and edit the adverse events preferred terms, or lab measurement
+                preferred names being grouped. You can click in the table cells to make edits to the group names,
+                then click on Save to store your changes.
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>colLabGroupingName</pageElement>
+            <helpText>In this column you can view and edit the group names.
+                Group names are user-defined, but we recommend that these names capture the rationale behind the group.
+                Note that group names are case-sensitive. You can click in the table cells to make edits to the
+                group names, then click on Save to store your changes.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colLabcodeValue</pageElement>
+            <helpText>In this column, you can view and edit labcode for each Lab grouping. You can click
+                in the table cells to make edits to the group names, then click on Save to store your changes.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colLabDescription</pageElement>
+            <helpText>In this column, you can view and edit the description for labcode.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>admin</pageName>
+        <help>
+            <pageElement>drugProgrammes</pageElement>
+            <helpText>Here we list the drug programmes that have been configured to use ACUITY. You may add a new drug
+                programme, edit an existing drug programme, or remove an existing drug programme configuration using
+                the buttons below. Selecting a drug programme from a list will allow you to view the clinical study
+                data sets and ACUITY  visualisation modules that have been configured for the programme.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>clinicalStudyDataSets</pageElement>
+            <helpText>Here we list the clinical study data sets that have been configured to use ACUITY  for the drug
+                programme selected, above. You may add a new study configuration, edit an existing study configuration,
+                or remove an existing study configuration using the buttons below.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>visualisationModules</pageElement>
+            <helpText>Here we list the visualisation modules that have been configured for the drug programme selected.
+                You may add a new visualisation module, edit an existing visualisation module, or remove an existing
+                visualisation module using the buttons below.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>1-search-study</pageName>
+        <help>
+            <pageElement>colStudyID</pageElement>
+            <helpText>The dataset identifier</helpText>
+        </help>
+        <help>
+            <pageElement>colStudyName</pageElement>
+            <helpText>The name of the clinical study</helpText>
+        </help>
+        <help>
+            <pageElement>colPhase</pageElement>
+            <helpText>The clinical study phase</helpText>
+        </help>
+        <help>
+            <pageElement>colStudySetupStatus</pageElement>
+            <helpText>The setup status of the study in ACUITY.
+
+                "Not added to ACUITY" indicates that the study is not ready to be configured in ACUITY  as the parent drug
+                programme has not been set up to allow this study to be configured. To remedy this you can reconfigure
+                the drug programme.
+
+                "Ready to map" indicates that the drug programme has been set up to allow this study to be configured,
+                but no study configuration has yet been recorded.
+
+                "Mapping in progress" indicates that the study configuration is underway, but incomplete.
+
+                "Previously mapped" indicates that the mapping is sufficiently complete and enabled such that ACUITY  can
+                use the study data in visualisations.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>2-edit-study</pageName>
+        <help>
+            <pageElement>drugID</pageElement>
+            <helpText>The drug programme identifier. This field is important for the organisation of date in ACUITY
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyID</pageElement>
+            <helpText>The dataset identifier. This field is important for the organisation of data in ACUITY
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyName</pageElement>
+            <helpText>The name of the dataset. This field is for user reference only and does not affect the data
+                processing in ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>clinicalStudyId</pageElement>
+            <helpText>The clinical study identifier. This field is important for the organisation of data in ACUITY
+            </helpText>
+        </help>
+        <help>
+            <pageElement>clinicalStudyName</pageElement>
+            <helpText>The name of the clinical study. This field is for user reference only and does not affect the data
+                processing in ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyPhase</pageElement>
+            <helpText>The clinical study phase. This field is for user reference only and does not affect the data
+                processing in ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyType</pageElement>
+            <helpText>The type of study, such as dose-finding. This field is for user reference only and does not affect
+                the data processing in ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyDeliveryModel</pageElement>
+            <helpText>The organisational process through which the study is being made, e.g., run by internal AZ R&amp;D.
+                This field is for user reference only and does not affect the data processing in ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>subjectPlannedDate</pageElement>
+            <helpText>For prospective studies this should be an estimate of the date when the first subject will be dosing.
+                For studies that have already begun, this should approximate the actual date for first subject dosing.
+                This date can be modified as more is known about the study organisation. This date will be used
+                to help  the ACUITY  team establish when data updates are likely to being.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>dbPlannedDate</pageElement>
+            <helpText>This should be an estimate for when the primary database lock will occur. This date can be
+                modified according to the progression of the study. This date will be used to help the ACUITY
+                team establish when  the ACUITY  system should be shut down for the study
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyPrimarySource</pageElement>
+            <helpText>The folder location where the source files are stored. This is usually the CAVE location
+                for this study‘s SAS files. This field allows the user to designate the location for the
+                automatic mapping functions to search for the correct files.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>blinded</pageElement>
+            <helpText>This field refers to whether the study has a blinding aspect. This field is critically important
+                for correct use of data in ACUITY. If you are unsure of the correct value, or if this status has not
+                yet been decided, select "Blinded" as this will ensure that the integrity of the study is not compromised.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>randomised</pageElement>
+            <helpText>This field refers to whether the study subjects are randomised between study arms. This field is
+                critically important for the correct use of data in ACUITY. If you are unsure of the correct value, or if this
+                status has not yet been decided, then select "Randomised" as this will ensure that the integrity of the study is not
+                compromised.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>regulatory</pageElement>
+            <helpText>This field refers to whether the study will deliver or support a licensing submission. This field
+                is critically important for the correct use of data in ACUITY. If you are unsure of the correct value, or if this
+                status has not yet been decided, then select "Regulatory" as this will ensure that the integrity of the study is not
+                compromised.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>cBioProfiles</pageElement>
+            <helpText>Only applicable if including genomic data (for the Genomic Profile visualisation)
+                and the link out to cBio is required. Information required by cBioPortal.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>amlEnabledForStudy</pageElement>
+            <helpText>Enabling will allow relevant data to be sent to Azure Machine Learning Studio. It will be possible to view outcomes in the Machine Insights QT Interval plot.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>3-edit-mappings</pageName>
+        <help>
+            <pageElement>dataType</pageElement>
+            <helpText>Select the type of data that is being mapped into ACUITY  from the drop-down list.</helpText>
+        </help>
+        <help>
+            <pageElement>dataLocation</pageElement>
+            <helpText>Here you must either provide the location of the data file which holds (or will hold) the grouping
+                information. The files can either be SAS (sas7bdat) or a comma-separated (.csv) text file. If the
+                file location is yet to be established, but you want to start mapping configuration, choose the upper option.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>whatWithData</pageElement>
+            <helpText>Check the box if the data mapped is appropriate and correctly configured to be used in ACUITY
+                visualisations. Leaving the box unchecked will mean that although your configuration will be stored,
+                the data will not be available for use in ACUITY  visualisations.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colTypeOfInfo</pageElement>
+            <helpText>Displays the type of data that is being mapped into ACUITY</helpText>
+        </help>
+        <help>
+            <pageElement>colDataSource</pageElement>
+            <helpText>Displays the location of the source data, if known.</helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityEnabled</pageElement>
+            <helpText>ACUITY enabled being checked means that the data can be used in ACUITY  visualisations. Go to "Edit
+                Settings" to change the value of this checkbox.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colLastEdited</pageElement>
+            <helpText>Shows the name of the user who last edited this grouping.</helpText>
+        </help>
+        <help>
+            <pageElement>colDate</pageElement>
+            <helpText>Shows the date when this grouping was last edited.</helpText>
+        </help>
+        <help>
+            <pageElement>colDataField</pageElement>
+            <helpText>The name of  the ACUITY  data field.</helpText>
+        </help>
+        <help>
+            <pageElement>colSourceData</pageElement>
+            <helpText>The name of the column in the source data that maps to  the ACUITY  data field. You may add more than
+                one column, to do this put multiple column names separated by commas.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDecodingInfo</pageElement>
+            <helpText>Some data, particularly data in SAS files, is coded into integers. In order for ACUITY  to extract
+                some meaningful values, information about how to change codes to meaningful values may be required.
+                To do this, you must first
+                configure the mapping for a value decoding file. The value entered into this column must be equivalent to a value that will appear
+                in the "code group name" field of that value decoding file.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDefaultValue</pageElement>
+            <helpText>A default value that will be assigned to  the ACUITY  field in the case where no equivalent column
+                exists in the source data, or where the value in the source data is blank.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAggregation</pageElement>
+            <helpText>These aggregation functions allow  the ACUITY  system to make sense of some of the more complicated
+                data mapping requirements for ACUITY. For most mapped data, no aggregation is required. However, for date
+                values  the ACUITY  system must be told whether it is the day, or month, that appear first in the date
+                representation. In addition, the user can make ACUITY  system take the maximum value from a set
+                of numerical columns. This is particularly useful when a maximum CTC grade must be taken from a set
+                of different CTC values.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colMandatory</pageElement>
+            <helpText>This column indicates whether the field in question is mandatory, or not. For a data table mapping
+                to be considered complete, all mandatory fields must be mapped, whereas other fields are optional.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>study-setup-main</pageName>
+        <help>
+            <pageElement>dataChecklist</pageElement>
+            <helpText>The Data Checklist provides a summary of the mapping progress for the study date. Information
+                types that are not completely mapped (where not all mandatory fields are mapped to a source data file
+                column) are shown with a red question mark and information types that are completely mapped to
+                a minimum acceptable level are shown with a green tick mark. Note that a green tick mark does not
+                necessarily indicate that your choice of mapping is accurate! In addition, for a study to be considered
+                to be ready for use in one or more ACUITY  visualisation modules, all of the information types listed
+                as "Mandatory patient information" must be completely mapped.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>4-edit-groupings</pageName>
+        <help>
+            <pageElement>colGroupingName</pageElement>
+            <helpText>Grouping names uniquely identify each user-defined subject grouping and allow the grouping
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDataSource</pageElement>
+            <helpText>The data source refers to the source of grouping data. This may be a file, or the data may have
+                been entered manually
+                through this interface.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityEnabled</pageElement>
+            <helpText>ACUITY enabled being checked means that the data can be used in ACUITY  visualisations. Go to "Edit
+                Settings" to change the
+                value of this checkbox.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colLastEdited</pageElement>
+            <helpText>Shows the name of the user who last edited this grouping.</helpText>
+        </help>
+        <help>
+            <pageElement>colDate</pageElement>
+            <helpText>Shows the date when this grouping was last edited.</helpText>
+        </help>
+        <help>
+            <pageElement>colSubjectID</pageElement>
+            <helpText>In this column you can view and edit the group names. Group names are user-defined, but we
+                recommend that these names capture the rationale behind the group. Note that group names are
+                case-sensitive. You can click in the table cells to make edits to the group names, then click
+                on Save to store your changes.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colGroupName</pageElement>
+            <helpText>In this column you can view and edit the adverse events preferred terms, or lab measurement
+                preferred names being grouped. You can click in the table cells to make edits to the group names,
+                then click on Save to store your changes.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>5-study-setup-summary</pageName>
+        <help>
+            <pageElement>studySummary</pageElement>
+            <helpText>The dataset summary provides an overview of the clinical study dataset setup. you should check
+                this is correct before finishing the setup
+            </helpText>
+        </help>
+        <help>
+            <pageElement>dataMappings</pageElement>
+            <helpText>Here we show a summary of the data mappings for the clinical study</helpText>
+        </help>
+        <help>
+            <pageElement>altSubjectGroupings</pageElement>
+            <helpText>Here we show a summary of the alternative subject groupings for the clinical study.</helpText>
+        </help>
+        <help>
+            <pageElement>disclaimer</pageElement>
+            <helpText>For this study to be used in ACUITY, we must be sure that all of the set up is appropriate. In
+                particular, the blinding, randomisation and regulatory statuses of the set up are correct and that
+                no inappropriate (e.g. unblinding) subject groups have been created. To confirm the setup is
+                correct you must indicate this in the disclaimer.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>history</pageElement>
+            <helpText>Here we record the history of study set up confirmation so that it is clear who has taken
+                responsibility for confirmation and when confirmation was granted.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>1-project-and-study</pageName>
+        <help>
+            <pageElement>projectTable</pageElement>
+            <helpText>Select the drug programme for which you wish to create a set of ACUITY  visualisations. Note that
+                only drug programmes that have been configured for ACUITY  are displayed.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>studyTable</pageElement>
+            <helpText>Select the datasets for which you wish to create a set of ACUITY  visualisations. Note only
+                clinical studies that have been configured for ACUITY  are displayed. You must select at least one study.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>2-project-groupings</pageName>
+        <help>
+            <pageElement>aeGroupings</pageElement>
+            <helpText>Select the adverse event groupings you wish to include in your ACUITY  visualisations. Selecting a
+                grouping is not essential for ACUITY  set up. In order to set up a new adverse event grouping you should
+                visit the drug programme setup.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>labGroupings</pageElement>
+            <helpText>Select the lab measurement groupings you wish to include in your ACUITY  visualisations. Selecting a
+                grouping is not essential for ACUITY  set up. In order to set up a new adverse event grouping you should
+                visit the drug programme setup.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>3-instance-settings</pageName>
+        <help>
+            <pageElement>selectModule</pageElement>
+            <helpText>ACUITY modules are sets of visualisations tailored to explore a particular aspect of the clinical
+                studies. The current choices available are ACUITY Safety (designed to allow exploration of safety-related
+                signals in the data) and ACUITY  Tolerability (designed to allow exploration of the drug tolerability).
+                Further modules may be added over time. You will only be allowed to choose modules that are appropriate
+                based on the types of studies you have selected.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Name</pageElement>
+            <helpText>Each set of ACUITY  visualisations must be given a unique name, this will be used as the analysis
+                file name. The first part of the name is standard and has been completed for you. Try to use short,
+                but meaningful names. For example, "ACUITY_Safety_STDY4321_study1"
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>4-study-groupings</pageName>
+        <help>
+            <pageElement>studyName</pageElement>
+            <helpText>Select the alternative subject groupings you wish to include in your ACUITY  visualisations.
+                Selecting a grouping is not essential for ACUITY  set up. In order to set up a new adverse event
+                grouping you should visit the drug programme setup.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>biomarkerGroupings</pageElement>
+            <helpText>Select the biomarker groupings you wish to include in your ACUITY  Oncology visualisations.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>5-views</pageName>
+        <help>
+            <pageElement>moduleLabel</pageElement>
+            <helpText>ACUITY views are visualisations tailored to explore a particular aspect of the clinical study. Here
+                you may select any views that are appropriate for the type of studies within  the ACUITY  module.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>warnings</pageElement>
+            <helpText>Warnings indicate the reasons why certain ACUITY  views are not available. This may be due to a lack
+                of source data, in which case you may be able to revisit the clinical study setup and provide further
+                mappings, or because the type of view is not appropriate for the type of study (based on the
+                randomisation, blinding and regulatory statuses of the studies).
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>6-summary</pageName>
+        <help>
+            <pageElement>acuityName</pageElement>
+            <helpText>This summary provides an overview of  the ACUITY  module that will be set up. Before finishing the
+                setup, you should check whether this information is correct.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>confirmation</pageElement>
+            <helpText>For theseACUITY  visualisations to be created, you should ensure that the configuration is
+                appropriate. In particular, you should consider that after creation, all authorised users will have
+                access to this visualisation through ACUITY. You can confirm the configuration is correct and continue
+                to create this ACUITY  instance by confirmation in the disclaimer, then pressing the Finish button.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>dataMappings</pageName>
+        <help>
+            <pageElement>Somatic status</pageElement>
+            <helpText>
+                1. ‘Somatic status‘ should equal one of the following values:
+                &#9;&#8226; ‘known‘
+                &#9;&#8226; ‘likely‘
+                &#9;&#8226; ‘unknown‘
+                2. ‘known‘ or ‘likely‘ values will be shown in the Genomic Profile
+                3. ‘unknown‘ values will not be shown in the Genomic Profile
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Variant type</pageElement>
+            <helpText>
+                1. ‘Variant-type‘ should equal one of the following values:
+                &#9;&#8226; ‘short-variant‘
+                &#9;&#8226; ‘copy number alteration‘
+                &#9;&#8226; ‘rearrangement‘
+                2. When the value is:
+                &#9;&#8226; ‘short-variant‘ the mutation type field is taken from ‘Mutation type‘ in the data structure
+                &#9;&#8226; ‘copy number alteration‘ the mutation type field is taken from ‘Copy number alteration type‘ in the data structure
+                &#9;&#8226; ‘rearrangement‘ the mutation type field is taken from ‘Rearrangement description‘ in the data structure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Mutation type</pageElement>
+            <helpText>For a field to appear as NULL in the plot the cell must be empty.
+                If the dataset has e.g. a ‘-‘ to denote NULL then use the decoding function along with an entry in the
+                ‘cntlin‘ file.
+                The Mutation type field in the data structure is used for mutation type when variant type = ‘short variant‘.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Copy number alteration type</pageElement>
+            <helpText>For a field to appear as NULL in the plot the cell must be empty.
+                If the dataset has e.g. a ‘-‘ to denote NULL then use the decoding function along with an entry in the
+                ‘cntlin‘ file.
+                The Copy number alteration type (CNA_TYPE) field in the data structure is used for mutation when variant type = ‘copy number alteration‘.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Rearrangement description</pageElement>
+            <helpText>For a field to appear as NULL in the plot the cell must be empty.
+                If the dataset has e.g. a ‘-‘ to denote NULL then use the decoding function along with an entry in the
+                ‘cntlin‘ file.
+                The Rearrangement description (REARR_DESCRIPTION) field in the data structure is used for mutation when variant type = rearrangement.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Action Taken, Study Drug</pageElement>
+            <helpText>A string value describing the type of change being made to the dosing schedule</helpText>
+        </help>
+        <help>
+            <pageElement>AE description</pageElement>
+            <helpText>A String value that can hold further description of the serious adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>AE End Date</pageElement>
+            <helpText>The date on which the adverse event ended</helpText>
+        </help>
+        <help>
+            <pageElement>AE Start Date</pageElement>
+            <helpText>The date on which the adverse event began</helpText>
+        </help>
+        <help>
+            <pageElement>AE End Time</pageElement>
+            <helpText>The time of day at which the adverse event ended</helpText>
+        </help>
+        <help>
+            <pageElement>AE Start Time</pageElement>
+            <helpText>The time of day at which the adverse event began</helpText>
+        </help>
+        <help>
+            <pageElement>AE Term</pageElement>
+            <helpText>A string value describing the type of adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>Any New Lesions Since Baseline (yes/no)</pageElement>
+            <helpText>A string value denoting whether any new lesions have been identified since the baseline measurement
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Any Non Target Lesion Present (yes/no)</pageElement>
+            <helpText>A string value denoting whether or not any non-target lesions were present at the time of the
+                non-target lesion assessment
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Any Target Lesion Present (yes/no)</pageElement>
+            <helpText>A string value denoting whether ir not any target lesion was found to be present at the time of
+                target lesion assessment
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Assessment Date</pageElement>
+            <helpText>The date on which the vital measurements were performed</helpText>
+        </help>
+        <help>
+            <pageElement>ATC code</pageElement>
+            <helpText>A string value denoting the Anatomical Therapeutic Chemical unique identifier for the medication
+            </helpText>
+        </help>
+        <help>
+            <pageElement>ATC code text</pageElement>
+            <helpText>A string value denoting the Anatomical Therapeutic Chemical identifier for the medication full name
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Centre Number</pageElement>
+            <helpText>A unique integer value for the study centre</helpText>
+        </help>
+        <help>
+            <pageElement>Code group name</pageElement>
+            <helpText>A string that acts as a group name used to group together distinct sets of codes and their
+                corresponding decoded values
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Coded value</pageElement>
+            <helpText>An integer value ‘code‘ that that can be decoded into a meaningful value.</helpText>
+        </help>
+        <help>
+            <pageElement>Congenital Anomaly or Birth Defect</pageElement>
+            <helpText>A string value denoting whether or not the serious adverse event caused a congenital abnormality
+                or birth defect
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Date AE Met Criteria for Serious AE</pageElement>
+            <helpText>The date on which the serious adverse event met the Serious criteria</helpText>
+        </help>
+        <help>
+            <pageElement>Date Investigator Aware of Serious AE</pageElement>
+            <helpText>The date on which investigator became aware of the Serious adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Birth</pageElement>
+            <helpText>The date of birth of the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Date of ECG</pageElement>
+            <helpText>The date on which the ECG was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Hospitalization</pageElement>
+            <helpText>The date on which the subject was hospitalised due to the serious adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>Date of death</pageElement>
+            <helpText>The date on which the subject died</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Discharge</pageElement>
+            <helpText>The date on which the subject was discharged from hospital</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Investigational Product Discontinuation</pageElement>
+            <helpText>The date on which the study drug was discontinued</helpText>
+        </help>
+        <help>
+            <pageElement>Subject Decision Specification</pageElement>
+            <helpText>A value that provides the subject decision specification</helpText>
+        </help>
+        <help>
+            <pageElement>Other Subject Decision Specification</pageElement>
+            <helpText>A value that provides the other subject decision specification</helpText>
+        </help>
+        <help>
+            <pageElement>Date of the Measurement</pageElement>
+            <helpText>The date on which the measurement was made</helpText>
+        </help>
+        <help>
+            <pageElement>Decoded value</pageElement>
+            <helpText>A string that is the meaningful (decoded) that can be translated from a coded value</helpText>
+        </help>
+        <help>
+            <pageElement>Diastolic Blood Pressure</pageElement>
+            <helpText>A real number value giving the diastolic blood pressure</helpText>
+        </help>
+        <help>
+            <pageElement>Dose Frequency</pageElement>
+            <helpText>An integer value denoting the frequency with which the medication is administered to the subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Dosing Frequency</pageElement>
+            <helpText>A string value that describes the dosing frequency, e.g., "BID" for twice -daily.
+                This field will be used in precedence over the dosing frequency per interval and interval unit fields.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Dosing Frequency (per Interval)</pageElement>
+            <helpText>An integer value denoting the frequency with which the study drug is administered to the subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Dosing Frequency Interval Unit</pageElement>
+            <helpText>A string value denoting the unit in which the dosing frequency is measured</helpText>
+        </help>
+        <help>
+            <pageElement>Dose Frequency Unit</pageElement>
+            <helpText>A string value denoting the unit in which the medication frequency is measured</helpText>
+        </help>
+        <help>
+            <pageElement>Dose per Administration</pageElement>
+            <helpText>A real number value giving the dose of medication given to the subject per administration
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Dose Unit</pageElement>
+            <helpText>A string value denoting the unit in which the dose amount is measured</helpText>
+        </help>
+        <help>
+            <pageElement>End date of concomitant medication</pageElement>
+            <helpText>The date on which the medication regimen ended</helpText>
+        </help>
+        <help>
+            <pageElement>End date/time of the dose schedule</pageElement>
+            <helpText>The date on which the dosing schedule ended</helpText>
+        </help>
+        <help>
+            <pageElement>Free text where the reason is specified.</pageElement>
+            <helpText>A string value providing the further reasons for which the study drug was discontinued</helpText>
+        </help>
+        <help>
+            <pageElement>Height</pageElement>
+            <helpText>A real number giving the height of the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Imaging Date</pageElement>
+            <helpText>The date on which the LVEF imaging was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Investigator Opinion Agrees with RECIST Response (yes/no)</pageElement>
+            <helpText>A string value denoting whether or not the investigator opinion of response agrees with the RECIST
+                response
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Investigator Opinion of Patient Status</pageElement>
+            <helpText>A string value giving the investigator opinion of response</helpText>
+        </help>
+        <help>
+            <pageElement>Left Ventricular Ejection Fraction</pageElement>
+            <helpText>A real number value denoting the LVEF</helpText>
+        </help>
+        <help>
+            <pageElement>Lower reference Value</pageElement>
+            <helpText>A real number value that gives the lower reference range value for the laboratory test result for
+                the subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Laboratory Test Identifier</pageElement>
+            <helpText>A string identifier denoting what sort of laboratory measurement was made</helpText>
+        </help>
+        <help>
+            <pageElement>Laboratory Test Unit</pageElement>
+            <helpText>A string value denoting the units in which the laboratory value is measured</helpText>
+        </help>
+        <help>
+            <pageElement>Laboratory Value</pageElement>
+            <helpText>A real number value that gives the value for the laboratory test result</helpText>
+        </help>
+        <help>
+            <pageElement>Life Threatening (yes/no)</pageElement>
+            <helpText>A string value denoting whether or not the adverse event was life threatening</helpText>
+        </help>
+        <help>
+            <pageElement>Longest Diameter of Target Lesion</pageElement>
+            <helpText>A real number value denoting the longest diameter of the target lesion</helpText>
+        </help>
+        <help>
+            <pageElement>LVEF Method</pageElement>
+            <helpText>A string value denoting the method by which the LVEF was measured</helpText>
+        </help>
+        <help>
+            <pageElement>LVEF Method, Other</pageElement>
+            <helpText>A string value that describes any alternative method used to measure the LVEF</helpText>
+        </help>
+        <help>
+            <pageElement>Main Reason for Action Taken, Study Drug</pageElement>
+            <helpText>A string value describing the main reason for change being made to the dosing schedule</helpText>
+        </help>
+        <help>
+            <pageElement>Main reason for Investigational Product Discontinuation</pageElement>
+            <helpText>A string value providing the main reason for which the study drug was discontinued</helpText>
+        </help>
+        <help>
+            <pageElement>MEDDRA Higher-Level Term</pageElement>
+            <helpText>A MedDRA Higher-Level Term Name string assigned to the adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>MEDDRA Low-Level Term</pageElement>
+            <helpText>A MedDRA Low-Level Term Name string assigned to the adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>MEDDRA Preferred term.</pageElement>
+            <helpText>A MedDRA Preferred Term Name string assigned to the adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>MEDDRA System Organ Class</pageElement>
+            <helpText>A MedDRA System Organ class abbreviation or name string assigned to the adverse event</helpText>
+        </help>
+        <help>
+            <pageElement>MEDDRA Version</pageElement>
+            <helpText>The MedDRA version used to code the adverse event, e.g, 4.0</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Group</pageElement>
+            <helpText>A string value that denotes the group of medications to which the medication belongs.</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Name</pageElement>
+            <helpText>A string value denoting the name of the medication</helpText>
+        </help>
+        <help>
+            <pageElement>Maximum severity grade</pageElement>
+            <helpText>A value that denotes the maximum severity grade experienced for the given AE, either using
+                AE CTC grading or AE Intensity grading.
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>Starting severity grade for AE</pageElement>
+            <helpText>A value that denotes the initial starting severity grade for the given AE,
+                either using AE CTC grading or AE Intensity grading.
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>AE severity grade changes</pageElement>
+            <helpText>AE severity grade values denoted by either CTC or AE Intensity, over time. Where multiple severity
+                grade columns are provided, these should be entered in the order that they occurred, separated by
+                commas, corresponding to the dates provided in the "AE severity change dates (mm/dd/yyyy)" column. Note that the
+                "Multiple AE severity grade changes" aggregation function must be selected for this to work.
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>AE severity change dates (mm/dd/yyyy)</pageElement>
+            <helpText>Date values that when changes in severity grade over time happened. Where multiple date columns
+                are provided, these should be entered in order, separated by commas, corresponding to the severity
+                values provided in the "AE severity grade changes" column, and the "Multiple AE severity grade changes"
+                aggregation function must be selected.
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>New Lesion Site</pageElement>
+            <helpText>A string value that denotes the site occupied by the a new lesion</helpText>
+        </help>
+        <help>
+            <pageElement>New Lesion Date of Scan/Clinical Examination</pageElement>
+            <helpText>The date on which the new lesion assessment was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Non-Target Lesion Date of Scan/Clinical Examination</pageElement>
+            <helpText>The date on which the non-target lesion was assessed</helpText>
+        </help>
+        <help>
+            <pageElement>O2 Saturation Level</pageElement>
+            <helpText>A real number giving the O2 saturation level for the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Original Diagnosis Date</pageElement>
+            <helpText>The date on which the subject was originally diagnosed with the disease</helpText>
+        </help>
+        <help>
+            <pageElement>Other Serious/Important Medically Event</pageElement>
+            <helpText>A string value denoting whether or not the serious adverse event caused a congenital abnormality
+                or birth defect
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Other Medication or Drug that Caused AE</pageElement>
+            <helpText>A string value specifying the name of the medication or drug other than the investigational
+                product that caused the serious adverse event
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Overall ECG evaluation</pageElement>
+            <helpText>A string value that summarises the ECG evaluation</helpText>
+        </help>
+        <help>
+            <pageElement>Clinically Significant</pageElement>
+            <helpText>A value denoting whether the ECG value captured has clinical significance</helpText>
+        </help>
+        <help>
+            <pageElement>Persist. or Sign. Disability/Incapacity</pageElement>
+            <helpText>A string value denoting whether or not the serious adverse event caused persisting signs of
+                disability or incapacity
+            </helpText>
+        </help>
+        <help>
+            <pageElement>PR interval duration</pageElement>
+            <helpText>A real number vaalue giving the PR interval duration from the ECG measurement</helpText>
+        </help>
+        <help>
+            <pageElement>Primary Tumor Location</pageElement>
+            <helpText>A string that describes the location of the primary tumour</helpText>
+        </help>
+        <help>
+            <pageElement>Pulse Rate</pageElement>
+            <helpText>A real number value giving the pulse rate</helpText>
+        </help>
+        <help>
+            <pageElement>QRS Duration</pageElement>
+            <helpText>A real number value giving the QRS duration from the ECG measurement</helpText>
+        </help>
+        <help>
+            <pageElement>QT interval duration</pageElement>
+            <helpText>A real number value giving the QT interval duration from the ECG measurement</helpText>
+        </help>
+        <help>
+            <pageElement>Race</pageElement>
+            <helpText>A string value that denotes the race of the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Reason, Abnormal Overall ECG Evaluation</pageElement>
+            <helpText>A string value that describes reasons why the overall ECG evaluation was summarised to be
+                abnormal
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Indication</pageElement>
+            <helpText>A string value denoting the reason why the treatment was administered to the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Reason for Study Drug Dose Change Specification</pageElement>
+            <helpText>A string value describing further reason for change being made to the dosing schedule</helpText>
+        </help>
+        <help>
+            <pageElement>Reason RECIST and Investigator Assessments Differ</pageElement>
+            <helpText>A string value that describes the reason for which the RECIST response and investigator opinion of
+                response differ.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Reasonable Possibility AE Caused by Investigational Product (yes/no)</pageElement>
+            <helpText>A string value denoting whether the adverse event was probably caused by the investigational
+                product.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>RECIST Response</pageElement>
+            <helpText>A string value that provides the overall response of the subject at the time of assessment
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Requires or Prolongs Hospitalization</pageElement>
+            <helpText>A string value denoting whether or the serious adverse event prolonged or required
+                hospitalisation
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Response of Non-Target Lesions</pageElement>
+            <helpText>A string value that summarises the response of the non-target lesions at the time of assessment
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Results in Death (yes/no)</pageElement>
+            <helpText>A string value denoting whether or not the subject died as a result of the adverse event(s)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>RR interval duration</pageElement>
+            <helpText>A real number vaalue giving the RR interval duration from the ECG measurement</helpText>
+        </help>
+        <help>
+            <pageElement>SAE Caused by Other Medication</pageElement>
+            <helpText>A string value denoting whether or not the serious adverse event was caused by medication other
+                than the investigational product
+            </helpText>
+        </help>
+        <help>
+            <pageElement>SAE Caused by Study Procedure(s)</pageElement>
+            <helpText>A string value specifying whether the serious adverse event was caused as a result of the clinical
+                study procedure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Sampling Date</pageElement>
+            <helpText>The date on which the sample for the laboratory test was taken</helpText>
+        </help>
+        <help>
+            <pageElement>Serious AE (yes/no)</pageElement>
+            <helpText>A string value denoting whether the adverse event was of the serious category</helpText>
+        </help>
+        <help>
+            <pageElement>Sex</pageElement>
+            <helpText>A string value that denotes the sex of the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Site of Non-Target Lesion</pageElement>
+            <helpText>A string value denoting the site occupied by the non-target lesion</helpText>
+        </help>
+        <help>
+            <pageElement>Site of Target Lesion</pageElement>
+            <helpText>A string value denoting the site occupied by the assessed target lesion</helpText>
+        </help>
+        <help>
+            <pageElement>Specify Primary Tumor Location</pageElement>
+            <helpText>A string description with further information describing the location of the primary tumour
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Start date of concomitant medication</pageElement>
+            <helpText>The date on which the medication regimen began</helpText>
+        </help>
+        <help>
+            <pageElement>Start date/time of the dose schedule</pageElement>
+            <helpText>The date on which the dosing schedule began</helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug Name</pageElement>
+            <helpText>A string that uniquely identifies the name of the study drug (otherwise known as the
+                "investigational product")
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Study identifier</pageElement>
+            <helpText>A unique string identifier for the clinical study that will be used to identify the study
+                throughout other data files.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Study part identifier</pageElement>
+            <helpText>A unique string identifier for the study part identifier that will be used to identify the study
+                part throughout other data files.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Study Procedure(s) that Caused AE</pageElement>
+            <helpText>A string value specifying the aspect of the study procedure that caused the serious adverse
+                event
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Subject group name</pageElement>
+            <helpText>A string value giving the name of the subject group</helpText>
+        </help>
+        <help>
+            <pageElement>Subject grouping name</pageElement>
+            <helpText>A string value used to name the set of patient groupings that have been mapped in this file,
+                such as "Dose Cohorts". A default value may be applied here.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Subject identifier</pageElement>
+            <helpText>A unique string identifier for the subject that will be used to identify the subject throughout
+                other data files. The enrolment code is recommended.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Systolic Blood Pressure</pageElement>
+            <helpText>A real number value giving the systolic blood pressure</helpText>
+        </help>
+        <help>
+            <pageElement>Target Lesion Number</pageElement>
+            <helpText>A string value that is the unique identifier for the target lesion that is assessed</helpText>
+        </help>
+        <help>
+            <pageElement>Target Lesion Date of Scan/Clinical Examination</pageElement>
+            <helpText>The date on which the target lesion was assessed</helpText>
+        </help>
+        <help>
+            <pageElement>Upper Reference Value</pageElement>
+            <helpText>A real number value that gives the upper reference range value for the laboratory test result for
+                the subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Visit Date</pageElement>
+            <helpText>A date value for the visit on which the subject was enrolled.</helpText>
+        </help>
+        <help>
+            <pageElement>Visit Number</pageElement>
+            <helpText>An integer value denoting the number of the visit</helpText>
+        </help>
+        <help>
+            <pageElement>Vital.Module</pageElement>
+            <helpText>The Vital.Module column is required when multiple vitals measurements from the same assessment
+                time point are listed on separate rows. For example, height and weight on one row and O2 saturation on
+                a separate row but all with the same measurement date. As these rows will show different module
+                identifiers,  the ACUITY  system can use the module column to ensure that the data is pooled, rather
+                than one row overwriting another.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Weight</pageElement>
+            <helpText>A real number giving the weight of the subject</helpText>
+        </help>
+
+        <help>
+            <pageElement>Specimen identifier</pageElement>
+            <helpText>The identifier for the specimen</helpText>
+        </help>
+        <help>
+            <pageElement>Specimen collection date/time</pageElement>
+            <helpText>The actual date and time when the sample specimen was collected</helpText>
+        </help>
+        <help>
+            <pageElement>Specimen collection category</pageElement>
+            <helpText>The category of specimen, relating to the purpose for collection, e.g., "PK, Biofluid"</helpText>
+        </help>
+        <help>
+            <pageElement>Protocol schedule</pageElement>
+            <helpText>A text representation of the time point in relation to the study protocol</helpText>
+        </help>
+        <help>
+            <pageElement>Protocol schedule day</pageElement>
+            <helpText>A numerical representation of the time point, days</helpText>
+        </help>
+        <help>
+            <pageElement>Protocol schedule hour</pageElement>
+            <helpText>A numerical representation of the time point, hours</helpText>
+        </help>
+        <help>
+            <pageElement>Protocol schedule minute</pageElement>
+            <helpText>A numerical representation of the time point, minutes</helpText>
+        </help>
+        <help>
+            <pageElement>Date/time of investigational drug administration</pageElement>
+            <helpText>The date and time of the investigational drug administration to which the specimen collection
+                relates
+            </helpText>
+        </help>
+
+        <help>
+            <pageElement>Analyte</pageElement>
+            <helpText>The name of the analyte, expected to be a drug identifier</helpText>
+        </help>
+        <help>
+            <pageElement>Analyte concentration</pageElement>
+            <helpText>The concentration of the analyte in the sample</helpText>
+        </help>
+        <help>
+            <pageElement>Analyte concentration unit</pageElement>
+            <helpText>The unit of concentration for the measurement of the analyte</helpText>
+        </help>
+        <help>
+            <pageElement>Lower limit of quantification</pageElement>
+            <helpText>The lower limit of quantification for the analyte in the sample</helpText>
+        </help>
+        <help>
+            <pageElement>Cycle</pageElement>
+            <helpText>The number, or text explanation for the cycle of treatment at the time of sampling</helpText>
+        </help>
+        <help>
+            <pageElement>Treatment</pageElement>
+            <helpText>A short description of the treatment the subject is undertaking</helpText>
+        </help>
+        <help>
+            <pageElement>Treatment/protocol dose</pageElement>
+            <helpText>A short description of the treatment the subject is undertaking
+                or the dose specified in the protocol</helpText>
+        </help>
+        <help>
+            <pageElement>Treatment schedule</pageElement>
+            <helpText>A short description of the treatment schedule the subject is undertaking</helpText>
+        </help>
+        <help>
+            <pageElement>Comment</pageElement>
+            <helpText>A comment that accompanies the concentration result</helpText>
+        </help>
+        <help>
+            <pageElement>Visit name</pageElement>
+            <helpText>A text representation of the visit, e.g., Cycle 0 Day 01</helpText>
+        </help>
+        <help>
+            <pageElement>Lesion No Longer Measurable</pageElement>
+            <helpText>A value describing why the target lesion has not been measured</helpText>
+        </help>
+        <help>
+            <pageElement>Method of Assessment</pageElement>
+            <helpText>A value denoting the method of assessment of the target lesion</helpText>
+        </help>
+        <help>
+            <pageElement>Parameter</pageElement>
+            <helpText>A description of the PK parameter being expressed, e.g., "Cmin"</helpText>
+        </help>
+
+        <help>
+            <pageElement>Withdrawal / Completion Date</pageElement>
+            <helpText>The date that the subject withdrew from or completed the study</helpText>
+        </help>
+        <help>
+            <pageElement>Prematurely Withdrawn</pageElement>
+            <helpText>Whether the subject prematurely withdrew rather than completed the study</helpText>
+        </help>
+        <help>
+            <pageElement>Reason for Withdrawal/Completion</pageElement>
+            <helpText>The main reason why the subject prematurely withdrew</helpText>
+        </help>
+        <help>
+            <pageElement>Withdrawal/Completion Specification</pageElement>
+            <helpText>An explanation of the reason for premature withdrawal</helpText>
+        </help>
+
+        <help>
+            <pageElement>Ethnic Population</pageElement>
+            <helpText>The number, expected to be an ethnic population identifier</helpText>
+        </help>
+        <help>
+            <pageElement>Other Ethnic Population</pageElement>
+            <helpText>The text explanation of other ethnic population</helpText>
+        </help>
+        <help>
+            <pageElement>Assessment date</pageElement>
+            <helpText>The date on which the e-Diary assessment was captured</helpText>
+        </help>
+        <help>
+            <pageElement>Time for study drug intake</pageElement>
+            <helpText>The time of day at which study drug intake occurred</helpText>
+        </help>
+        <help>
+            <pageElement>Device or study drug name</pageElement>
+            <helpText>The name that identifies the type of device or study drug whose intake is being recorded
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Assessment time (morning)</pageElement>
+            <helpText>The time of day that the morning assessment was recorded</helpText>
+        </help>
+        <help>
+            <pageElement>PEF morning (L/min)</pageElement>
+            <helpText>The peak expiratory flow recorded at the morning assessment, in L/min</helpText>
+        </help>
+        <help>
+            <pageElement>Assessment time (evening)</pageElement>
+            <helpText>The time of day that the evening assessment was recorded</helpText>
+        </help>
+        <help>
+            <pageElement>PEF evening (L/min)</pageElement>
+            <helpText>The peak expiratory flow recorded at the evening assessment, in L/min</helpText>
+        </help>
+        <help>
+            <pageElement>Asthma symptom score (night-time)</pageElement>
+            <helpText>The asthma symptom score for the night</helpText>
+        </help>
+        <help>
+            <pageElement>Asthma symptom score (day-time)</pageElement>
+            <helpText>The asthma symptom score for the day</helpText>
+        </help>
+        <help>
+            <pageElement>Woke due to asthma</pageElement>
+            <helpText>Whether one or more awakenings can be attributed to asthma symptoms</helpText>
+        </help>
+        <help>
+            <pageElement>Sample ID</pageElement>
+            <helpText>Sample ID</helpText>
+        </help>
+        <help>
+            <pageElement>Median exon coverage</pageElement>
+            <helpText>Median exon coverage</helpText>
+        </help>
+        <help>
+            <pageElement>Disease</pageElement>
+            <helpText>Disease</helpText>
+        </help>
+        <help>
+            <pageElement>Known somatic short variants</pageElement>
+            <helpText>Known somatic short variants (percent-reads, coverage)</helpText>
+        </help>
+        <help>
+            <pageElement>Likely somatic short variants</pageElement>
+            <helpText>Likely somatic short variants (percent-reads, coverage)</helpText>
+        </help>
+        <help>
+            <pageElement>High-level amplifications</pageElement>
+            <helpText>High-level (CN>8) and focal (CN>5) amplifications of genes amplifications of genes known to be
+                recurrently amplified in cancer (copy number, exons)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Low-level amplifications</pageElement>
+            <helpText>Non-focal lower-level (CN&lt;=8) amplifications of genes known to be recurrently amplified in
+                cancer (copy-number, exons)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Homozygous deletions</pageElement>
+            <helpText>Homozygous deletions of genes known to be recurrently deleted in cancer (0, exons)</helpText>
+        </help>
+        <help>
+            <pageElement>Likely functional rearrangements</pageElement>
+            <helpText>Likely functional rearrangements (e.g., gene fusions) (gene1_gene2_genomic event
+                description_supporting-reads)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Comments</pageElement>
+            <helpText>Comments</helpText>
+        </help>
+        <help>
+            <pageElement>AE Outcome</pageElement>
+            <helpText>Current state of the AE, e.g. "Recovered/Resolved", Recovering/Resolving", etc.</helpText>
+        </help>
+        <help>
+            <pageElement>Dose Limiting Toxicity</pageElement>
+            <helpText>Flag to specify that this AE defined the upper limit of dosing</helpText>
+        </help>
+        <help>
+            <pageElement>Time Point for Dose Limiting Toxicity</pageElement>
+            <helpText>A value that describes the timepoint for dose limiting toxicity, such as a cycle number, visit
+                number or date.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Immune-mediated AE</pageElement>
+            <helpText>AE driven by immune system imbalance</helpText>
+        </help>
+        <help>
+            <pageElement>Infusion Reaction AE</pageElement>
+            <helpText>AE relates to the administration of drug via IV infusion</helpText>
+        </help>
+        <help>
+            <pageElement>AE Required Treatment</pageElement>
+            <helpText>Flag to specify that this AE required treatment.</helpText>
+        </help>
+        <help>
+            <pageElement>AE Caused Subject Withdrawal</pageElement>
+            <helpText>AE resulted in the subject having to or choosing to withdraw from the study</helpText>
+        </help>
+        <help>
+            <pageElement>Action taken</pageElement>
+            <helpText>Action taken</helpText>
+        </help>
+        <help>
+            <pageElement>Investigational drug names</pageElement>
+            <helpText>Investigational drug names</helpText>
+        </help>
+        <help>
+            <pageElement>Additional drug names</pageElement>
+            <helpText>Additional drug names</helpText>
+        </help>
+        <help>
+            <pageElement>Initial action taken for investigational drugs</pageElement>
+            <helpText>Initial action taken for investigational drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Initial action taken for additional drugs</pageElement>
+            <helpText>Initial action taken for additional drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Action taken due to severity grade changes for investigational drugs</pageElement>
+            <helpText>Action taken due to severity grade changes for investigational drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Action taken due to severity grade changes for additional drugs</pageElement>
+            <helpText>Action taken due to severity grade changes for additional drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Causality for investigational drugs</pageElement>
+            <helpText>Causality for investigational drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Causality for additional drugs</pageElement>
+            <helpText>Causality for additional drugs</helpText>
+        </help>
+        <help>
+            <pageElement>Substance category</pageElement>
+            <helpText>A value that describes the substance use category</helpText>
+        </help>
+        <help>
+            <pageElement>Substance use occurrence</pageElement>
+            <helpText>A value that describes the usage occurrence (never, current, former)</helpText>
+        </help>
+        <help>
+            <pageElement>Type of substance</pageElement>
+            <helpText>A value that describes the type of the substance</helpText>
+        </help>
+        <help>
+            <pageElement>Other substance type specification</pageElement>
+            <helpText>A value that describes alternative type of the substance</helpText>
+        </help>
+        <help>
+            <pageElement>Substance consumption</pageElement>
+            <helpText>A value that describes the substance consumption (Units)</helpText>
+        </help>
+        <help>
+            <pageElement>Frequency</pageElement>
+            <helpText>A value that describes frequency interval of the substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Visit Number</pageElement>
+            <helpText>The number of the subject visit. Please enter a numeric value only to this field.</helpText>
+        </help>
+        <help>
+            <pageElement>PT Visit Date</pageElement>
+            <helpText>The date of the subject visit</helpText>
+        </help>
+        <help>
+            <pageElement>PT Sampling Date</pageElement>
+            <helpText>The date on which the measurement was made</helpText>
+        </help>
+        <help>
+            <pageElement>PT Serum</pageElement>
+            <helpText>A value denoting the result of pregnancy test - Serum (positive or negative)</helpText>
+        </help>
+        <help>
+            <pageElement>PT Urine</pageElement>
+            <helpText>A value denoting the result of pregnancy test - Urine (positive or negative)</helpText>
+        </help>
+        <help>
+            <pageElement>PT Plasma</pageElement>
+            <helpText>A value denoting the result of pregnancy test - Plasma (positive or negative)</helpText>
+        </help>
+        <help>
+            <pageElement>Pregnancy Test</pageElement>
+            <helpText>A value denoting the result of pregnancy test (positive or negative)</helpText>
+        </help>
+        <help>
+            <pageElement>Category</pageElement>
+            <helpText>A value describes substance use category</helpText>
+        </help>
+        <help>
+            <pageElement>Sub Type</pageElement>
+            <helpText>A value describes type of substance</helpText>
+        </help>
+        <help>
+            <pageElement>Other Type Specification</pageElement>
+            <helpText>A value describes alternative type of substance</helpText>
+        </help>
+        <help>
+            <pageElement>Sub Use Occurrence</pageElement>
+            <helpText>A value describes usage occurrence (never, current, former)</helpText>
+        </help>
+        <help>
+            <pageElement>Current Use Specification</pageElement>
+            <helpText>A value describes current substance use specification (habitual or occasional)</helpText>
+        </help>
+        <help>
+            <pageElement>Substance Type Use Occurrence</pageElement>
+            <helpText>A value that describes the substance type usage occurrence</helpText>
+        </help>
+        <help>
+            <pageElement>Current Substance Use Specification</pageElement>
+            <helpText>A value that describes the current substance use specification (habitual or occasional)</helpText>
+        </help>
+        <help>
+            <pageElement>Substance Use End Date</pageElement>
+            <helpText>A date on which the subject ended substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Substance Use Start Date</pageElement>
+            <helpText>A date on which the subject started substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Substance Type</pageElement>
+            <helpText>A value that describes the type of the substance</helpText>
+        </help>
+        <help>
+            <pageElement>Substance Use Frequency Interval</pageElement>
+            <helpText>A value that describes frequency interval of the substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Use Start Date</pageElement>
+            <helpText>The date on which the subject started substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Use End Date</pageElement>
+            <helpText>The date on which the subject ended substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Consumption</pageElement>
+            <helpText>A value describes substance consumption (Units)</helpText>
+        </help>
+        <help>
+            <pageElement>Use Frequency Interval</pageElement>
+            <helpText>A value describes frequency interval of substance usage</helpText>
+        </help>
+        <help>
+            <pageElement>Number of Pack Years</pageElement>
+            <helpText>A value denoting the number of pack years</helpText>
+        </help>
+        <help>
+            <pageElement>Date and time of Informed Consent</pageElement>
+            <helpText>The date and time on which informed consent was signed</helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure</pageElement>
+            <helpText>Medical History Term</helpText>
+        </help>
+        <help>
+            <pageElement>Any Medical History</pageElement>
+            <helpText>Flag indicating existence of relevant surgical history for the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Start Date</pageElement>
+            <helpText>The date on which the procedure was started</helpText>
+        </help>
+        <help>
+            <pageElement>HLT Name</pageElement>
+            <helpText>MedDRA High Level Term Name string assigned to the surgical procedure</helpText>
+        </help>
+        <help>
+            <pageElement>LLT Name</pageElement>
+            <helpText>MedDRA Lowest Level Term Name string assigned to the surgical procedure</helpText>
+        </help>
+        <help>
+            <pageElement>PT Name</pageElement>
+            <helpText>MedDRA Preferred Term Name string assigned to the surgical procedure</helpText>
+        </help>
+        <help>
+            <pageElement>SOC Name</pageElement>
+            <helpText>MedDRA System Organ Class Name string assigned to the surgical procedure</helpText>
+        </help>
+        <help>
+            <pageElement>Medical history category</pageElement>
+            <helpText>A value that provides the medical history category</helpText>
+        </help>
+        <help>
+            <pageElement>Medical history term</pageElement>
+            <helpText>A value that provides the medical history term</helpText>
+        </help>
+        <help>
+            <pageElement>Condition Status</pageElement>
+            <helpText>A flag indicating condition status (ongoing or not)</helpText>
+        </help>
+        <help>
+            <pageElement>Medical history start date</pageElement>
+            <helpText>A date on which the medical condition was started</helpText>
+        </help>
+        <help>
+            <pageElement>Medical history end date</pageElement>
+            <helpText>A date on which the medical condition was ended</helpText>
+        </help>
+        <help>
+            <pageElement>Medical history PT name</pageElement>
+            <helpText>A value that provides the MedDRA preferred term name string assigned to the medical condition
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Medical history HLT name</pageElement>
+            <helpText>A value that provides the MedDRA high level term name string assigned to the medical condition
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Medical history SOC name</pageElement>
+            <helpText>A value that provides the MedDRA system organ class name string assigned to the medical
+                condition
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Medical history LLT name</pageElement>
+            <helpText>A value that provides the MedDRA lowest level term name string assigned to the medical condition
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure start date</pageElement>
+            <helpText>A date on which the procedure was started</helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure PT name</pageElement>
+            <helpText>A value that provides the MedDRA preferred term name string assigned to the surgical procedure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure LLT name</pageElement>
+            <helpText>A value that provides the MedDRA lowest level term name string assigned to the surgical
+                procedure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure SOC name</pageElement>
+            <helpText>A value that provides the MedDRA system organ class name string assigned to the surgical
+                procedure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Surgical procedure HLT name</pageElement>
+            <helpText>A value that provides the MedDRA high level term name string assigned to the surgical procedure
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Current medication</pageElement>
+            <helpText>A flag indicating that the subject takes medication for the medical condition</helpText>
+        </help>
+        <help>
+            <pageElement>Metastatic/Locally Advanced</pageElement>
+            <helpText>A value specifies if cancer locally advanced or metastatic</helpText>
+        </help>
+        <help>
+            <pageElement>Site of Local/Metastatic Disease</pageElement>
+            <helpText>A value specifies location of local or metastatic disease</helpText>
+        </help>
+        <help>
+            <pageElement>Other Locally Advanced Sites</pageElement>
+            <helpText>A value specifies alternative location of local disease</helpText>
+        </help>
+        <help>
+            <pageElement>Other Metastatic Sites</pageElement>
+            <helpText>A value specifies alternative location of metastatic disease</helpText>
+        </help>
+        <help>
+            <pageElement>Recent Progression Date</pageElement>
+            <helpText>The date of recent progression</helpText>
+        </help>
+        <help>
+            <pageElement>Recurrence of Earlier Cancer (yes/no)</pageElement>
+            <helpText>Flag indicating that the disease is recurrence of earlier cancer</helpText>
+        </help>
+        <help>
+            <pageElement>Liver diagnostic investigation</pageElement>
+            <helpText>A value that describes the method used to perform the liver diagnostic investigation</helpText>
+        </help>
+        <help>
+            <pageElement>Liver diagnostic investigation date</pageElement>
+            <helpText>The date on which the liver diagnostic investigation was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Liver diagnostic investigation results</pageElement>
+            <helpText>A value that describes the results of the liver diagnostic investigation</helpText>
+        </help>
+        <help>
+            <pageElement>Potential Hys law case number</pageElement>
+            <helpText>A value denoting potential Hys law case number</helpText>
+        </help>
+        <help>
+            <pageElement>Liver diagnostic investigation specification</pageElement>
+            <helpText>A value that describes the alternative method used to perform the liver diagnostic
+                investigation
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Procedure Text</pageElement>
+            <helpText>Procedure Text</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA Preferred Term Name</pageElement>
+            <helpText>MedDRA Preferred Term Name string assigned to the procedure</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA Lowest Level Term Name</pageElement>
+            <helpText>MedDRA Lowest Level Term Name string assigned to the procedure</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA High Level Term Name</pageElement>
+            <helpText>MedDRA High Level Term Name string assigned to the procedure</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA System Organ Class Name</pageElement>
+            <helpText>MedDRA System Organ Class Name string assigned to the procedure</helpText>
+        </help>
+        <help>
+            <pageElement>Procedure Start Date (Time)</pageElement>
+            <helpText>The date and time on which procedure was started</helpText>
+        </help>
+        <help>
+            <pageElement>Procedure End Date (Time)</pageElement>
+            <helpText>The date and time on which procedure was ended</helpText>
+        </help>
+        <help>
+            <pageElement>Primary Procedure Reason</pageElement>
+            <helpText>A value describes primary reason for which procedure was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Primary Procedure Reason, Other</pageElement>
+            <helpText>A value describes alternative primary reason for which procedure was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Procedure Continues at Study Disc/Compl (yes)</pageElement>
+            <helpText>Flag indicating that procedure continues at study disc/compl</helpText>
+        </help>
+        <help>
+            <pageElement>Procedure Reason</pageElement>
+            <helpText>A value describes reason for which procedure was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Number of Lesions Resected</pageElement>
+            <helpText>A value denoting the number of lesions that was resected</helpText>
+        </help>
+        <help>
+            <pageElement>Date Wound Healed</pageElement>
+            <helpText>The date on which wound healed</helpText>
+        </help>
+        <help>
+            <pageElement>Hospital Discharge Date</pageElement>
+            <helpText>The date on which the subject was discharged from hospital</helpText>
+        </help>
+        <help>
+            <pageElement>Cause of Death</pageElement>
+            <helpText>Disease that caused death</helpText>
+        </help>
+        <help>
+            <pageElement>Designation of cause (primary/secondary)</pageElement>
+            <helpText>Flag indicating that the cause is a primary or secondary</helpText>
+        </help>
+        <help>
+            <pageElement>Autopsy performed (yes/no)</pageElement>
+            <helpText>Flag indicating that autopsy was performed or was not</helpText>
+        </help>
+        <help>
+            <pageElement>Death related to disease under investigation (yes/no)</pageElement>
+            <helpText>Flag indicating that death related to disease under investigation or doesn`t</helpText>
+        </help>
+        <help>
+            <pageElement>Cause of Death Narrative</pageElement>
+            <helpText>Free text describes cause of death</helpText>
+        </help>
+        <help>
+            <pageElement>Radiotherapy time status (Previous/Current/Post)</pageElement>
+            <helpText>Value describes the time of radiotherapy relative to IP</helpText>
+        </help>
+        <help>
+            <pageElement>Chemotherapy time status (Previous/Current/Post)</pageElement>
+            <helpText>Value describes the time of chemotherapy relative to IP</helpText>
+        </help>
+        <help>
+            <pageElement>Flag indicating that this is concomitant chemoradiotherapy</pageElement>
+            <helpText>Flag indicating that this is concomitant chemoradiotherapy</helpText>
+        </help>
+        <help>
+            <pageElement>The number of prior chemo regimens</pageElement>
+            <helpText>he number of prior chemo regimens</helpText>
+        </help>
+        <help>
+            <pageElement>Therapy anti-cancer drug</pageElement>
+            <helpText>A value describes anti-cancer drug used in therapy</helpText>
+        </help>
+        <help>
+            <pageElement>Therapy reason</pageElement>
+            <helpText>A value describes reason why medication was administrated to the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Other reason for therapy</pageElement>
+            <helpText>A value describes alternative reason why medication was administrated to the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Route of administration</pageElement>
+            <helpText>Route of administration</helpText>
+        </help>
+        <help>
+            <pageElement>Flag indicating that treatment is ongoing</pageElement>
+            <helpText>Flag indicating that treatment is ongoing</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Preferred Name</pageElement>
+            <helpText>Medication Preferred Name</helpText>
+        </help>
+        <help>
+            <pageElement>Total Daily Dose</pageElement>
+            <helpText>A value giving the dose of medication given to the subject per day</helpText>
+        </help>
+        <help>
+            <pageElement>Dose Unit, Other</pageElement>
+            <helpText>A value denoting alternative unit in which the dose is measured</helpText>
+        </help>
+        <help>
+            <pageElement>Multiple Drug (yes)</pageElement>
+            <helpText>Flag to specify that the medication is multiple</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Dosing Frequency, Other</pageElement>
+            <helpText>A value denoting alternative frequency with which medication is administrated to the subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Other reason for therapy</pageElement>
+            <helpText>A value describes alternative reason why medication was administrated to the subject</helpText>
+        </help>
+        <help>
+            <pageElement>Other Prophylaxis Specification</pageElement>
+            <helpText>A value describes alternative reason (prophylaxis) why medication was administrated to the
+                subject
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Reason For Treatment Stop</pageElement>
+            <helpText>Value describes the reason for Treatment Stop
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Reason For Treatment Stop, Other</pageElement>
+            <helpText>Value describes the other Reason for Treatment Stop
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Infected Body System</pageElement>
+            <helpText>Value describes the infected body system
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Infected Body System, Other</pageElement>
+            <helpText>Value describes the other infected body system
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Active Ingredient 1</pageElement>
+            <helpText>Value describes the active ingredient 1
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Active Ingredient 2</pageElement>
+            <helpText>Value describes the active ingredient 2
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Adverse Event Number</pageElement>
+            <helpText>A value giving AE number for which medication taken</helpText>
+        </help>
+        <help>
+            <pageElement>Histology type</pageElement>
+            <helpText>A value describes histology type of tumour</helpText>
+        </help>
+        <help>
+            <pageElement>Histology type details</pageElement>
+            <helpText>A value giving details about tumour histology type</helpText>
+        </help>
+        <help>
+            <pageElement>Tumour grade</pageElement>
+            <helpText>A value specifies tumour grade</helpText>
+        </help>
+        <help>
+            <pageElement>Stage</pageElement>
+            <helpText>A value specifies tumour stage</helpText>
+        </help>
+        <help>
+            <pageElement>Primary tumour status</pageElement>
+            <helpText>A value specifies status of primary tumour</helpText>
+        </help>
+        <help>
+            <pageElement>Nodes status</pageElement>
+            <helpText>A value specifies status regional lymph nodes</helpText>
+        </help>
+        <help>
+            <pageElement>Metastases status</pageElement>
+            <helpText>Metastases status</helpText>
+        </help>
+        <help>
+            <pageElement>Method of Determination</pageElement>
+            <helpText>A value describes the method of determination</helpText>
+        </help>
+        <help>
+            <pageElement>Other methods</pageElement>
+            <helpText>A value describes an alternative method of determination</helpText>
+        </help>
+        <help>
+            <pageElement>Method</pageElement>
+            <helpText>A value that describes used method of ECG</helpText>
+        </help>
+        <help>
+            <pageElement>Treatment Cycle Delayed (yes/no)</pageElement>
+            <helpText>Flag indicating that treatment cycle was delayed (yes/no)</helpText>
+        </help>
+
+        <help>
+            <pageElement>Reason Treatment Cycle Delayed</pageElement>
+            <helpText>A value describes reason why treatment cycle was delayed</helpText>
+        </help>
+
+        <help>
+            <pageElement>Reason Treatment Cycle Delayed, Other</pageElement>
+            <helpText>A value describes alternative reason why treatment cycle was delayed</helpText>
+        </help>
+
+        <help>
+            <pageElement>Laboratory Value Dipstick</pageElement>
+            <helpText>A value describes laboratory value dipstick</helpText>
+        </help>
+        <help>
+            <pageElement>Source type</pageElement>
+            <helpText>A value describes where the data come from. There are two options: Sponsor, Patient</helpText>
+        </help>
+        <help>
+            <pageElement>Device source name</pageElement>
+            <helpText>A value describes name of the device through which the data were taken</helpText>
+        </help>
+        <help>
+            <pageElement>Device source version</pageElement>
+            <helpText>A value describes version of the device through which the data were taken</helpText>
+        </help>
+        <help>
+            <pageElement>Device source type</pageElement>
+            <helpText>A value describes type of the device through which the data were taken</helpText>
+        </help>
+
+        <help>
+            <pageElement>Toxicity Grade</pageElement>
+            <helpText>A value denoting toxicity grade</helpText>
+        </help>
+        <help>
+            <pageElement>Subject Visit Number</pageElement>
+            <helpText>The number of the subject visit</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Contact</pageElement>
+            <helpText>The date of contact</helpText>
+        </help>
+
+        <help>
+            <pageElement>Survival Status</pageElement>
+            <helpText>A value describes survival status of the subject</helpText>
+        </help>
+
+        <help>
+            <pageElement>Date Subject Last Known to be Alive</pageElement>
+            <helpText>The date on which the subject was last known alive</helpText>
+        </help>
+        <help>
+            <pageElement>Assessment Date</pageElement>
+            <helpText>The date on which assessment of performance was made</helpText>
+        </help>
+        <help>
+            <pageElement>Performance Status</pageElement>
+            <helpText>A value describes performance status of the patient</helpText>
+        </help>
+        <help>
+            <pageElement>Questionnaire Name</pageElement>
+            <helpText>A value denoting the questionnaire name that was used for assessment</helpText>
+        </help>
+        <help>
+            <pageElement>Drug</pageElement>
+            <helpText>A value describes trade name/generic name of the drug</helpText>
+        </help>
+        <help>
+            <pageElement>Route</pageElement>
+            <helpText>A value describes route of administration</helpText>
+        </help>
+        <help>
+            <pageElement>Overdose Start Date (Time)</pageElement>
+            <helpText>The date and time on which overdose was started</helpText>
+        </help>
+        <help>
+            <pageElement>Overdose Stop Date (Time)</pageElement>
+            <helpText>The date and time on which overdose was stopped</helpText>
+        </help>
+        <help>
+            <pageElement>Intentional Overdose (yes/no)</pageElement>
+            <helpText>Flag indicating that overdose was intentional</helpText>
+        </help>
+        <help>
+            <pageElement>Overdose Associated with AE (yes/no)</pageElement>
+            <helpText>Flag indicating that overdose associated with AE</helpText>
+        </help>
+        <help>
+            <pageElement>Number for AE Associated with Overdose</pageElement>
+            <helpText>A value denoting number of AE associated with overdose</helpText>
+        </help>
+        <help>
+            <pageElement>Adverse Event Associated with Overdose</pageElement>
+            <helpText>A value describes CRF text for AE associated with overdose</helpText>
+        </help>
+        <help>
+            <pageElement>Total Dose</pageElement>
+            <helpText>A value denoting total dose</helpText>
+        </help>
+        <help>
+            <pageElement>Total Dose Unit</pageElement>
+            <helpText>A value denoting unit in which total dose is measured</helpText>
+        </help>
+        <help>
+            <pageElement>Further Information</pageElement>
+            <helpText>A value describes further information (for non SAE)</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor</pageElement>
+            <helpText>A value that describes the liver risk factor</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor occurrence (yes/no)</pageElement>
+            <helpText>A flag indicating the liver risk factor occurrence</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor reference period</pageElement>
+            <helpText>A value denoting the liver risk factor reference period (past or current)</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor details</pageElement>
+            <helpText>A value that describes the details of the liver risk factor</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor start date</pageElement>
+            <helpText>The date on which the liver risk factor was started</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor stop date</pageElement>
+            <helpText>The date on which the liver risk factor was stopped</helpText>
+        </help>
+        <help>
+            <pageElement>Liver risk factor comment</pageElement>
+            <helpText>A value that provides a liver risk factor comment</helpText>
+        </help>
+        <help>
+            <pageElement>DLCO (mmol/ kPa x min)</pageElement>
+            <helpText>A value denoting diffusing capacity of the lung for carbon monoxide</helpText>
+        </help>
+        <help>
+            <pageElement>Total Lung Capacity (TLC (L))</pageElement>
+            <helpText>A value denoting total lung capacity (TLC (L))</helpText>
+        </help>
+        <help>
+            <pageElement>FiO2 (Fraction of Inspired Oxygen)</pageElement>
+            <helpText>A value denoting fraction of inspired oxygen</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom</pageElement>
+            <helpText>A value that describes the liver sign/symptom</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom occurrence (yes/no)</pageElement>
+            <helpText>A value that describes the liver sign/symptom occurrence (yes/no)</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom start date</pageElement>
+            <helpText>The date on which the liver sign/symptom was started</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom stop date</pageElement>
+            <helpText>The date on which the liver sign/symptom was stopped</helpText>
+        </help>
+
+        <help>
+            <pageElement>Intermittent (yes/no)</pageElement>
+            <helpText>A flag indicating that the liver sign/symptom is intermittent (yes/no)</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom specification</pageElement>
+            <helpText>A value that describes the liver sign/symptom specification</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom text</pageElement>
+            <helpText>A value denoting the liver sign/symptom text</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom PT name</pageElement>
+            <helpText>MedDRA Preferred Term string assigned to the liver sign/symptom</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom LLT name</pageElement>
+            <helpText>MedDRA Lowest Level Term Name string assigned to the liver sign/symptom</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom HLT name</pageElement>
+            <helpText>MedDRA High Level Term Name string assigned to the liver sign/symptom</helpText>
+        </help>
+
+        <help>
+            <pageElement>Liver sign/symptom SOC name</pageElement>
+            <helpText>MedDRA System Organ Class string assigned to the liver sign/symptom</helpText>
+        </help>
+        <help>
+            <pageElement>Time Point</pageElement>
+            <helpText>A value describes protocol schedule of the measurement</helpText>
+        </help>
+        <help>
+            <pageElement>Heart Rate Value (beats/min)</pageElement>
+            <helpText>A value denoting heart rate (beats/min)</helpText>
+        </help>
+
+        <help>
+            <pageElement>Primary cause of death (yes/no)</pageElement>
+            <helpText>Is AE primary cause of death? (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Secondary cause of death (yes/no)</pageElement>
+            <helpText>Is AE secondary cause of death? (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Additional Drug</pageElement>
+            <helpText>Additional Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Caused by Additional Drug (yes/no)</pageElement>
+            <helpText>AE Caused by Additional Drug (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Additional Drug 1</pageElement>
+            <helpText>Additional Drug 1</helpText>
+        </help>
+        <help>
+            <pageElement>Caused by Additional Drug 1 (yes/no)</pageElement>
+            <helpText>AE Caused by Additional Drug 1 (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Additional Drug 2</pageElement>
+            <helpText>Additional Drug 2</helpText>
+        </help>
+        <help>
+            <pageElement>Caused by Additional Drug 2 (yes/no)</pageElement>
+            <helpText>AE Caused by Additional Drug 2 (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Code</pageElement>
+            <helpText>A value that provides the Medication Code of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Dictionary text</pageElement>
+            <helpText>A value that provides the Medication Code of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Drug dose ATC Code</pageElement>
+            <helpText>A value that provides the ATC Code of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug Total Daily Dose</pageElement>
+            <helpText>A value denoting total daily dose of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug Route</pageElement>
+            <helpText>A value that provides the Route of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>ATC Dictionary Text</pageElement>
+            <helpText>A value that provides the ATC Dictionary Text of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug Preferred Name</pageElement>
+            <helpText>A value that provides the Preferred Name of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Medication Grouping Name</pageElement>
+            <helpText>A value that provides the Pref. Grouping Term of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Active Ingredient</pageElement>
+            <helpText>A value that provides an Active Ingredient of Study Drug (more than one can be provided, so
+                aggregation should be possible)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug Category</pageElement>
+            <helpText>A value that provides the Study Drug Category</helpText>
+        </help>
+        <help>
+            <pageElement>Study Drug ATC Code</pageElement>
+            <helpText>A value that provides the ATC Code of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Planned Dose</pageElement>
+            <helpText>A value that provides the Planned Dose of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Planned Dose Units</pageElement>
+            <helpText>A value that provides the Planned Dose Units of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Planned No. of Days Treatment</pageElement>
+            <helpText>A value that provides the Planned No. of Days Treatment of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>AE number caused Action taken</pageElement>
+            <helpText>A value that provides an AE number caused Action taken for Study Drug (aggregation should be
+                possible)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Formulation</pageElement>
+            <helpText>A value that provides the Formulation of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Drug dose Route</pageElement>
+            <helpText>A value that provides the Route of Study Drug</helpText>
+        </help>
+        <help>
+            <pageElement>Reason for Therapy</pageElement>
+            <helpText>A value that provides the Reason for Therapy</helpText>
+        </help>
+        <help>
+            <pageElement>AE number caused Treatment Cycle Delayed</pageElement>
+            <helpText>A value that provides an AE number caused Treatment Cycle Delayed (aggregation should be
+                possible)
+            </helpText>
+        </help>
+        <help>
+            <pageElement>Protocol schedule timepoint</pageElement>
+            <helpText>A value that describes the protocol schedule timepoint of the measurement</helpText>
+        </help>
+        <help>
+            <pageElement>Date of last drug dose</pageElement>
+            <helpText>The date on which the drug was taken the last time</helpText>
+        </help>
+        <help>
+            <pageElement>Last drug dose amount</pageElement>
+            <helpText>A value that provides the last drug dose</helpText>
+        </help>
+        <help>
+            <pageElement>Date of last dose (Time)</pageElement>
+            <helpText>The date on which the drug was taken the last time (Time)</helpText>
+        </help>
+        <help>
+            <pageElement>Last dose amount</pageElement>
+            <helpText>A value that provides the last drug dose</helpText>
+        </help>
+        <help>
+            <pageElement>Atrial fibrillation (yes/no)</pageElement>
+            <helpText>A flag indicating if atrial fibrillation is present (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Sinus rhythm (yes/no)</pageElement>
+            <helpText>A flag indicating if sinus rhythm is revealed (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Reason no sinus rhythm</pageElement>
+            <helpText>A value that describes the reason of sinus rhythm absence</helpText>
+        </help>
+        <help>
+            <pageElement>Heart rhythm</pageElement>
+            <helpText>A value that describes the heart rhythm</helpText>
+        </help>
+        <help>
+            <pageElement>Heart rhythm other</pageElement>
+            <helpText>A value that describes the other heart rhythm</helpText>
+        </help>
+        <help>
+            <pageElement>Extra systoles (yes/no)</pageElement>
+            <helpText>A flag indicating if extra systoles are revealed (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>Specify extra systoles</pageElement>
+            <helpText>A value that provides the specification of extra systoles</helpText>
+        </help>
+        <help>
+            <pageElement>Type of conduction</pageElement>
+            <helpText>A value that describes the type of conduction</helpText>
+        </help>
+        <help>
+            <pageElement>Conduction</pageElement>
+            <helpText>A flag indicating if extra systoles are normal or abnormal</helpText>
+        </help>
+        <help>
+            <pageElement>Reason abnormal conduction</pageElement>
+            <helpText>A value that describes the reason of abnormal conduction</helpText>
+        </help>
+        <help>
+            <pageElement>ST-T changes (yes/no)</pageElement>
+            <helpText>A flag indicating if ST-T changes are revealed (yes/no)</helpText>
+        </help>
+        <help>
+            <pageElement>ST segment</pageElement>
+            <helpText>A value that describes the ST segment</helpText>
+        </help>
+        <help>
+            <pageElement>T-wave</pageElement>
+            <helpText>A value that describes the T-wave</helpText>
+        </help>
+        <help>
+            <pageElement>Beat group length in sec</pageElement>
+            <helpText>The defined duration of a beat group</helpText>
+        </help>
+        <help>
+            <pageElement>Beat group number</pageElement>
+            <helpText>The sequential number of the continuous DECG extraction counted across study period</helpText>
+        </help>
+        <help>
+            <pageElement>Beat number within beat group</pageElement>
+            <helpText>The sequential number of the individual beat within the continuous DECG extraction</helpText>
+        </help>
+        <help>
+            <pageElement>Number of beats in average beat</pageElement>
+            <helpText>The number of beats used to construct the averaged representative wave form</helpText>
+        </help>
+        <help>
+            <pageElement>Beat group length (sec)</pageElement>
+            <helpText>The defined duration of a beat group</helpText>
+        </help>
+        <help>
+            <pageElement>Cardiologist comment</pageElement>
+            <helpText>A value that provides the cardiologist comment</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA Lowest Level Term</pageElement>
+            <helpText>MedDRA Lowest Level Term Name string assigned to the cause of death</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA Preferred Term</pageElement>
+            <helpText>MedDRA Preferred Term Name string assigned to the cause of death</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA High Level Term</pageElement>
+            <helpText>MedDRA High Level Term Name string assigned to the cause of death</helpText>
+        </help>
+        <help>
+            <pageElement>MedDRA System Organ Class</pageElement>
+            <helpText>MedDRA System Organ Class Name string assigned to the cause of death</helpText>
+        </help>
+        <help>
+            <pageElement>AE Number</pageElement>
+            <helpText>The number assigned to the associated AE record</helpText>
+        </help>
+        <help>
+            <pageElement>Event Start Date</pageElement>
+            <helpText>The start date of the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Start Time</pageElement>
+            <helpText>The start time of the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Term</pageElement>
+            <helpText>The term used to describe the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Category 1</pageElement>
+            <helpText>The category of cerebrovascular event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Category 2</pageElement>
+            <helpText>The category of cerebrovascular event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Category 3</pageElement>
+            <helpText>The category of cerebrovascular event</helpText>
+        </help>
+        <help>
+            <pageElement>Event Description 1</pageElement>
+            <helpText>Some event Description</helpText>
+        </help>
+        <help>
+            <pageElement>Event Description 2</pageElement>
+            <helpText>Some event Description</helpText>
+        </help>
+        <help>
+            <pageElement>Event Description 3</pageElement>
+            <helpText>Some event Description</helpText>
+        </help>
+        <help>
+            <pageElement>Ischemic Symptoms</pageElement>
+            <helpText>The category of cardiac ischemic symptoms</helpText>
+        </help>
+        <help>
+            <pageElement>Duration of CIE symptoms</pageElement>
+            <helpText>The duration of cardiac ischemic symptoms</helpText>
+        </help>
+        <help>
+            <pageElement>Did the Symptoms Prompt an Uns. Hosp.</pageElement>
+            <helpText>Whether the symptoms caused an unscheduled hospitalisation</helpText>
+        </help>
+        <help>
+            <pageElement>Event Susp. to be Due to Stent Thromb.</pageElement>
+            <helpText>Whether the symptoms were suspected to be caused by stent thrombosis</helpText>
+        </help>
+        <help>
+            <pageElement>Previous ECG Before Event Available</pageElement>
+            <helpText>Whether an ECG prior to the event is available</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Previous ECG</pageElement>
+            <helpText>The date of the prior ECG, if any</helpText>
+        </help>
+        <help>
+            <pageElement>ECG at the Time of the Event</pageElement>
+            <helpText>Whether an ECG is available at the time of the event</helpText>
+        </help>
+        <help>
+            <pageElement>If no ECG at the Time of Event, Specify</pageElement>
+            <helpText>Specify regarding no ECG at the time of the event</helpText>
+        </help>
+        <help>
+            <pageElement>Were Local Cardiac Biomarkers Drawn</pageElement>
+            <helpText>Whether local cardiac biomarkers were drawn</helpText>
+        </help>
+        <help>
+            <pageElement>Coronary Angiography Performed</pageElement>
+            <helpText>Whether a coronary angiography was performed</helpText>
+        </help>
+        <help>
+            <pageElement>Date of Angiography</pageElement>
+            <helpText>The date of coronary angiography</helpText>
+        </help>
+        <help>
+            <pageElement>Final Diagnosis</pageElement>
+            <helpText>A category describing the final diagnosis for the CI event</helpText>
+        </help>
+        <help>
+            <pageElement>Specify Other Diagnosis</pageElement>
+            <helpText>Specification for uncategorised CI event diagnosis</helpText>
+        </help>
+        <help>
+            <pageElement>Event description 1</pageElement>
+            <helpText>Text describing the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event description 2</pageElement>
+            <helpText>Text describing the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event description 3</pageElement>
+            <helpText>Text describing the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event description 4</pageElement>
+            <helpText>Text describing the event</helpText>
+        </help>
+        <help>
+            <pageElement>Event description 5</pageElement>
+            <helpText>Text describing the event</helpText>
+        </help>
+        <help>
+            <pageElement>Type of Event</pageElement>
+            <helpText>The category of cerebrovascular event</helpText>
+        </help>
+        <help>
+            <pageElement>If Primary Ischemic Stroke</pageElement>
+            <helpText>Whether it was a primary ischemic stroke</helpText>
+        </help>
+        <help>
+            <pageElement>If Traumatic</pageElement>
+            <helpText>Whether the event was traumatic</helpText>
+        </help>
+        <help>
+            <pageElement>Loc. of Primary Intracranial Hemorrhage</pageElement>
+            <helpText>Categorical location of the primary intracranial hemorrhage</helpText>
+        </help>
+        <help>
+            <pageElement>Primary Intra. Hemorrhage Other, Specify</pageElement>
+            <helpText>Specification of uncategorised location of the primary intracranial hemorrhage</helpText>
+        </help>
+        <help>
+            <pageElement>Duration of Symptoms</pageElement>
+            <helpText>The duration of the symptoms</helpText>
+        </help>
+        <help>
+            <pageElement>MRS Prior to Stroke</pageElement>
+            <helpText>Whether subject had MRS prior to stroke</helpText>
+        </help>
+        <help>
+            <pageElement>MRS During Stroke Hospitalisation</pageElement>
+            <helpText>Whether subject had MRS during the stroke hospitalisation</helpText>
+        </help>
+        <help>
+            <pageElement>MRS at Current Visit or 90D After Stroke</pageElement>
+            <helpText>MRS at Current Visit or 90D After Stroke</helpText>
+        </help>
+        <help>
+            <pageElement>AE of Special Interest</pageElement>
+            <helpText>Flag to specify that this AE is of particular interest</helpText>
+        </help>
+        <help>
+            <pageElement>Mutation</pageElement>
+            <helpText>This field is populated with amino acid change or codon change.
+                If no mutations are detected the text for ‘no mutations detected’ should be captured in this field.</helpText>
+        </help>
+        <help>
+            <!--69 is Id of the CtDna entity in the MAP_ENTITY table-->
+            <!--Tooltip for the Gene field should be displayed only in the CtDna mapping -->
+            <pageElement>Gene[69]</pageElement>
+            <helpText>This field is not populated (empty) if no mutations are detected.</helpText>
+        </help>
+        <help>
+            <pageElement>Tracked mutation (YES/NO)</pageElement>
+            <helpText>‘Tracked mutations‘ can be any subset of mutations (a.a / codon changes) that may or may not be clinically significant.
+                This field must be populated with:
+                &#9;&#8226; YES - if the mutation is a ‘tracked‘ mutation
+                &#9;&#8226; NO - if the mutation is not a ‘tracked‘ mutation</helpText>
+        </help>
+        <help>
+            <pageElement>Reported variant allele frequency (VAF)</pageElement>
+            <helpText>VAF - must be reported as a ‘fraction‘ value in the data file.
+                There will be an option to change the units for the y-axis between ‘fraction‘ and ‘percentage‘.
+                The system will perform a calculation if viewing the variant allele frequency as a percentage value on the y-axis.
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>report</pageName>
+        <help>
+            <pageElement>colClinicalStudy</pageElement>
+            <helpText>The clinical study code that the report data relates to.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDateOfUpload</pageElement>
+            <helpText>The date that the study data was uploaded into ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colTimeOfUpload</pageElement>
+            <helpText>The time that the study data was uploaded into ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colDurationOfUpload</pageElement>
+            <helpText>The duration of  the ACUITY  data upload process.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colSuccessOfUpload</pageElement>
+            <helpText>The Red, Amber or Green status of the upload.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colUploadSummary</pageElement>
+            <helpText>A summary description of the data upload
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityDataSet</pageElement>
+            <helpText> the ACUITY  data set collection that the report log message relates to.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colRawDataSource</pageElement>
+            <helpText>The original file that the data was in prior to upload into ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colSubjectsSource</pageElement>
+            <helpText>The number of subjects in the source file.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colSubjectsAcuity</pageElement>
+            <helpText>The number of subjects uploaded into ACUITY.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colCurrentTotalValidEvents</pageElement>
+            <helpText>The total number of events, e.g. adverse events, lab measurements, dose events etc., in the ACUITY
+                system after the upload.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colErrorCount</pageElement>
+            <helpText>The number of found errors.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colErrorStatus</pageElement>
+            <helpText>The Red, Amber or Green status of the upload.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colAcuityDataField</pageElement>
+            <helpText>The ACUITY  data field that the log entry relates to.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colRawDataColumn</pageElement>
+            <helpText>The column in the raw file that the log entry relates to.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colErrorType</pageElement>
+            <helpText>The type of error, e.g. a mapping error or a data error, that lead to the Red, Amber or Green
+                status
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colErrorDetail</pageElement>
+            <helpText>A longer description of the Error Type
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colRawDataValue</pageElement>
+            <helpText>A value of the field that caused the error.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colEtlStep</pageElement>
+            <helpText>The step in the ETL process that threw the exception
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colExceptionType</pageElement>
+            <helpText>The Java exception class that threw the exception
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colExceptionMessage</pageElement>
+            <helpText>The detailed massage of the exception
+            </helpText>
+        </help>
+    </page>
+    <page>
+        <pageName>exclusion-values</pageName>
+        <help>
+            <pageElement>colExclMapping</pageElement>
+            <helpText>Pick a data table mapping from which you wish values to be excluded.
+                For example, picking ‘Laboratory‘ allows you to exclude certain laboratory test records.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colExclDataField</pageElement>
+            <helpText>Pick a data field (equivalent to a table column) from the mapping currently selected
+                for which you wish to specify exclusion criteria.
+                For example, picking the ‘Laboratory‘ mapping then ‘Subject identifier‘ data field would allow you
+                to specify a certain subject ID for whom results will not be shown in the laboratory results.
+            </helpText>
+        </help>
+        <help>
+            <pageElement>colExclValue</pageElement>
+            <helpText>Pick a value for the the data field that you wish to exclude. For example,
+                if you had selected the ‘Laboratory‘ mapping, ‘Subject identifier‘ data field, and value ‘E12345678‘,
+                then the subject with that identifier would be excluded from the laboratory test results.
+            </helpText>
+        </help>
+    </page>
+</pages>

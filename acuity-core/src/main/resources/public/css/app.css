@@ -1,0 +1,221 @@
+html,body
+{
+    height: 100%;
+}
+
+/* Summary table colors */
+.bg-green{  background-color: green;}
+.bg-red{ background-color: red;}
+.bg-amber{ background-color: #FF7E00;}
+/* Bootstrap UI for Angular fixes */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.container-fluid{
+    height: 100%;
+    padding-left: 0px;
+}
+.dlg-wait{
+    margin-top:100px;
+    text-align: center;
+    overflow: hidden;
+}
+.dlg-wait .modal-body{
+    padding: 15px;
+}
+.page-content{
+    padding-top: 50px;
+}
+/* Left navbar */
+.left-navbar{
+    padding-top: 50px;
+    height: 100%;
+}
+.wizard-steps{
+    margin-top:115px;
+}
+.wizard-steps li{
+    margin: 10px 0;
+    display: table;
+    clear: left;
+}
+.wizard-steps li a,
+.wizard-steps li p{
+    display: table-cell;
+    vertical-align: middle;
+}
+.wizard-steps li:before{
+    background: transparent url(images/sideBarIcons.png) 0 -34px no-repeat;
+    display: block;
+    height: 34px;
+    width: 40px;
+    content: "";
+    float: left;
+}
+.wizard-steps li.active:before{
+    background-position: 0 0;
+}
+.wizard-steps li.done:before{
+    background-position: 0 -72px;
+}
+.wizard-content{
+    min-height: 400px;
+}
+
+.centered-pills {
+    text-align: center
+}
+
+.centered-pills ul.nav-pills {
+    display: inline-block
+}
+
+.centered-pills li {
+    display: inline
+}
+
+.centered-pills a {
+    float: left
+}
+
+* html .centered-pills ul.nav-pills, * + html .centered-pills ul.nav-pills {
+    display: inline
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+.report-table-container {
+    padding-left: 15px;
+}
+
+.report-table {
+    margin-top: 50px;
+}
+
+.report-table .table > tbody > tr.active > td {
+    background-color: #428bca;
+    color: #FFF;
+}
+
+.report-table .table-hover > tbody > tr.bg-info:hover > td {
+    background-color: #d9edf7;
+}
+
+.report-table .badge {
+    color: #f5f5f5;
+    background-color: #333;
+}
+
+.report-table__toggle {
+    margin: 8px 0;
+}
+
+.trbl-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.75) url("images/loader.gif") center no-repeat;
+
+    /* set this absurdly high to ensure it's always on top */
+    z-index: 999999;
+}
+
+.ml15 {
+    margin-left: 15px;
+}
+
+.group-container__list {
+    padding-left: 0;
+}
+
+.non-marked-list {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.non-marked-list li {
+    list-style-type: none;
+}
+
+fieldset.dosing-details {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+legend.dosing-details {
+    font-size: 15px;
+    text-align: left;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
+}
+
+.grouping-drugs .grouping-drug {
+    position: relative;
+    padding: 3px 25px 3px 3px;
+}
+
+.grouping-drugs .grouping-drug.active input[readonly] {
+    background-color: #337ab7;
+    color: #ffffff;
+}
+
+.grouping-drugs .grouping-drug input[readonly] {
+    border: none;
+    background-color: #ffffff;
+    box-shadow: none;
+}
+
+.grouping-drugs .grouping-drug input[readonly] {
+    border: none;
+    background-color: #ffffff;
+    box-shadow: none;
+    cursor: default;
+}
+
+.input-group-btn-vertical {
+    position: relative;
+    white-space: nowrap;
+    width: 1%;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.input-group-btn-vertical > .btn {
+    display: block;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    margin-left: -1px;
+    position: relative;
+    border-radius: 0;
+}
+
+.glyphicon-remove {
+    cursor: pointer;
+}
+
+.input-group-btn-vertical > .btn:first-child {
+    border-top-right-radius: 4px;
+}
+
+.input-group-btn-vertical > .btn:last-child {
+    margin-top: -2px;
+    border-bottom-right-radius: 4px;
+}
+
+.input-group-btn-vertical > .btn:first-child > span {
+    position: absolute;
+    top: 0;
+    left: 2px;
+}
+
+.input-group-btn-vertical > .btn:last-child > span {
+    position: absolute;
+    top: 0;
+    left: 1px;
+}

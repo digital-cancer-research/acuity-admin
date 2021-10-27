@@ -1,0 +1,115 @@
+<div class="report-table-container">
+    <div class="panel panel-default report-table">
+        <div class="panel-heading clearfix">
+            <h4 class="pull-left ml15">
+                Summary: {{model.studyCode}}
+            </h4>
+            <h4 class="pull-left ml15">
+                Date of upload: <span
+                    class="badge">{{(model.selectedUpload.startDate| date: model.dateMask:'UTC') || '-'}}</span>
+            </h4>
+            <h4 class="pull-left ml15">
+                Time of upload: <span
+                    class="badge">{{(model.selectedUpload.startDate | date: model.timeMask:'UTC') || '-'}}</span>
+            </h4>
+
+            <div class="pull-right ml15 report-table__toggle">
+                <button class="btn btn-default btn-xs" ng-click="togglePanel()" ng-if="opened"><span
+                        class="glyphicon glyphicon-chevron-up"></span></button>
+                <button class="btn btn-default btn-xs" ng-click="togglePanel()" ng-if="!opened"><span
+                        class="glyphicon glyphicon-chevron-down"></span></button>
+            </div>
+        </div>
+        <div class="panel-body" ng-if="opened">
+            <div class="wrapper">
+                <table class="table table-condensed table-hover">
+                    <thead>
+
+                    <th style="min-width: 125px"><a href='' ng-click="sort('jobExecID',true)" tooltip-placement="right"
+                                                    tooltip="The clinical study ID that the report data relates to">Job
+                        Execution ID
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'jobExecID'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('startDate',true)" tooltip-placement="top"
+                                                    tooltip="The date that the study data was uploaded into ACUITY.">Date
+                        of Upload
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'startDate'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('startDate',true)" tooltip-placement="top"
+                                                    tooltip="The time that the study data was uploaded into ACUITY.">Time
+                        of upload
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'startDate'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span>
+                    </a></th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('duration',true)" tooltip-placement="top"
+                                                    tooltip="The duration of the ACUITY data upload process.">Duration
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'duration'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('ragStatus',true)" tooltip-placement="top"
+                                                    tooltip="The Red, Amber or Green status of the upload.">Success of
+                        upload
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'ragStatus'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 350px"><a href='' ng-click="sort('summary',true)" tooltip-placement="top"
+                                                    tooltip="A summary description of the data upload">Upload
+                        summary <span
+                                ng-if="model.uploadTable.sortOptions.sortField == 'summary'" class="glyphicon"
+                                ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('filesCount',true)" tooltip-placement="top"
+                                                    tooltip="The count of files.">Files count
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'filesCount'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    <th style="min-width: 125px"><a href='' ng-click="sort('filesSize',true)" tooltip-placement="top"
+                                                    tooltip="The size of files.">Files size
+                        <span ng-if="model.uploadTable.sortOptions.sortField == 'filesSize'" class="glyphicon"
+                              ng-class="!model.uploadTable.sortOptions.reverse ? 'glyphicon-sort-by-alphabet' : 'glyphicon-sort-by-alphabet-alt'"></span></a>
+                    </th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="s in model.sortedStudyUploads[model.uploadTable.pagingOptions.currentPage-1] | orderBy : model.uploadTable.sortOptions.sortField : model.uploadTable.sortOptions.reverse"
+                        ng-class="{'active': model.selectedUpload.jobExecID == s.jobExecID}"
+                        ng-click="selectUpload(s)">
+                        <td>{{s.jobExecID}}</td>
+                        <td>{{s.startDate | date: model.dateMask:'UTC'}}</td>
+                        <td>{{s.startDate | date: model.timeMask:'UTC'}}</td>
+                        <td>{{s.duration}}</td>
+                        <td>
+                            <span class="label" ng-class="{'label-danger': s.ragStatus == 'RED',
+                                                  'label-warning': s.ragStatus == 'AMBER',
+                                                  'label-success': s.ragStatus == 'GREEN'}">
+                                <span class="glyphicon glyphicon-import"></span> {{ s.exitCode}}
+
+                            </span>
+                        </td>
+                        <td>{{s.summary}}</td>
+                        <td>{{s.filesCount}}</td>
+                        <td>{{s.filesSize}} B</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div ng-if="model.studyUploads.length==0" class="text-center">No results found</div>
+                <div ng-if="model.studyUploads.length >= model.uploadTable.pagingOptions.pageSize">
+                    <pagination total-items="model.studyUploads.length"
+                                ng-model="model.uploadTable.pagingOptions.currentPage"
+                                items-per-page="model.uploadTable.pagingOptions.pageSize"
+                                max-size="5"
+                                class="pagination-sm"
+                                boundary-links="false"
+                                rotate="false"
+                                previous-text="<"
+                                next-text=">"
+                                first-text="<<"
+                                last-text=">>">
+                    </pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include src="'views/report/reportTable.html'"></div>
+</div>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <comment>Set of SQLs</comment>
+
+
+    <entry key="UPDATE_FIRST_DOSE_DATE"><![CDATA[
+UPDATE result_patient SET (pat_ip_dose_first_date, pat_received_drug) = (
+    SELECT MIN(mds_start_date), NVL2(MIN(mds_start_date), 'Yes', 'No')
+    FROM result_trg_med_dos_schedule
+    WHERE mds_dose > 0 AND mds_pat_id = pat_id
+)
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <entry key="UPDATE_BASELINE_DATE"><![CDATA[
+UPDATE result_patient
+  SET pat_baseline_date =
+  CASE WHEN (SELECT MSR_USE_CUSTOM_BASELINE_DRUGS FROM MAP_STUDY_RULE WHERE MSR_ID=?)='0'
+  THEN pat_ip_dose_first_date
+  ELSE (
+      SELECT MIN(mds_start_date)
+      FROM result_trg_med_dos_schedule
+      WHERE mds_dose > 0 AND mds_pat_id = pat_id AND mds_drug IN (
+        SELECT msbd_drug_name
+        FROM map_study_baseline_drug
+        WHERE msbd_msr_id=? AND msbd_include= true
+      )
+  ) END
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <entry key="UPDATE_PAT_COUNTRY"><![CDATA[
+UPDATE result_patient SET pat_country = upper(coalesce((
+    SELECT CTR_COUNTRY
+    FROM result_country
+    WHERE ctr_pat_id = pat_id
+), CASE WHEN (SELECT msr_auto_assigned_country FROM map_study_rule WHERE msr_id = ?) = true
+        THEN (
+                SELECT CCL_NAME
+                FROM util_country_code_lookup
+                WHERE CCL_CODE=substr(pat_subject,2,2)
+             )
+        ELSE
+            NULL
+        END))
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <entry key="UPDATE_PAT_RAND_DATE"><![CDATA[
+UPDATE result_patient SET PAT_RAND_DATE = (
+    SELECT rnd_date
+    FROM RESULT_RANDOMISATION
+    WHERE rnd_pat_id = pat_id
+)
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <!--RCT-3501-->
+    <entry key="UPDATE_PATIENT_WITHDRAWAL"><![CDATA[
+UPDATE result_patient t
+SET (pat_withdrawal_reason, pat_withdrawal_date) = (
+  SELECT DISTINCT
+    CASE
+      WHEN wc_withdrawal_completion_date IS NULL
+      THEN nvl2(dth_pat_id, 'Death', 'No Withdrawal/Completion')
+      ELSE
+        CASE
+          WHEN dth_date IS NOT NULL AND LEAST(wc_withdrawal_completion_date, dth_date) = dth_date
+          THEN 'Death'
+          ELSE
+            wc_main_reason
+        END
+    END AS withdrawn_reason,
+    CASE
+      WHEN wc_withdrawal_completion_date IS NULL OR dth_date IS NULL
+      THEN COALESCE(wc_withdrawal_completion_date, dth_date)
+      ELSE LEAST(wc_withdrawal_completion_date, dth_date)
+    END AS withdrawal_date
+  FROM result_patient
+  LEFT JOIN result_withdrawal_completion ON wc_pat_id=pat_id
+  LEFT JOIN result_death  ON dth_pat_id=pat_id
+  WHERE pat_id = t.pat_id
+)
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <!--RCT-3488-->
+    <entry key="UPDATE_SUBJECT_STUDY_STATUS"><![CDATA[
+UPDATE result_patient SET pat_study_status = (
+  CASE
+      WHEN pat_withdrawal_date IS NOT NULL THEN 'Withdrawn/complete'
+      WHEN pat_ip_dose_first_date IS NOT NULL and EXISTS (
+        -- select all discontinued subjects
+        SELECT * FROM result_trg_med_dos_schedule
+        LEFT JOIN
+        (select dsc_pat_id, dsc_drug_name,
+        max(dsc_ipdc_date) as last_dsc
+        from result_target_med_dos_disc
+        group by dsc_pat_id, dsc_drug_name
+        ) as TempTable
+        ON dsc_pat_id=mds_pat_id AND dsc_drug_name=mds_drug
+        WHERE mds_pat_id=pat_id and mds_dose>0
+        and (last_dsc is null or last_dsc < mds_start_date or last_dsc < mds_end_date)
+      ) THEN 'Ongoing'
+      WHEN pat_ip_dose_first_date IS NOT NULL THEN 'Discontinued'
+    END)
+WHERE pat_std_id=?
+    ]]></entry>
+
+    <entry key="UPDATE_LAST_ETL_RUN"><![CDATA[
+        update RESULT_STUDY set STD_DATE_LAST_UPLOADED = oracle.sysdate()
+        WHERE std_id=?
+    ]]></entry>
+
+
+    <!--RCT-3699-->
+    <entry key="UPDATE_SUBJECT_BEST_TUMOUR_RESPONSES"><![CDATA[
+with source_table as (
+    SELECT DISTINCT rtl_pat_id AS pat_id,
+  first_value(rrl_name)over (partition BY rtl_pat_id ORDER BY rrl_rank, rtl_lesion_date)   AS best_response
+FROM
+  (SELECT rtl_pat_id,
+    rtl_lesion_date,
+    CASE
+      WHEN rrl_name                                                                      = 'Partial Response'
+      AND lower(LEAD(rrl_name) OVER (PARTITION BY rtl_pat_id ORDER BY rtl_lesion_date)) IN ('progressive disease', 'stable disease')
+      THEN 'Stable Disease'
+      ELSE rrl_name
+    END AS rrl_name,
+    CASE
+      WHEN rrl_name                                                                      = 'Partial Response'
+      AND lower(LEAD(rrl_name) OVER (PARTITION BY rtl_pat_id ORDER BY rtl_lesion_date)) IN ('progressive disease', 'stable disease')
+      THEN 4
+      ELSE rrl_rank
+    END AS rrl_rank
+  FROM
+    (SELECT rtl_pat_id,
+      rtl_lesion_date,
+      rrl_name,
+      rrl_rank,
+      LAG(rrl_name) OVER (PARTITION BY rtl_pat_id ORDER BY rtl_lesion_date) AS prev_rrl_name
+    FROM result_recist_target_lesion
+    LEFT JOIN result_recist_assessment
+    ON (rtl_pat_id         = rca_pat_id
+    AND (rtl_visit_number  = rca_visit
+    OR (rtl_visit_number  IS NULL
+    AND rca_visit         IS NULL))
+    AND (rtl_visit_date    = rca_visit_date
+    OR (rtl_visit_date    IS NULL
+    AND rca_visit_date    IS NULL))
+    AND (rtl_visit_number IS NOT NULL
+    OR rtl_visit_date     IS NOT NULL))
+    LEFT JOIN util_recist_response_lookup
+    ON (((LOWER(rca_recist_response) ~ rrl_regex)
+    OR rca_recist_response  = CAST(rrl_code AS VARCHAR2(5))
+    OR upper(RRL_SHORTNAME) = upper(rca_recist_response)))
+    JOIN result_patient
+    ON rtl_pat_id = pat_id
+    JOIN result_study
+    ON pat_std_id         = std_id
+    WHERE rtl_lesion_date > pat_ip_dose_first_date
+    AND rtl_lesion_date  IS NOT NULL AND std_id = ?
+    ) as temp_table
+  ) as temp_table2
+)
+ update result_patient SET pat_best_tumour_response = source_table.best_response
+ from source_table
+ where result_patient.pat_id = source_table.pat_id
+    ]]></entry>
+
+
+    <!--RCT-3967-->
+    <entry key="SELECT_CUSTOM_GROUPINGS_WITH_THE_SAME_NAMES_AS_RESULT_GROUPINGS"><![CDATA[
+SELECT msgr_name
+FROM map_subject_group_rule
+WHERE msgr_study_id=? AND msgr_name IN (
+    SELECT DISTINCT pgr_grouping_name
+    FROM result_patient_group
+    JOIN result_study ON std_id=pgr_std_id
+    JOIN map_study_rule ON msr_study_code=std_name
+    WHERE msr_id=?
+)
+    ]]></entry>
+
+
+    <!--RCT-4563-->
+    <entry key="UPDATE_EXACERBATIONS_SET_CUSTOM_SEVERITY"><![CDATA[
+update result_exacerbation e
+set exa_severity = coalesce(cs.severity, exa_severity)
+from
+(with
+    val_decode as (
+    select 'yes' src, 1 trg union all
+    select 'true' src, 1 trg union all
+    select '1' src, 1 trg union all
+    select 'no' src, 0 trg union all
+    select 'false' src, 0 trg union all
+    select '0' src, 0 trg
+  ),
+    severity_map as (
+      select row_number() over (partition by esm_std_id order by
+        decode(ESM_DEPOT_GCS, null, 0 , 1) +
+        decode(ESM_SYSCORT_TRT, null, 0 , 1) +
+        decode(ESM_ICS_TRT, null, 0 , 1) +
+        decode(ESM_ANTIBIOTICS_TRT, null, 0 , 1) +
+        decode(ESM_HOSPIT, null, 0 , 1) +
+        decode(ESM_EMER_TRT, null, 0 , 1)) as rank,
+             D_DEPOT_GCS.trg as ESM_DEPOT_GCS,
+             D_SYSCORT_TRT.trg as ESM_SYSCORT_TRT,
+             D_ICS_TRT.trg as ESM_ICS_TRT,
+             D_ANTIBIOTICS_TRT.trg as ESM_ANTIBIOTICS_TRT,
+             D_HOSPIT.trg as ESM_HOSPIT,
+             D_EMER_TRT.trg as ESM_EMER_TRT,
+        ESM_SEVERITY,
+        esm_std_id
+      from RESULT_EXA_SEVERITY_MAP
+        left join val_decode D_DEPOT_GCS on (lower(ESM_DEPOT_GCS) = D_DEPOT_GCS.src)
+        left join val_decode D_SYSCORT_TRT on (lower(ESM_SYSCORT_TRT) = D_SYSCORT_TRT.src)
+        left join val_decode D_ICS_TRT on (lower(ESM_ICS_TRT) = D_ICS_TRT.src)
+        left join val_decode D_ANTIBIOTICS_TRT on (lower(ESM_ANTIBIOTICS_TRT) = D_ANTIBIOTICS_TRT.src)
+        left join val_decode D_HOSPIT on (lower(ESM_HOSPIT) = D_HOSPIT.src)
+        left join val_decode D_EMER_TRT on (lower(ESM_EMER_TRT) = D_EMER_TRT.src)
+  )
+select distinct
+  exa_id,
+FIRST_VALUE(esm_severity) OVER (PARTITION BY EXA_ID ORDER BY rank desc) as severity
+from RESULT_EXACERBATION
+  left join val_decode D_DEPOT_GCS on (lower(EXA_DEPOT_GCS) = D_DEPOT_GCS.src)
+  left join val_decode D_SYSCORT_TRT on (lower(EXA_SYSCORT_TRT) = D_SYSCORT_TRT.src)
+  left join val_decode D_ICS_TRT on (lower(EXA_ICS_TRT) = D_ICS_TRT.src)
+  left join val_decode D_ANTIBIOTICS_TRT on (lower(EXA_ANTIBIOTICS_TRT) = D_ANTIBIOTICS_TRT.src)
+  left join val_decode D_HOSPIT on (lower(EXA_HOSPIT) = D_HOSPIT.src)
+  left join val_decode D_EMER_TRT on (lower(EXA_EMER_TRT) = D_EMER_TRT.src)
+  inner join result_patient on pat_id = exa_pat_id
+  inner join severity_map on (esm_std_id = pat_std_id and
+                              (
+                                (ESM_DEPOT_GCS is null or coalesce(D_DEPOT_GCS.trg, 0) = ESM_DEPOT_GCS) and
+                                (ESM_SYSCORT_TRT is null or coalesce(D_SYSCORT_TRT.trg, 0) = ESM_SYSCORT_TRT) and
+                                (ESM_ICS_TRT is null or coalesce(D_ICS_TRT.trg, 0) = ESM_ICS_TRT) and
+                                (ESM_ANTIBIOTICS_TRT is null or coalesce(D_ANTIBIOTICS_TRT.trg, 0) = ESM_ANTIBIOTICS_TRT) and
+                                (ESM_HOSPIT is null or coalesce(D_HOSPIT.trg, 0) = ESM_HOSPIT) and
+                                (ESM_EMER_TRT is null or coalesce(D_EMER_TRT.trg, 0) = ESM_EMER_TRT)
+                              )
+    )
+   where pat_std_id = ?
+  )  cs
+where (e.exa_id = cs.exa_id)
+    ]]></entry>
+
+    <entry key="CLEAR_EDIARY_MEDICATION_USAGE"><![CDATA[
+        /*+ use_index(u IND_E_EME_PAT_ID) */
+        DELETE
+                FROM RESULT_EDIARY_MEDICATION_USAGE u
+                WHERE EME_PAT_ID in
+                (SELECT PAT_ID FROM RESULT_PATIENT
+                WHERE PAT_STD_ID = ?
+                )
+    ]]></entry>
+
+    <entry key="UPDATE_EDIARY_MEDICATION_USAGE"><![CDATA[
+        INSERT
+        INTO RESULT_EDIARY_MEDICATION_USAGE
+        (
+        EME_ID,
+        EME_DATE_CREATED,
+        EME_DATE_UPDATED,
+        EME_ASSESSMENT_DATE,
+        EME_DRUG_INTAKE_TIME,
+        EME_DEVICE_TYPE,
+        EME_PAT_ID
+        )
+        SELECT
+        E.EDIARY_ID,
+        E.EDIARY_DATE_CREATED,
+        E.EDIARY_DATE_UPDATED,
+        E.EDIARY_ASSESSMENT_DATE,
+        normalize_time(E.EDIARY_DRUG_INTAKE_TIME),
+        E.EDIARY_DEVICE_TYPE,
+        E.EDIARY_PAT_ID
+        FROM RESULT_EDIARY E
+        INNER JOIN RESULT_PATIENT P
+        ON P.PAT_ID = E.EDIARY_PAT_ID
+        WHERE COALESCE(E.EDIARY_DRUG_INTAKE_TIME, E.EDIARY_DEVICE_TYPE) IS NOT NULL
+        AND P.PAT_STD_ID = ?
+    ]]></entry>
+
+    <entry key="CLEAR_EDIARY_OBSERVATIONS"><![CDATA[
+        /*+ use_index(o IND_E_EO_PAT_ID) */
+        DELETE
+                FROM RESULT_EDIARY_OBSERVATIONS o
+                WHERE EO_PAT_ID in
+                (SELECT PAT_ID FROM RESULT_PATIENT
+                WHERE PAT_STD_ID = ?
+                )
+    ]]></entry>
+
+    <entry key="UPDATE_EDIARY_OBSERVATIONS"><![CDATA[
+        INSERT
+        INTO RESULT_EDIARY_OBSERVATIONS
+        (
+            EO_ID,
+            EO_DATE_CREATED,
+            EO_DATE_UPDATED,
+            EO_ASSESSMENT_DATE,
+            EO_ASSESSMENT_TIME_MORNING,
+            EO_PEF_MORNING,
+            EO_ASSESSMENT_TIME_EVENING,
+            EO_PEF_EVENING,
+            EO_ASTHMA_SCORE_NIGHT,
+            EO_ASTHMA_SCORE_DAY,
+            EO_WOKE_DUE_TO_ASTHMA,
+            EO_PAT_ID
+        )
+        SELECT DISTINCT
+		last_value(CAST(uuid_generate_v4() AS varchar(32))) over (partition BY e.ediary_pat_id),
+        MAX(E.EDIARY_DATE_CREATED) over (partition BY e.ediary_assessment_date, e.ediary_pat_id),
+        MAX(E.EDIARY_DATE_UPDATED) over (partition BY e.ediary_assessment_date, e.ediary_pat_id),
+        E.EDIARY_ASSESSMENT_DATE,
+        MAX(normalize_time(E.EDIARY_ASSESSMENT_TIME_MORNING)) over (partition BY e.ediary_assessment_date, e.ediary_pat_id),
+        LAST(E.EDIARY_PEF_MORNING) over (partition BY e.ediary_assessment_date, e.ediary_pat_id order by normalize_time(E.EDIARY_ASSESSMENT_TIME_MORNING) nulls FIRST range BETWEEN unbounded preceding AND unbounded following),
+        MAX(normalize_time(E.EDIARY_ASSESSMENT_TIME_EVENING)) over (partition BY e.ediary_assessment_date, e.ediary_pat_id),
+        LAST(E.EDIARY_PEF_EVENING) over (partition BY e.ediary_assessment_date, e.ediary_pat_id order by normalize_time(E.EDIARY_ASSESSMENT_TIME_EVENING) nulls FIRST range BETWEEN unbounded preceding AND unbounded following),
+        LAST(E.EDIARY_ASTHMA_SCORE_NIGHT) over (partition BY e.ediary_assessment_date, e.ediary_pat_id order by normalize_time(E.EDIARY_ASSESSMENT_TIME_MORNING) nulls FIRST range BETWEEN unbounded preceding AND unbounded following),
+        LAST(E.EDIARY_ASTHMA_SCORE_DAY) over (partition BY e.ediary_assessment_date, e.ediary_pat_id order by normalize_time(E.EDIARY_ASSESSMENT_TIME_EVENING) nulls FIRST range BETWEEN unbounded preceding AND unbounded following),
+        LAST(E.EDIARY_WOKE_DUE_TO_ASTHMA ) over (partition BY e.ediary_assessment_date, e.ediary_pat_id order by normalize_time(E.EDIARY_ASSESSMENT_TIME_MORNING) nulls FIRST range BETWEEN unbounded preceding AND unbounded following),
+        E.EDIARY_PAT_ID
+        FROM RESULT_EDIARY E
+        JOIN RESULT_PATIENT P
+        ON E.EDIARY_PAT_ID = P.PAT_ID
+        WHERE (COALESCE(E.EDIARY_ASSESSMENT_TIME_MORNING, E.EDIARY_ASSESSMENT_TIME_EVENING, E.EDIARY_WOKE_DUE_TO_ASTHMA) IS NOT NULL
+        OR COALESCE(E.EDIARY_PEF_MORNING, E.EDIARY_PEF_EVENING, E.EDIARY_ASTHMA_SCORE_NIGHT, E.EDIARY_ASTHMA_SCORE_DAY) IS NOT NULL)        AND P.PAT_STD_ID = ?
+    ]]></entry>
+
+    <entry key="UPDATE_DATASET_LAST_EVENT_DATE"><![CDATA[
+        UPDATE result_study SET std_last_event_date = (
+        WITH patients AS (
+            SELECT /*+ materialize */pat_id FROM result_patient
+            WHERE pat_std_id = ?
+        )
+        SELECT MAX(event_date)
+        FROM
+          (SELECT 'result_chemotherapy' as event_tbl_name,
+                   'chemo_start_date' as event_col_name,
+                    chemo_start_date AS event_date,
+                    chemo_pat_id AS event_pat_id
+             FROM result_chemotherapy
+            JOIN patients ON chemo_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_conmed_schedule', 'cms_start_date', cms_start_date, cms_pat_id FROM result_conmed_schedule
+            JOIN patients ON cms_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_death', 'dth_date', dth_date, dth_pat_id FROM result_death
+            JOIN patients ON dth_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_ediary', 'ediary_assessment_date', ediary_assessment_date, ediary_pat_id FROM result_ediary
+            JOIN patients ON ediary_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_exacerbation', 'exa_exac_start_date', exa_exac_start_date, exa_pat_id FROM result_exacerbation
+            JOIN patients ON exa_pat_id = pat_id
+          UNION ALL
+            (
+            SELECT 'result_lungfunc', 'lng_visit_date', lng_visit_date, lng_pat_id FROM result_lungfunc
+            JOIN patients ON lng_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_lungfunc', 'lng_assess_date', lng_assess_date, lng_pat_id FROM result_lungfunc
+            JOIN patients ON lng_pat_id = pat_id
+            )
+          UNION ALL
+            SELECT 'result_medical_history', 'mh_start_date', mh_start_date, mh_pat_id FROM result_medical_history
+            JOIN patients ON mh_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_primary_tumour_location', 'ptl_original_diagnosis_date', ptl_original_diagnosis_date, ptl_pat_id FROM result_primary_tumour_location
+            JOIN patients ON ptl_pat_id = pat_id
+          UNION ALL
+            (
+            SELECT 'result_radiotherapy', 'rad_visit_dat', rad_visit_dat, rad_pat_id FROM result_radiotherapy
+            JOIN patients ON rad_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_radiotherapy', 'rad_start_date', rad_start_date, rad_pat_id FROM result_radiotherapy
+            JOIN patients ON rad_pat_id = pat_id
+            )
+          UNION ALL
+            SELECT 'result_randomisation', 'rnd_date', rnd_date, rnd_pat_id FROM result_randomisation
+            JOIN patients ON rnd_pat_id = pat_id
+          UNION ALL
+            (
+            SELECT 'result_recist_assessment', 'rca_assessment_date', rca_assessment_date, rca_pat_id FROM result_recist_assessment
+            JOIN patients ON rca_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_recist_assessment', 'rca_visit_date', rca_visit_date, rca_pat_id FROM result_recist_assessment
+            JOIN patients ON rca_pat_id = pat_id
+            )
+          UNION ALL
+            (
+            SELECT 'result_recist_nontarget_lesion', 'rntl_lesion_date', rntl_lesion_date, rntl_pat_id FROM result_recist_nontarget_lesion
+            JOIN patients ON rntl_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_recist_nontarget_lesion', 'rntl_visit_date', rntl_visit_date, rntl_pat_id FROM result_recist_nontarget_lesion
+            JOIN patients ON rntl_pat_id = pat_id
+            )
+          UNION ALL
+            (
+            SELECT 'result_recist_target_lesion', 'rtl_lesion_date', rtl_lesion_date, rtl_pat_id FROM result_recist_target_lesion
+            JOIN patients ON rtl_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_recist_target_lesion', 'rtl_visit_date', rtl_visit_date, rtl_pat_id FROM result_recist_target_lesion
+            JOIN patients ON rtl_pat_id = pat_id
+            )
+          UNION ALL
+            SELECT 'result_sc', 'sc_visit_date', sc_visit_date, sc_pat_id FROM result_sc
+            JOIN patients ON sc_pat_id = pat_id
+          UNION ALL
+            (
+            SELECT 'result_serious_adverse_event', 'sae_crit_met_date', sae_crit_met_date, sae_pat_id FROM result_serious_adverse_event
+            JOIN patients ON sae_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_serious_adverse_event', 'sae_inv_aware_date', sae_inv_aware_date, sae_pat_id FROM result_serious_adverse_event
+            JOIN patients ON sae_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_serious_adverse_event', 'sae_hosp_date', sae_hosp_date, sae_pat_id FROM result_serious_adverse_event
+            JOIN patients ON sae_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_serious_adverse_event', 'sae_disch_date', sae_disch_date, sae_pat_id FROM result_serious_adverse_event
+            JOIN patients ON sae_pat_id = pat_id
+            )
+          UNION ALL
+            (
+            SELECT 'result_specimen_collection', 'spc_specimen_date', spc_specimen_date, spc_pat_id FROM result_specimen_collection
+            JOIN patients ON spc_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_specimen_collection', 'spc_drug_adm_date', spc_drug_adm_date, spc_pat_id FROM result_specimen_collection
+            JOIN patients ON spc_pat_id = pat_id
+            UNION ALL
+            SELECT 'result_specimen_collection', 'spc_visit_date', spc_visit_date, spc_pat_id FROM result_specimen_collection
+            JOIN patients ON spc_pat_id = pat_id
+            )
+          UNION ALL
+            SELECT 'result_stacked_pk_results', 'stp_visit_date', stp_visit_date, stp_pat_id FROM result_stacked_pk_results
+            JOIN patients ON stp_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_target_med_dos_disc', 'dsc_ipdc_date', dsc_ipdc_date, dsc_pat_id FROM result_target_med_dos_disc
+            JOIN patients ON dsc_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_test', 'tst_date', tst_date, tst_pat_id FROM result_test
+            JOIN patients ON tst_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_trg_med_dos_schedule', 'mds_start_date', mds_start_date, mds_pat_id FROM result_trg_med_dos_schedule
+            JOIN patients ON mds_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_visit', 'vis_date', vis_date, vis_pat_id FROM result_visit
+            JOIN patients ON vis_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_vitals', 'vit_lpdat', vit_lpdat, tst_pat_id FROM result_vitals
+            JOIN result_test ON vit_tst_id = tst_id
+            JOIN patients ON tst_pat_id = pat_id
+          UNION ALL
+            SELECT 'result_withdrawal_completion', 'wc_withdrawal_completion_date', wc_withdrawal_completion_date, wc_pat_id FROM result_withdrawal_completion
+            JOIN patients ON wc_pat_id = pat_id
+          )as TempTable)
+          WHERE std_id = ?
+    ]]></entry>
+</properties>

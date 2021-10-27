@@ -1,0 +1,144 @@
+<div class="container" style="padding-top: 50px;">
+    <h3 class="text-center">
+        Annotate {{model.studyCode}} subject groupings
+    </h3>
+
+    <h3 class="text-justify">
+        <small>
+            Here, subject groupings that have been uploaded can be assigned to a specific type of cohort (e.g.
+            dose
+            cohort) and can be annotated with additional information, such as the details of dosing regimen.
+        </small>
+    </h3>
+
+
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-md-2 h5">Select grouping:</div>
+        <div class="col-md-4" style="width:300px;margin-left: -75px;">
+            <select class="form-control"
+                    ng-model="model.selectedGrouping"
+                    ng-change="sortList()">
+                <option style="display:none" value="">Select grouping</option>
+                <option ng-repeat="grouping in model.groupings track by $index | orderBy:'toString()'">{{grouping.name}}</option>
+            </select>
+        </div>
+        <div class="col-md-2 h5">Select type:</div>
+        <div class="col-md-4" style="width:300px;margin-left: -75px;">
+            <select class="form-control"
+                    ng-options="groupingType.id as groupingType.name for groupingType in model.groupingTypes | orderBy:'id'"
+                    ng-model="model.selectedGroupingType"
+                    ng-change="saveAnnotationTick()"
+                    data-ng-disabled="!model.selectedGrouping">
+                <option style="display:none" value="">Select type</option>
+            </select>
+        </div>
+    </div>
+    <div class="row" data-ng-show="model.groupings[model.selectedGrouping].groups.length > 0">
+        <div class="col-md-12 h5">Groups:</div>
+        <div class="col-md-12">
+            <small>
+                <em>Order the groups to define how they appear in ACUITY analytics modules</em>
+            </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 group-container" id="groupAccordion">
+            <ol class="panel-group non-marked-list group-container__list"
+                data-as-sortable="dragControlListeners"
+                data-ng-model="model.groupings[model.selectedGrouping].groups" >
+                <li ng-repeat="group in model.groupings[model.selectedGrouping].groups"
+                    data-as-sortable-item
+                    class="panel"
+                    ng-class="{'panel-default': !group.opened, 'panel-primary': group.opened}">
+
+                    <div class="panel-heading" data-as-sortable-item-handle>
+                        <button class="btn btn-link  pull-right" ng-click="removeGroup(group)" ng-disabled="group.subjectsCount">
+                            <span class="glyphicon glyphicon-remove pull-right"
+                                  ng-style="group.opened ? {color:'white'}:{color:'black'}"
+                                  style="margin-right: -15px; margin-top: -10px;margin-left: 10px;">
+                            </span>
+                        </button>
+                        <a href="" ng-click="openGroup(group)">
+                            <span class="panel-title"
+                                  ng-style="group.opened ? {color:'white'}:{color:'black'}"
+                                  ng-bind="($index+1) + '. ' + (group.groupPreferedName || group.groupName)">
+                            </span>
+                        </a>
+                        <span class="pull-right small" ng-style="group.opened ? {color:'white'}:none">
+                            Subjects : {{group.subjectsCount}}
+                        </span>
+                    </div>
+                    <div class="panel-body" collapse="!group.opened">
+                        <ng-form name="form{{$index}}">
+                            <div class="row">
+                                <div class="col-md-4 text-right h5">
+                                    Subject group name in source data:
+                                </div>
+
+                                <div ng-class="{'has-error': form{{$index}}.groupName.$error.required || groupHasSimilarName(group)}"
+                                     class="col-md-5">
+                                    <input type="text" class="form-control" data-ng-model=group.groupName
+                                           ng-blur="sortList()"
+                                           ng-readonly="group.subjectsCount > 0" name="groupName" required
+                                           ng-change="markDirty(group)">
+
+                                    <div class="help-block error" ng-show="form{{$index}}.groupName.$error.required">
+                                        Group name is required!
+                                    </div>
+                                    <div class="help-block error" ng-show="groupHasSimilarName(group)">
+                                        Please enter a unique name for the group.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-right h5">
+                                    Preferred name (if different):
+                                </div>
+                                <div ng-class="{'has-error': groupHasSimilarPN(group)}" class="col-md-5">
+                                    <input type="text" class="form-control" ng-change="markDirty(group)"
+                                           ng-blur="sortList()"
+                                           data-ng-model=group.groupPreferedName>
+
+                                    <div class="help-block error" ng-show="groupHasSimilarPN(group)">
+                                        Please enter a unique name for the group.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <button type="button" ng-click="clearChanges(group)"
+                                            class="btn btn-default pull-right"
+                                            data-ng-disabled="!group.groupPreferedName">Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-form>
+                        <div ng-include src="'views/subjectGroupings/doseTab.html'"></div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row" data-ng-show="model.selectedGrouping">
+        <div class="col-md-3 pull-right">
+            <div class="btn-group pull-right" role="group">
+                <button type="button" ng-click="saveChanges()" class="btn btn-default">Save</button>
+                <button type="button" ng-click="cancelChanges()" class="btn btn-default">Cancel</button>
+                <button type="button" ng-click="addGroup()" class="btn btn-default">Add group</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <script type="text/ng-template" id="removeModalContent">
+            <div class="modal-body h5">
+                {{question}}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-primary" ng-click="remove()">{{buttonName}}</button>
+            </div>
+        </script>
+    </div>
+    <div ng-show="model.loading" class="trbl-loader"></div>
+</div>

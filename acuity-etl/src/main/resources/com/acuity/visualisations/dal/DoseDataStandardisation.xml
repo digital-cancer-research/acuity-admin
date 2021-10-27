@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <comment>Set of ETL postprocess scripts created for RCT-4146</comment>
+
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_ALL_DOSE_VALUES_THAT_HAPPEN_IN_THE_FUTURE"><![CDATA[
+DELETE FROM result_trg_med_dos_schedule
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  WHERE pat_id=mds_pat_id AND mds_start_date >= oracle.sysdate()
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_ALL_DISC_VALUES_THAT_HAPPEN_IN_THE_FUTURE"><![CDATA[
+DELETE FROM result_target_med_dos_disc
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  WHERE pat_id=dsc_pat_id AND dsc_ipdc_date >= dsc_date_updated
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_DOSE_EVENTS_AFTER_DEATH"><![CDATA[
+DELETE FROM result_trg_med_dos_schedule
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  JOIN result_death ON dth_pat_id=pat_id
+  WHERE pat_id=mds_pat_id AND mds_start_date >= dth_date
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_DISC_EVENTS_AFTER_DEATH"><![CDATA[
+DELETE FROM result_target_med_dos_disc
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  JOIN result_death ON dth_pat_id=pat_id
+  WHERE pat_id=dsc_pat_id AND dsc_ipdc_date >= dth_date
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_DOSE_EVENTS_AFTER_WITHDRAWAL"><![CDATA[
+DELETE FROM result_trg_med_dos_schedule
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  JOIN result_withdrawal_completion ON wc_pat_id=pat_id
+  WHERE pat_id=mds_pat_id AND mds_start_date >= wc_withdrawal_completion_date
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="DISCARD_DISC_EVENTS_AFTER_WITHDRAWAL"><![CDATA[
+DELETE FROM result_target_med_dos_disc
+WHERE EXISTS(
+  SELECT 1 FROM result_patient
+  JOIN result_withdrawal_completion ON wc_pat_id=pat_id
+  WHERE pat_id=dsc_pat_id AND dsc_ipdc_date > wc_withdrawal_completion_date
+  AND pat_std_id=?
+)
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="SET_A_PERIOD_STATUS_ON_EACH_DOSE_EVENT"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_subsequent_period_type='INACTIVE_DOSING',
+mds_period_type=(CASE WHEN sel.mds_dose>0 THEN 'ACTIVE_DOSING' ELSE 'INACTIVE_DOSING' END)
+from (SELECT distinct mds_id, mds_dose
+    FROM result_trg_med_dos_schedule
+    JOIN result_patient ON mds_pat_id=pat_id
+    WHERE pat_std_id = ?) sel
+where tmd.mds_id = sel.mds_id
+
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <!--If the end date of the last dose record (based on start date-time) is null it should be set to the current date-time-->
+    <entry key="IMPUTE_ANY_MISSING_END_EVENT_FOR_THE_LAST_DOSE_RECORD"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_end_date = (SELECT std_date_last_uploaded
+                    FROM result_study
+                    WHERE std_id = ?),
+mds_subsequent_period_type = 'ONGOING_DOSING',
+mds_sec_hash = 0
+from (SELECT distinct *
+    FROM (
+      SELECT mds_id, mds_end_date,
+      LEAD(mds_start_date) OVER (partition BY mds_pat_id, mds_drug ORDER BY mds_start_date) AS mds_next_start_date
+      FROM result_trg_med_dos_schedule
+      JOIN result_patient ON mds_pat_id=pat_id
+      WHERE pat_std_id=?
+    ) as a
+    WHERE mds_end_date IS NULL AND mds_next_start_date IS NULL) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="IMPUTE_END_EVENTS_FOR_DOSE_RECORDS_BASED_ON_THE_START_EVENTS_OF_SUBSEQUENT_DOSE_RECORDS"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_end_date = mds_next_start_date - INTERVAL '1 SECOND',
+mds_sec_hash=0
+from (SELECT distinct *
+    FROM (
+      SELECT mds_id, mds_end_date,
+      LEAD(mds_start_date) OVER (partition BY mds_pat_id, mds_drug ORDER BY mds_start_date) AS mds_next_start_date
+      FROM result_trg_med_dos_schedule
+      JOIN result_patient ON mds_pat_id=pat_id
+      WHERE pat_std_id=?
+    ) as a
+    WHERE (mds_end_date IS NULL AND mds_next_start_date IS NOT NULL) OR mds_end_date >= mds_next_start_date) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+
+    <!--RCT-4146-->
+    <entry key="IMPUTE_END_EVENTS_FOR_DOSE_RECORDS_BASED_ON_DOSE_DISCONTINUATION_EVENTS"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_end_date = dsc_ipdc_date,
+mds_subsequent_period_type='DISCONTINUED',
+mds_sec_hash=0
+from (SELECT distinct mds_id, MAX(dsc_ipdc_date) AS dsc_ipdc_date
+    FROM result_trg_med_dos_schedule
+    JOIN result_target_med_dos_disc ON dsc_pat_id=mds_pat_id AND dsc_drug_name=mds_drug
+    JOIN result_patient ON mds_pat_id=pat_id
+    WHERE dsc_ipdc_date > mds_start_date AND dsc_ipdc_date < mds_end_date
+    AND pat_std_id=?
+    group by mds_id) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="IMPUTE_END_EVENTS_FOR_DOSE_RECORDS_BASED_ON_A_WITHDRAWAL_COMPLETION_EVENTS"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_end_date = wc_withdrawal_completion_date,
+mds_subsequent_period_type='WITHDRAWN_COMPLETE',
+mds_sec_hash=0
+from (SELECT distinct mds_id, wc_withdrawal_completion_date
+    FROM result_trg_med_dos_schedule
+    JOIN result_patient ON pat_id=mds_pat_id
+    JOIN result_withdrawal_completion ON wc_pat_id=pat_id
+    WHERE mds_end_date > wc_withdrawal_completion_date
+    AND pat_std_id=?) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="IMPUTE_END_EVENTS_FOR_DOSE_RECORDS_BASED_ON_A_DEATH_EVENTS"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_end_date = dth_date,
+mds_subsequent_period_type='DEATH',
+mds_sec_hash=0
+from (SELECT DISTINCT mds_id, dth_date
+    FROM result_trg_med_dos_schedule
+    JOIN result_patient ON pat_id=mds_pat_id
+    JOIN result_death ON dth_pat_id=pat_id
+    WHERE mds_end_date > dth_date
+    AND pat_std_id=?) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+    <!--RCT-4146-->
+    <entry key="FINISH_DOSE_SUBSEQUENT_PERIOD_TYPES"><![CDATA[
+update result_trg_med_dos_schedule tmd
+set mds_subsequent_period_type=(
+  CASE WHEN (TRUNC(mds_next_start_date) - TRUNC(sel.mds_end_date)) > INTERVAL '1 DAY'
+  THEN 'INACTIVE_DOSING'
+  ELSE COALESCE(mds_next_period_type, mds_subsequent_period_type) END
+)
+from (SELECT distinct mds_id, mds_end_date,
+    LEAD(mds_start_date) OVER (partition BY mds_pat_id, mds_drug ORDER BY mds_start_date) AS mds_next_start_date,
+    LEAD(mds_period_type) OVER (partition BY mds_pat_id, mds_drug ORDER BY mds_start_date) AS mds_next_period_type
+    FROM result_trg_med_dos_schedule
+    JOIN result_patient ON mds_pat_id=pat_id
+    WHERE pat_std_id=?) sel
+where tmd.mds_id = sel.mds_id
+        ]]></entry>
+
+    <!--'8335d96749094ab89a3eab9a669de604'-->
+
+</properties>

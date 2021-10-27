@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://visualisations.acuity.com/DataTransformation"
+        xmlns:tns="http://visualisations.acuity.com/DataTransformation" elementFormDefault="qualified">
+
+    <complexType name="Mapper">
+        <sequence>
+            <element name="value" type="tns:ValueRule" maxOccurs="unbounded" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="ValueRule">
+        <attribute name="from" type="ID"></attribute>
+        <attribute name="to" type="string"></attribute>
+    </complexType>
+
+    <complexType name="ColumnRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <sequence>
+                    <element name="mapper" type="tns:Mapper" maxOccurs="1" minOccurs="0"></element>
+                </sequence>
+                <attribute name="field" type="string"></attribute>
+                <attribute name="fmtname" type="string"></attribute>
+                <attribute name="fmtdefault" type="string"></attribute>
+                <attribute name="type" type="string"></attribute>
+                <attribute name="helper" type="tns:parserRule" default="MonthFirst"></attribute>
+                <attribute name="default" type="string"></attribute>
+                <attribute name="part" type="boolean"></attribute>
+                <attribute name="aggrFunction" type="string"></attribute>
+                <attribute name="radio" type="boolean" default="false"></attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="FilterRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <attribute name="equal" type="string"></attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="EntityRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <sequence>
+                    <element name="column" type="tns:ColumnRule" maxOccurs="unbounded" minOccurs="0"/>
+                    <element name="filter" type="tns:FilterRule" maxOccurs="unbounded" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="DataFileRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <sequence>
+                    <element name="entity" type="tns:EntityRule" maxOccurs="unbounded" minOccurs="0"></element>
+                </sequence>
+                <attribute name="type" type="tns:fileType" default="Cumulative"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <simpleType name="fileType">
+        <restriction base="string">
+            <enumeration value="Cumulative"/>
+            <enumeration value="NotCumulative"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="parserRule">
+        <restriction base="string">
+            <enumeration value="DayFirst"/>
+            <enumeration value="MonthFirst"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="StudyRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <sequence>
+                    <element name="file" type="tns:DataFileRule" maxOccurs="unbounded" minOccurs="0"></element>
+                </sequence>
+                <attribute name="displayName" type="string"/>
+                <attribute name="checkStudyCode" type="boolean" default="true"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="ProjectRule">
+        <complexContent>
+            <extension base="tns:NamedRule">
+                <sequence>
+                    <element name="study" type="tns:StudyRule" maxOccurs="1" minOccurs="1"></element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="root" type="tns:RootRule"></element>
+
+    <complexType name="RootRule">
+        <sequence>
+            <element name="project" type="tns:ProjectRule" maxOccurs="1" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="NamedRule">
+        <attribute name="name" type="ID"></attribute>
+    </complexType>
+
+</schema>

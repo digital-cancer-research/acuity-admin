@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<configuration>
+
+    <if condition='property("os.name").toLowerCase().contains("win")'>
+        <then>
+            <property name="DEV" value="true"/>
+        </then>
+    </if>
+
+    <if condition='isDefined("DEV")'>
+        <then>
+            <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%-33.-33(%d{dd/MM HH:mm:ss} [%X{username}] [%thread]) %-5level %-29.29(%logger{25}:%L) - %msg %n</pattern>
+                </encoder>
+            </appender>
+
+
+            <logger name="com.acuity.visualisations" level="DEBUG" />
+            <logger name="com.acuity.visualisations.security" level="DEBUG" />
+            <logger name="com.acuity.visualisations.web.auth" level="DEBUG" />
+
+            <logger name="org.apache.catalina" level="INFO" />
+
+            <logger name="org.springframework" level="INFO" />
+            <logger name="org.springframework.beans" level="ERROR" />
+            <logger name="org.springframework.web" level="ERROR" />
+            <logger name="org.springframework.jdbc.core.JdbcTemplate" level="ERROR" />
+
+            <logger name="org.quartz.core" level="INFO" />
+            <logger name="org.quartz.core.QuartzSchedulerThread" level="INFO" />
+
+            <root level="DEBUG">
+                <appender-ref ref="CONSOLE" />
+            </root>
+        </then>
+        <else>
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOG_PATH}/adminui/adminui.log</file>
+
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${LOG_PATH}/adminui/adminui.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                    <maxFileSize>100MB</maxFileSize>
+                    <totalSizeCap>4GB</totalSizeCap>
+                </rollingPolicy>
+
+                <encoder>
+                    <pattern>%-33.-33(%d{dd/MM HH:mm:ss} [%X{username}] [%thread]) %-5level %-29.29(%logger{25}:%L) - %msg %n</pattern>
+                </encoder>
+            </appender>
+
+            <logger name="com.acuity.visualisations" level="${logback.level:-INFO}" />
+            <logger name="com.acuity.visualisations.security" level="${logback.level:-INFO}" />
+            <logger name="com.acuity.visualisations.web.auth" level="${logback.level:-INFO}" />
+
+            <logger name="org.apache.catalina" level="INFO" />
+
+            <logger name="org.springframework" level="INFO" />
+            <logger name="org.springframework.beans" level="${logback.level:-INFO}" />
+            <logger name="org.springframework.web" level="${logback.level:-INFO}" />
+            <logger name="org.springframework.jdbc.core.JdbcTemplate" level="ERROR" />
+
+            <logger name="org.quartz.core" level="INFO" />
+            <logger name="org.quartz.core.QuartzSchedulerThread" level="INFO" />
+
+            <root level="${logback.level:-INFO}">
+                <appender-ref ref="FILE"/>
+            </root>
+        </else>
+    </if>
+
+</configuration>

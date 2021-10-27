@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <comment>Set of SQLs</comment>
+
+    <!--RCT-RCT-3694-->
+    <entry key="SELECT_ALL_STUDY_GROUPINGS"><![CDATA[
+SELECT
+  study_id,
+  grouping_name,
+  msgt.msgt_type AS grouping_type
+FROM (
+  SELECT
+    msgr_study_id AS study_id,
+    msgr_name AS grouping_name
+  FROM map_subject_group_rule
+  WHERE msgr_name IS NOT NULL
+    UNION
+  SELECT
+    msr_id,
+    pgr_grouping_name
+  FROM result_patient_group
+    INNER JOIN result_study ON pgr_std_id = std_id
+    INNER JOIN map_study_rule ON std_name = msr_study_code
+  WHERE pgr_grouping_name IS NOT NULL
+  ) as a
+  LEFT JOIN map_subject_grouping msg ON msg.msg_study_id = study_id AND grouping_name = msg.msg_grouping_name
+  LEFT JOIN map_subject_grouping_type msgt ON msgt.msgt_id = msg.msg_msgt_id
+WHERE study_id = ?
+    ]]></entry>
+
+    <entry key="SELECT_SELECTED_STUDY_GROUPINGS"><![CDATA[
+SELECT
+study_id,
+grouping_name,
+grouping_type
+FROM
+
+(SELECT
+  MSG_STUDY_ID as study_id,
+  msg_grouping_name as grouping_name,
+  msgt_type as grouping_type
+    FROM map_subject_grouping
+    JOIN map_subject_grouping_type
+    ON msg_msgt_id = msgt_id
+    where MSG_GROUPING_SELECTED = true
+    and MSG_STUDY_ID = ?
+) as a
+    ]]></entry>
+
+    <entry key="UPDATE_SELECTED_STUDY_GROUPINGS"><![CDATA[
+update map_subject_grouping set MSG_GROUPING_SELECTED = (case when MSG_ID in
+(select msg_id from map_subject_grouping join  map_subject_grouping_type ON msg_msgt_id = msgt_id
+  where MSG_STUDY_ID = ? %%SELECTED_CONDITION%%)
+  then true else false end)
+  where MSG_STUDY_ID = ?
+    ]]></entry>
+
+</properties>

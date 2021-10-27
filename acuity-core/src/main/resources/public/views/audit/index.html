@@ -1,0 +1,77 @@
+<div class=".table-responsive page-content">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1>Audit trail</h1>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th title="Datetime of edit"
+                        ng-click="sort('timestamp')">
+                        Date
+                        <span ng-show="sortBy=='timestamp'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='timestamp'">↨</span>
+                    </th>
+                    <th title="User who made the edit"
+                        ng-click="sort('username')">
+                        User
+                        <span ng-show="sortBy=='username'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='username'">↨</span>
+                    </th>
+                    <th title="The resource type (project, study, visualisation module)"
+                        ng-click="sort('resourceType')">
+                        Resource type
+                        <span ng-show="sortBy=='resourceType'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='resourceType'">↨</span>
+                    </th>
+                    <th title="The resource name (e.g., STDY4321)"
+                        ng-click="sort('resourceName')">
+                        Resource name
+                        <span ng-show="sortBy=='resourceName'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='resourceName'">↨</span>
+                    </th>
+                    <th title="Whether it was a creation, deletion or modification"
+                        ng-click="sort('action')">
+                        Action
+                        <span ng-show="sortBy=='action'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='action'">↨</span>
+                    </th>
+                    <th ng-click="sort('comment')">
+                        Comment
+                        <span ng-show="sortBy=='comment'">
+                            <span ng-show="sortReverse">˄</span><span ng-show="!sortReverse">˅</span>
+                        </span>
+                        <span ng-show="sortBy!='comment'">↨</span>
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-class="$even ? 'even' : ''" ng-repeat="audit in audit.items">
+                    <td>{{audit.timestamp | date : 'dd-MMM-yyyy HH:mm:ss'}}</td>
+                    <td>{{audit.username}}</td>
+                    <td>{{audit.resourceType}}</td>
+                    <td>{{audit.resourceName}}</td>
+                    <td>{{audit.action}}</td>
+                    <td>{{audit.comment}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <pagination boundary-links="true" max-size="10" items-per-page="itemsPerPage" rotate="false"
+                        total-items="audit.total"
+                        ng-model="currentPage"
+                        ng-change="pageChanged()"></pagination>
+        </div>
+    </div>
+</div>

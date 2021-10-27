@@ -1,0 +1,1693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright 2021 The University of Manchester
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<root xmlns="http://visualisations.acuity.com/EntitiesDescription" schemaLocation="EntitiesDescription.xsd">
+
+    <entity name="PatientGroup" table="RESULT_PATIENT_GROUP">
+        <uniqueFields>
+            <field name="groupingName"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="groupName"/>
+        </secondaryFields>
+        <referredBy name="patGroupUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Patient" table="RESULT_PATIENT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="race"/>
+            <field name="sex"/>
+            <field name="centre"/>
+            <field name="birthDate"/>
+            <field name="visitDate"/>
+            <field name="part"/>
+        </secondaryFields>
+        <referredBy name="patUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="patGroupUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <mandatory>true</mandatory>
+    </entity>
+
+    <entity name="Death" table="RESULT_DEATH">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="designationOfCause"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="date"/>
+            <field name="cause"/>
+            <field name="autopsyPerformed"/>
+            <field name="relatedToInvestigationDisease"/>
+            <field name="narrativeCause"/>
+            <field name="preferredTerm"/>
+            <field name="llt"/>
+            <field name="hlt"/>
+            <field name="soc"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="PrimaryTumourLocation" table="RESULT_PRIMARY_TUMOUR_LOCATION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="primaryTumLocation"/>
+            <field name="originalDiagnosisDate"/>
+            <field name="primaryTumLocationComment"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Visit" table="RESULT_VISIT">
+        <uniqueFields>
+            <field name="visitDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitNumber"/>
+            <field name="part"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <mandatory>true</mandatory>
+    </entity>
+
+    <entity name="Country" table="RESULT_COUNTRY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="countryName"/>
+            <field name="part"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Randomisation" table="RESULT_RANDOMISATION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="randDate"/>
+            <field name="part"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="EventType" table="RESULT_EVENT_TYPE">
+        <uniqueFields>
+            <field name="PT"/>
+            <field name="HLT"/>
+            <field name="SOC"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="LLT"/>
+            <field name="medDRAVersion"/>
+        </secondaryFields>
+        <referredBy name="evtUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="aegUnique">
+            <field name="PT"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="AE" table="RESULT_AE">
+        <uniqueFields>
+            <field name="PT"/>
+            <field name="HLT"/>
+            <field name="SOC"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="serious"/>
+            <field name="number"/>
+            <field name="aeText"/>
+            <field name="comment"/>
+            <field name="outcome"/>
+            <field name="doseLimitingToxicity"/>
+            <field name="timePoint"/>
+            <field name="immuneMediated"/>
+            <field name="infusionReaction"/>
+            <field name="requiredTreatment"/>
+            <field name="causedSubjectWithdrawal"/>
+        </secondaryFields>
+        <referBy name="evtUnique">
+            <field name="PT"/>
+            <field name="HLT"/>
+            <field name="SOC"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referredBy name="aeUnique" equalToUniqueSet="true"/>
+    </entity>
+
+    <entity name="AeSeverity" table="RESULT_AE_SEVERITY">
+        <uniqueFields>
+            <field name="aeUniqueFields"/>
+            <field name="startDate"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="severity"/>
+            <field name="endDate"/>
+        </secondaryFields>
+        <referBy name="aeUnique">
+            <field name="aePT"/>
+            <field name="aeHLT"/>
+            <field name="aeSOC"/>
+            <field name="aeStartDate"/>
+            <field name="aeSubject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referredBy name="aeSeverityUnique" equalToUniqueSet="true"/>
+    </entity>
+
+    <entity name="AeCausality" table="RESULT_AE_CAUSALITY">
+        <uniqueFields>
+            <field name="aeUniqueFields"/>
+            <field name="drugUniqueFields"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="causality"/>
+        </secondaryFields>
+        <referBy name="aeUnique">
+            <field name="aePT"/>
+            <field name="aeHLT"/>
+            <field name="aeSOC"/>
+            <field name="aeStartDate"/>
+            <field name="aeSubject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="drugUnique">
+            <field name="drugName"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="AeActionTaken" table="RESULT_AE_ACTION_TAKEN">
+        <uniqueFields>
+            <field name="aeSeverityUniqueFields"/>
+            <field name="drugUniqueFields"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="actionTaken"/>
+        </secondaryFields>
+        <referBy name="aeSeverityUnique">
+            <field name="aeUniqueFields"/>
+            <field name="aeSeverityStartDate"/>
+        </referBy>
+        <referBy name="drugUnique">
+            <field name="drugName"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Drug" table="RESULT_DRUG">
+        <uniqueFields>
+            <field name="drugName"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referredBy name="drugUnique" equalToUniqueSet="true"/>
+    </entity>
+
+    <entity name="SeriousAdverseEvent" table="RESULT_SERIOUS_ADVERSE_EVENT">
+        <uniqueFields>
+            <field name="aeText"/>
+            <field name="aeBecomeSeriousDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="aeNum"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="aeText"/>
+            <field name="aeFindOutDate"/>
+            <field name="isResultInDeath"/>
+            <field name="isLifeThreatening"/>
+            <field name="isHospitalizationRequired"/>
+            <field name="hospitalizationDate"/>
+            <field name="dischargeDate"/>
+            <field name="isDisability"/>
+            <field name="isCongenitalAnomaly"/>
+            <field name="isOtherSeriousEvent"/>
+            <field name="isCausedByOther"/>
+            <field name="otherMedication"/>
+            <field name="isCausedByStudy"/>
+            <field name="studyProcedure"/>
+            <field name="aeDescription"/>
+            <field name="primaryCauseOfDeath"/>
+            <field name="secondaryCauseOfDeath"/>
+            <field name="additionalDrug"/>
+            <field name="causedByAdditionalDrug"/>
+            <field name="additionalDrug1"/>
+            <field name="causedByAdditionalDrug1"/>
+            <field name="additionalDrug2"/>
+            <field name="causedByAdditionalDrug2"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Test" table="RESULT_TEST">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="visit"/>
+        </secondaryFields>
+        <referredBy name="testUnique" equalToUniqueSet="true"/>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="LaboratoryGroup" table="RESULT_LAB_GROUP">
+        <uniqueFields>
+            <field name="labCode"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="description"/>
+            <field name="groupName"/>
+        </secondaryFields>
+        <referredBy name="lgrUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Laboratory" table="RESULT_LABORATORY">
+        <uniqueFields>
+            <field name="labCode"/>
+            <field name="date"/>
+            <field name="laboratoryValue"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="sourceType"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="laboratoryUnit"/>
+            <field name="refLow"/>
+            <field name="refHigh"/>
+            <field name="comment"/>
+            <field name="valueDipstick"/>
+            <field name="protocolScheduleTimepoint"/>
+            <field name="sourceDeviceName"/>
+            <field name="sourceDeviceVersion"/>
+            <field name="sourceDeviceType"/>
+        </secondaryFields>
+        <referBy name="lgrUnique">
+            <field name="labCode"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="srcUnique">
+            <field name="sourceDeviceName"/>
+            <field name="sourceDeviceVersion"/>
+            <field name="sourceDeviceType"/>
+        </referBy>
+    </entity>
+
+    <entity name="PatientData" table="RESULT_PATIENT_REPORTED_DATA">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="measurementName"/>
+            <field name="measurementDate"/>
+            <field name="reportDate"/>
+            <field name="part"/>
+            <field name="value"/>
+            <field name="unit"/>
+            <field name="sourceType"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="comment"/>
+        </secondaryFields>
+        <referBy name="srcUnique">
+            <field name="sourceDeviceName"/>
+            <field name="sourceDeviceVersion"/>
+            <field name="sourceDeviceType"/>
+        </referBy>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+    <entity name="Source" table="RESULT_SOURCE">
+        <uniqueFields>
+            <field name="name"/>
+            <field name="version"/>
+            <field name="type"/>
+        </uniqueFields>
+        <referredBy name="srcUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="EG" table="RESULT_EG">
+        <uniqueFields>
+            <field name="testName"/>
+            <field name="resultUnit"/>
+            <field name="date"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="testResult"/>
+            <field name="evaluation"/>
+            <field name="abnormality"/>
+            <field name="significant"/>
+            <field name="dateOfLastDose"/>
+            <field name="lastDoseAmount"/>
+            <field name="method"/>
+            <field name="atrialFibrillation"/>
+            <field name="sinusRhythm"/>
+            <field name="reasonNoSinusRhythm"/>
+            <field name="heartRhythm"/>
+            <field name="heartRhythmOther"/>
+            <field name="extraSystoles"/>
+            <field name="specifyExtraSystoles"/>
+            <field name="typeOfConduction"/>
+            <field name="conduction"/>
+            <field name="reasonAbnormalConduction"/>
+            <field name="sttChanges"/>
+            <field name="stSegment"/>
+            <field name="tWave"/>
+        </secondaryFields>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="DECG" table="RESULT_DECG">
+        <uniqueFields>
+            <field name="measurementLabel"/>
+            <field name="date"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="measurementValue"/>
+            <field name="abnormality"/>
+            <field name="evaluation"/>
+            <field name="significant"/>
+            <field name="protocolScheduleTimepoint"/>
+            <field name="method"/>
+            <field name="beatGroupNumber"/>
+            <field name="beatNumberWithinBeatGroup"/>
+            <field name="numberOfBeatsInAverageBeat"/>
+            <field name="beatGroupLengthInSec"/>
+            <field name="comment"/>
+        </secondaryFields>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="LVEF" table="RESULT_LVEF">
+        <uniqueFields>
+            <field name="date"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="lvef"/>
+            <field name="method"/>
+            <field name="methodOther"/>
+        </secondaryFields>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Vital" table="RESULT_VITALS">
+        <uniqueFields>
+            <field name="date"/>
+            <field name="testName"/>
+            <field name="resultUnit"/>
+            <field name="anatomicalLocation"/>
+            <field name="physicalPosition"/>
+            <field name="anatomicalSideOfInterest"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="lpdat"/>
+            <field name="lpdos"/>
+            <field name="testResult"/>
+            <field name="clinicallySignificant"/>
+        </secondaryFields>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="VitalThin" table="RESULT_VITALS">
+        <uniqueFields>
+            <field name="date"/>
+            <field name="testName"/>
+            <field name="resultUnit"/>
+            <field name="anatomicalLocation"/>
+            <field name="physicalPosition"/>
+            <field name="anatomicalSideOfInterest"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="lpdat"/>
+            <field name="lpdos"/>
+            <field name="testResult"/>
+            <field name="clinicallySignificant"/>
+            <field name="protocolScheduleTimepoint"/>
+            <field name="lastDoseDate"/>
+            <field name="lastDoseAmount"/>
+        </secondaryFields>
+        <referBy name="testUnique">
+            <field name="subject"/>
+            <field name="date"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Medicine" table="RESULT_MEDICINE">
+        <uniqueFields>
+            <field name="drugName"/>
+            <field name="drugParent"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <referredBy name="medUnique" equalToUniqueSet="true"/>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="ExaSeverityMap" table="RESULT_EXA_SEVERITY_MAP">
+        <uniqueFields>
+            <field name="depotGcs"/>
+            <field name="syscortTrt"/>
+            <field name="icsTrt"/>
+            <field name="antibioticsTrt"/>
+            <field name="hospit"/>
+            <field name="emerTrt"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="excClass"/>
+        </secondaryFields>
+        <referBy name="studyUnique">
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="ConcomitantMedSchedule" table="RESULT_CONMED_SCHEDULE">
+        <uniqueFields>
+            <field name="drugName"/>
+            <field name="drugParent"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="aeNumber"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="dose"/>
+            <field name="doseUnit"/>
+            <field name="frequency"/>
+            <field name="atcCode"/>
+            <field name="atcCodeText"/>
+            <field name="endDate"/>
+            <field name="treatmentReason"/>
+            <field name="doseTotal"/>
+            <field name="doseUnitOther"/>
+            <field name="frequencyOther"/>
+            <field name="route"/>
+            <field name="therapyReason"/>
+            <field name="therapyReasonOther"/>
+            <field name="prophylaxisSpecOther"/>
+            <field name="infBodySys"/>
+            <field name="infBodySysOther"/>
+            <field name="reasonStop"/>
+            <field name="reasonStopOther"/>
+            <field name="activeIngredient1"/>
+            <field name="activeIngredient2"/>
+        </secondaryFields>
+        <referBy name="medUnique">
+            <field name="drugName"/>
+            <field name="drugParent"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="MedDosingSchedule" table="RESULT_TRG_MED_DOS_SCHEDULE">
+        <uniqueFields>
+            <field name="drug"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="dose"/>
+            <field name="doseUnit"/>
+            <field name="endDate"/>
+            <field name="freqName"/>
+            <field name="freqRank"/>
+            <field name="frequency"/>
+            <field name="frequencyUnit"/>
+            <field name="actionTaken"/>
+            <field name="reasonForActionTaken"/>
+            <field name="comment"/>
+            <field name="totalDailyDose"/>
+            <field name="treatmentCycleDelayed"/>
+            <field name="reasonTreatmentCycleDelayed"/>
+            <field name="reasonTreatmentCycleDelayedOther"/>
+            <field name="medicationCode"/>
+            <field name="medicationDictionaryText"/>
+            <field name="atcCode"/>
+            <field name="atcDictionaryText"/>
+            <field name="drugPreferredName"/>
+            <field name="medicationGroupingName"/>
+            <field name="activeIngredientOutput"/>
+            <field name="studyDrugCategory"/>
+            <field name="plannedDose"/>
+            <field name="plannedDoseUnits"/>
+            <field name="plannedNoDaysTreatment"/>
+            <field name="aeNumsCausedActionTaken"/>
+            <field name="formulation"/>
+            <field name="route"/>
+            <field name="reasonForTherapy"/>
+            <field name="aeNumsCausedCycleDelayed"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <mandatory>true</mandatory>
+    </entity>
+
+    <entity name="AeNumActionTaken" table="RESULT_AE_NUM_ACT_TAKEN">
+        <uniqueFields>
+            <field name="drug"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="numActionTaken"/>
+        </uniqueFields>
+        <referBy name="doseUnique">
+            <field name="drug"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="AeNumCycleDelayed" table="RESULT_AE_NUM_DEL">
+        <uniqueFields>
+            <field name="drug"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="numCycleDelayed"/>
+        </uniqueFields>
+        <referBy name="doseUnique">
+            <field name="drug"/>
+            <field name="startDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="MedDosDisc" table="RESULT_TARGET_MED_DOS_DISC">
+        <uniqueFields>
+            <field name="drugName"/>
+            <field name="ipdcDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="ipdcReas"/>
+            <field name="ipdcSpec"/>
+            <field name="subjectDecisionSpec"/>
+            <field name="subjectDecisionSpecOther"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="RecistAssessment" table="RESULT_RECIST_ASSESSMENT">
+        <uniqueFields>
+            <field name="visit"/>
+            <field name="visitDate"/>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="newLesionsSinceBaseline"/>
+            <field name="overallRecistResponse"/>
+            <field name="invAgreeWithRecistResponse"/>
+            <field name="invOpinion"/>
+            <field name="reasonAssessmentsDiffer"/>
+            <field name="assessmentFrequency"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="RecistTargetLesion" table="RESULT_RECIST_TARGET_LESION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="visitDate"/>
+            <field name="visitNumber"/>
+            <field name="lesionNumber"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="lesionNoLongerMeasurable"/>
+            <field name="methodOfAssessment"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="lesionDate"/>
+            <field name="lesionPresent"/>
+            <field name="lesionSite"/>
+            <field name="lesionDiameter"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="RecistNonTargetLesion" table="RESULT_RECIST_NONTARGET_LESION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="lesionDate"/>
+            <field name="lesionSite"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="response"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="lesionPresent"/>
+            <field name="visitDate"/>
+            <field name="visitNumber"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Radiotherapy" table="RESULT_RADIOTHERAPY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="radioStartDate"/>
+            <field name="radioSiteOrRegion"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="visit"/>
+            <field name="radiotherapyGiven"/>
+            <field name="visitDate"/>
+            <field name="radioEndDate"/>
+            <field name="radiationDose"/>
+            <field name="numberOfDoses"/>
+            <field name="radioTimeStatus"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Chemotherapy" table="RESULT_CHEMOTHERAPY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="chemoStartDate"/>
+            <field name="preferredNameOfMed"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="visit"/>
+            <field name="visitDate"/>
+            <field name="chemoEndDate"/>
+            <field name="numberOfCycles"/>
+            <field name="chemoClass"/>
+            <field name="treatmentStatus"/>
+            <field name="bestResponse"/>
+            <field name="reasonForFailure"/>
+            <field name="chemoTimeStatus"/>
+            <field name="concomitantTherapy"/>
+            <field name="numberOfPriorRegiments"/>
+            <field name="cancerTherapyAgent"/>
+            <field name="therapyReason"/>
+            <field name="route"/>
+            <field name="treatmentContinues"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="SpecimenCollection" table="RESULT_SPECIMEN_COLLECTION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="spcIdentifier"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="spcCategory"/>
+            <field name="protocolSchedule"/>
+            <field name="protocolScheduleDay"/>
+            <field name="protocolScheduleHour"/>
+            <field name="protocolScheduleMinute"/>
+            <field name="drugAdmDate"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="PkConcentration" table="RESULT_PK_CONCENTRATION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="analyte"/>
+            <field name="treatment"/>
+            <field name="treatmentCycle"/>
+            <field name="treatmentSchedule"/>
+            <field name="spcIdentifier"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="analyteConcentration"/>
+            <field name="analyteConcentrationUnit"/>
+            <field name="lowerLimit"/>
+            <field name="comment"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="StackedPkResults" table="RESULT_STACKED_PK_RESULTS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="analyte"/>
+            <field name="parameter"/>
+            <field name="treatment"/>
+            <field name="treatmentSchedule"/>
+            <field name="treatmentCycle"/>
+            <field name="protocolSchedule"/>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="protocolScheduleStartDay"/>
+            <field name="protocolScheduleStartHour"/>
+            <field name="protocolScheduleStartMinute"/>
+            <field name="protocolScheduleEnd"/>
+            <field name="protocolScheduleEndDay"/>
+            <field name="protocolScheduleEndHour"/>
+            <field name="protocolScheduleEndMinute"/>
+            <field name="visit"/>
+            <field name="actualDose"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="part"/>
+            <field name="parameterValue"/>
+            <field name="parameterValueUnit"/>
+            <field name="comment"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="WithdrawalCompletion" table="RESULT_WITHDRAWAL_COMPLETION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="prematurelyWithdrawn"/>
+            <field name="mainReason"/>
+            <field name="specification"/>
+            <field name="part"/>
+            <field name="withdrawalCompletionDate"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="SubjectCharacteristic" table="RESULT_SC">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="ethpop"/>
+            <field name="sEthpop"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="part"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Exacerbation" table="RESULT_EXACERBATION">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="exacStartDate"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="exacEndDate"/>
+            <field name="ltpca"/>
+            <field name="ltpcaStartDate"/>
+            <field name="ltpcaEndDate"/>
+            <field name="ediaryAlertDate"/>
+            <field name="depotGcs"/>
+            <field name="depotGcsStartDate"/>
+            <field name="syscortTrt"/>
+            <field name="syscortTrtStartDate"/>
+            <field name="syscortTrtEndDate"/>
+            <field name="antibioticsTrt"/>
+            <field name="antibioticsTrtStartDate"/>
+            <field name="antibioticsTrtEndDate"/>
+            <field name="emerTrt"/>
+            <field name="emerTrtDate"/>
+            <field name="hospit"/>
+            <field name="hospitStartDate"/>
+            <field name="hospitEndDate"/>
+            <field name="icsTrt"/>
+            <field name="icsStartDate"/>
+            <field name="icsEndDate"/>
+            <field name="severity"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="LungFunction" table="RESULT_LUNGFUNC">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="assessDate"/>
+            <field name="protocolSchedule"/>
+            <field name="testName"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitDate"/>
+            <field name="visit"/>
+            <field name="testResult"/>
+            <field name="diffusingCapacity"/>
+            <field name="totalLungCapacity"/>
+            <field name="inspiredOxFraction"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="EDiary" table="RESULT_EDIARY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="part"/>
+            <field name="projectName"/>
+            <field name="assessmentDate"/>
+            <field name="drugIntakeTime"/>
+            <field name="deviceType"/>
+            <field name="morningAssessmentTime"/>
+            <field name="eveningAssessmentTime"/>
+            <field name="pefMorning"/>
+            <field name="pefEvening"/>
+            <field name="asthmaSymptomScoreNight"/>
+            <field name="asthmaSymptomScoreDay"/>
+            <field name="wokeDueToAsthma"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="FMGene" table="RESULT_FM_GENE">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+            <field name="sampleId"/>
+            <field name="disease"/>
+            <field name="medianExonCoverage"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="knownVariants"/>
+            <field name="likelyVariants"/>
+            <field name="highLevelAmplifications"/>
+            <field name="deletions"/>
+            <field name="rearrangements"/>
+            <field name="comments"/>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="MedicalHistory" table="RESULT_MEDICAL_HISTORY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+            <field name="category"/>
+            <field name="term"/>
+            <field name="conditionStatus"/>
+            <field name="lltName"/>
+            <field name="ptName"/>
+            <field name="hltName"/>
+            <field name="socName"/>
+            <field name="currentMedication"/>
+            <field name="startDate"/>
+            <field name="endDate"/>
+        </uniqueFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="ConmedProcedure" table="RESULT_CONMED_PROCEDURE">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="value"/>
+            <field name="startDate"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="pt"/>
+            <field name="llt"/>
+            <field name="hlt"/>
+            <field name="soc"/>
+            <field name="endDate"/>
+            <field name="primaryReason"/>
+            <field name="primaryReasonOther"/>
+            <field name="continuesAtStudyDiscCompl"/>
+            <field name="reason"/>
+            <field name="numberOfLesionsResected"/>
+            <field name="dateWoundHealed"/>
+            <field name="hospitalDischargeDate"/>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="Pathology" table="RESULT_PATHOLOGY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+            <field name="date"/>
+            <field name="histologyType"/>
+            <field name="histologyTypeDetails"/>
+            <field name="tumourGrade"/>
+            <field name="stage"/>
+            <field name="tumorLocation"/>
+            <field name="primaryTumourStatus"/>
+            <field name="nodesStatus"/>
+            <field name="metastasesStatus"/>
+            <field name="methodOfDetermination"/>
+            <field name="otherMethods"/>
+        </uniqueFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="PregnancyTest" table="RESULT_PREGNANCY_TEST">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="pTSamplingDate"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitNumber"/>
+            <field name="pTVisitDate"/>
+            <field name="pTSerum"/>
+            <field name="pTUrine"/>
+            <field name="pTPlasma"/>
+            <field name="pregTest"/>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+    <entity name="AlcoholSubUse" table="RESULT_ALCOHOL_SUB_USE">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="category"/>
+            <field name="useOccurrence"/>
+            <field name="type"/>
+            <field name="otherTypeSpec"/>
+            <field name="typeUseOccurrence"/>
+            <field name="consumption"/>
+            <field name="frequency"/>
+            <field name="startDate"/>
+            <field name="endDate"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="NicotineSubUse" table="RESULT_NICOTINE_SUB_USE">
+
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+            <field name="category"/>
+            <field name="type"/>
+            <field name="otherTypeSpec"/>
+            <field name="useOccurrence"/>
+            <field name="currentUseSpec"/>
+            <field name="useStartDate"/>
+            <field name="useEndDate"/>
+            <field name="consumption"/>
+            <field name="useFreqInterval"/>
+            <field name="numberOfPackYears"/>
+            <field name="typeUseOccurrence"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="SurgicalHistory" table="RESULT_SURGICAL_HISTORY">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="procedure"/>
+            <field name="startDate"/>
+            <field name="hlt"/>
+            <field name="llt"/>
+            <field name="pt"/>
+            <field name="soc"/>
+            <field name="current"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="DiseaseExtent" table="RESULT_DISEASE_EXTENT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="siteOfLocalMetastaticDisease"/>
+            <field name="metastaticLocallyAdvanced"/>
+            <field name="otherLocallyAdvancedSites"/>
+            <field name="otherMetastaticSites"/>
+            <field name="visitDate"/>
+            <field name="recentProgressionDate"/>
+            <field name="recurrenceOfEarlierCancer"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="LiverDI" table="RESULT_LIVER">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="value"/>
+            <field name="date"/>
+            <field name="results"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="specification"/>
+        </uniqueFields>
+        <secondaryFields>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="Consent" table="RESULT_CONSENT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="consentDate"/>
+        </uniqueFields>
+        <secondaryFields>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="LiverSS" table="RESULT_LIVERSS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="value"/>
+            <field name="occurrence"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="startDate"/>
+            <field name="stopDate"/>
+            <field name="intermittent"/>
+            <field name="specification"/>
+            <field name="valueText"/>
+            <field name="pt"/>
+            <field name="llt"/>
+            <field name="hlt"/>
+            <field name="soc"/>
+        </uniqueFields>
+        <secondaryFields>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="PerformanceStatus" table="RESULT_PERFORMANCE_STATUS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="assessmentDate"/>
+            <field name="performanceStatus"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitNumber"/>
+            <field name="visitDate"/>
+            <field name="questionnaire"/>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="OverdoseReport" table="RESULT_OVERDOSE_REPORT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="drug"/>
+            <field name="startDate"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="route"/>
+            <field name="stopDate"/>
+            <field name="intentFlag"/>
+            <field name="overdoseAeFlag"/>
+            <field name="numberForAe"/>
+            <field name="aeOverdoseAss"/>
+            <field name="totalDose"/>
+            <field name="totalDoseUnit"/>
+            <field name="furtherInfo"/>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="LiverRiskFactors" table="RESULT_LIVER_RISK_FACTORS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="liverRiskFactor"/>
+            <field name="occurrence"/>
+            <field name="potentialHysLawCaseNumber"/>
+            <field name="referencePeriod"/>
+            <field name="details"/>
+            <field name="startDate"/>
+            <field name="stopDate"/>
+            <field name="comment"/>
+        </uniqueFields>
+        <secondaryFields>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="SurvivalStatus" table="RESULT_SURVIVAL_STATUS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="dateOfContact"/>
+        </uniqueFields>
+        <secondaryFields>
+            <field name="visitNumber"/>
+            <field name="value"/>
+            <field name="lastDateAlive"/>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="CVOT" table="RESULT_CVOT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="aeNumber"/>
+            <field name="startDate"/>
+            <field name="term"/>
+            <field name="category1"/>
+            <field name="category2"/>
+            <field name="category3"/>
+            <field name="description1"/>
+            <field name="description2"/>
+            <field name="description3"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="CIEvent" table="RESULT_CI_EVENT">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+
+            <field name="startDate"/>
+            <field name="eventTerm"/>
+            <field name="aeNumber"/>
+            <field name="ischemicSymptoms"/>
+            <field name="cieSymptomsDuration"/>
+            <field name="symptCausedUnscheduledHosp"/>
+            <field name="symptCausedStentThromb"/>
+            <field name="prevEcgBeforeAvailableEvent"/>
+            <field name="prevEcgDate"/>
+            <field name="availableEcgAtEventTime"/>
+            <field name="noEcgAtEventTime"/>
+            <field name="localCardiacBiomarkersDrawn"/>
+            <field name="coronaryAngiographyPerformed"/>
+            <field name="angiographyDate"/>
+            <field name="finalDiagnosis"/>
+            <field name="otherDiagnosis"/>
+            <field name="description1"/>
+            <field name="description2"/>
+            <field name="description3"/>
+            <field name="description4"/>
+            <field name="description5"/>
+        </uniqueFields>
+        <secondaryFields>
+
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+    <entity name="Cerebrovascular" table="RESULT_CEREBROVASCULAR">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>`
+            <field name="projectName"/>
+            
+            <field name="eventType"/>
+            <field name="aeNumber"/>
+            <field name="startDate"/>
+            <field name="term"/>
+            <field name="primaryIschemicStroke"/>
+            <field name="traumatic"/>
+            <field name="intracranialHemorrhageLocation"/>
+            <field name="intracranialHemorrhageLocationOther"/>
+            <field name="symptomsDuration"/>
+            <field name="mRSPriorToStroke"/>
+            <field name="mRSDuringStrokeHospitalisation"/>
+            <field name="mRSAtVisitOrAfterStroke"/>
+            <field name="comment"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="Biomarker" table="RESULT_BIOMARKERS">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+
+            <field name="part"/>
+            <field name="gene"/>
+            <field name="sampleType"/>
+            <field name="sampleId"/>
+            <field name="variantCount"/>
+            <field name="cDNAChange"/>
+            <field name="somaticStatus"/>
+            <field name="aminoAcidChange"/>
+            <field name="chromosomeNumber"/>
+            <field name="chromosomeLocationStart"/>
+            <field name="chromosomeLocationEnd"/>
+            <field name="externalVarianId"/>
+            <field name="totalReads"/>
+            <field name="germilineFreq"/>
+            <field name="variantType"/>
+            <field name="mutationType"/>
+            <field name="mutantAlleleFreq"/>
+            <field name="copyNumber"/>
+            <field name="chromosomeInstabilityNumber"/>
+            <field name="tumourMutationBurden"/>
+            <field name="copyNumberAlterationType"/>
+            <field name="rearrGene1"/>
+            <field name="rearrDesc"/>
+        </uniqueFields>
+        <secondaryFields>
+        </secondaryFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+    <entity name="CtDna" table="RESULT_CTDNA">
+        <uniqueFields>
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+            <field name="part"/>
+            <field name="gene"/>
+            <field name="mutation"/>
+            <field name="reportedVAF"/>
+            <field name="visitName"/>
+            <field name="visitNumber"/>
+            <field name="sampleDate"/>
+        </uniqueFields>
+        <referBy name="patUnique">
+            <field name="subject"/>
+            <field name="studyName"/>
+            <field name="projectName"/>
+        </referBy>
+    </entity>
+
+
+</root>
